@@ -44,7 +44,7 @@ CUBZH_MENU_MAIN_BUTTON_HEIGHT = 60
 CUBZH_MENU_SECONDARY_BUTTON_HEIGHT = 40
 
 DEV_MODE = System.LocalUserIsAuthor and System.ServerIsInDevMode
-AI_ASSISTANT_ENABLED = false -- feature is not ready yet
+AI_ASSISTANT_ENABLED = true -- feature is not ready yet
 
 -- VARS
 
@@ -1471,7 +1471,8 @@ if DEV_MODE == true and AI_ASSISTANT_ENABLED == true then
 				local headers = {}
 				headers["Content-Type"] = "application/json"
 				print("sending: " .. body.prompt)
-				HTTP:Post("http://localhost", headers, body, function(res)
+				--HTTP:Post("http://localhost", headers, body, function(res)
+				HTTP:Post("http://10.0.1.3", headers, body, function(res)
 					if res.StatusCode ~= 200 then
 						print("error: " .. res.StatusCode)
 						return
