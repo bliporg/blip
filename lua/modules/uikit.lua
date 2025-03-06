@@ -2092,7 +2092,7 @@ function createUI(system)
 			end
 		end
 
-		node.setColorDisabled = function(self, background, text, placeholder, border,doNotrefresh)
+		node.setColorDisabled = function(self, background, text, placeholder, border, doNotrefresh)
 			if background ~= nil then
 				node.colorsDisabled = { Color(background), Color(background) }
 				if border ~= nil then
@@ -2116,7 +2116,7 @@ function createUI(system)
 			theme.textInputBackgroundColor,
 			theme.textInputTextColor,
 			theme.textInputPlaceholderColor,
-			nil, 
+			nil,
 			true
 		)
 		node:setColorPressed(
@@ -4105,6 +4105,50 @@ function createUI(system)
 		config.backgroundQuadPressed = Quad()
 		config.backgroundQuadPressed.Image = {
 			data = image,
+			slice9 = { 0.5, 0.5 },
+			slice9Scale = DEFAULT_SLICE_9_SCALE,
+			alpha = true,
+		}
+
+		return ui.button(self, config)
+	end
+
+	local btnAppleQuadData
+	local btnApplePressedQuadData
+	local btnAppleDisabledQuadData
+	ui.buttonApple = function(self, config)
+		config = config or {}
+		config.textColor = theme.buttonAppleTextColor
+		config.textColorPressed = theme.buttonAppleTextColor
+
+		if btnAppleQuadData == nil then
+			btnAppleQuadData = Data:FromBundle("images/button_apple.png")
+		end
+		config.backgroundQuad = Quad()
+		config.backgroundQuad.Image = {
+			data = btnAppleQuadData,
+			slice9 = { 0.5, 0.5 },
+			slice9Scale = DEFAULT_SLICE_9_SCALE,
+			cutout = true,
+		}
+
+		if btnApplePressedQuadData == nil then
+			btnApplePressedQuadData = Data:FromBundle("images/button_apple_pressed.png")
+		end
+		config.backgroundQuadPressed = Quad()
+		config.backgroundQuadPressed.Image = {
+			data = btnApplePressedQuadData,
+			slice9 = { 0.5, 0.5 },
+			slice9Scale = DEFAULT_SLICE_9_SCALE,
+			cutout = true,
+		}
+
+		if btnAppleDisabledQuadData == nil then
+			btnAppleDisabledQuadData = Data:FromBundle("images/button_apple_disabled.png")
+		end
+		config.backgroundQuadDisabled = Quad()
+		config.backgroundQuadDisabled.Image = {
+			data = btnAppleDisabledQuadData,
 			slice9 = { 0.5, 0.5 },
 			slice9Scale = DEFAULT_SLICE_9_SCALE,
 			alpha = true,

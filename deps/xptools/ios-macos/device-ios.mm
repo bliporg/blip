@@ -11,6 +11,7 @@
 // Obj-C
 #import <UIKit/UIKit.h>
 #import <UserNotifications/UserNotifications.h>
+#import <AuthenticationServices/AuthenticationServices.h>
 
 // C
 #include <sys/sysctl.h>
@@ -239,4 +240,22 @@ std::vector<std::string> vx::device::preferredLanguages() {
 
 void vx::device::refreshScreenOrientation() {
     [UINavigationController attemptRotationToDeviceOrientation];
+}
+
+// -------------------------------------------------------------
+
+void handleAuthorizationAppleIDButtonPress() {
+    ASAuthorizationAppleIDProvider *appleIDProvider = [[ASAuthorizationAppleIDProvider alloc] init];
+    ASAuthorizationAppleIDRequest *request = [appleIDProvider createRequest];
+    request.requestedScopes = @[ASAuthorizationScopeFullName, ASAuthorizationScopeEmail];
+    
+    ASAuthorizationController *authorizationController = [[ASAuthorizationController alloc] initWithAuthorizationRequests:@[request]];
+//    authorizationController.delegate = self;
+//    authorizationController.presentationContextProvider = self;
+    [authorizationController performRequests];
+}
+
+void vx::device::signinwithapple() {
+    NSLog(@"Sign in with Apple!");
+    handleAuthorizationAppleIDButtonPress();
 }

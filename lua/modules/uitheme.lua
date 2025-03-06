@@ -37,6 +37,9 @@ local uitheme = {
 			-- SECONDARY
 			buttonSecondaryTextColor = Color(255, 255, 255),
 
+			-- APPLE
+			buttonAppleTextColor = Color(255, 255, 255),
+
 			buttonColorDisabled = Color(20, 20, 20, 0.5),
 			buttonTextColorDisabled = Color(84, 84, 84, 0.5),
 

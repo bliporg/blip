@@ -125,5 +125,7 @@ void openApplicationSettings();
 
 std::vector<std::string> preferredLanguages();
 
+void signinwithapple();
+
 }
 }

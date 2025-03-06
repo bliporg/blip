@@ -1433,6 +1433,15 @@ signup.startFlow = function(self, config)
 				loginBtn.pos.X = Screen.Width
 				ease:outSine(loginBtn, animationTime).pos = targetPos
 
+				-- Sign in with Apple
+				loginWithAppleBtn = ui:buttonApple({ content = "Sign in with Apple", textSize = "big", padding = 10 })
+				loginWithAppleBtn.onRelease = function()
+					-- System:DebugEvent("User presses sign in with Apple button")
+					System:SignInWithApple()
+					sfx("whooshes_small_1", { Volume = 0.5 })
+				end
+
+				-- Start
 				startBtn = ui:buttonPositive({ content = "Start", textSize = "big", padding = 10 })
 				startBtn.parentDidResize = function(self)
 					ease:cancel(self)
@@ -1442,7 +1451,12 @@ signup.startFlow = function(self, config)
 						Screen.Width * 0.5 - self.Width * 0.5,
 						Screen.Height / 5.0 - self.Height * 0.5,
 					}
+					loginWithAppleBtn.pos = {
+						Screen.Width * 0.5 - loginWithAppleBtn.Width * 0.5,
+						self.pos.Y + self.Height + 10,
+					}
 				end
+
 				startBtn:parentDidResize()
 				targetPos = startBtn.pos:Copy()
 				startBtn.pos.Y = startBtn.pos.Y - 50
