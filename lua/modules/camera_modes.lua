@@ -253,8 +253,8 @@ cameraModes.setThirdPerson = function(self, config)
 	local defaultConfig = { -- default config
 		showPointer = true,
 		distance = 40,
-		minZoomDistance = 0,
-		maxZoomDistance = 75,
+		minDistance = 0,
+		maxDistance = 75,
 		camera = Camera, -- main Camera by default
 		target = nil, -- must be set
 		offset = nil, -- offset from target
@@ -267,7 +267,7 @@ cameraModes.setThirdPerson = function(self, config)
 
 	config = conf:merge(defaultConfig, config, {
 		acceptTypes = {
-			target = { "Object", "Shape", "MutableShape", "Number3", "Player" },
+			target = { "Object", "Shape", "MutableShape", "Number3", "Player", "Quad" },
 			offset = { "Number3" },
 			rotationOffset = { "Rotation", "Number3", "table" },
 			rotation = { "Rotation", "Number3", "table" },
@@ -288,8 +288,8 @@ cameraModes.setThirdPerson = function(self, config)
 
 	local camera = config.camera
 	local showPointer = config.showPointer
-	local minZoomDistance = config.minZoomDistance
-	local maxZoomDistance = config.maxZoomDistance
+	local minDistance = config.minDistance
+	local maxDistance = config.maxDistance
 	local target = config.target
 	local collidesWithGroups = config.collidesWithGroups
 	local offset = config.offset or Number3.Zero
@@ -320,8 +320,8 @@ cameraModes.setThirdPerson = function(self, config)
 
 	listener = LocalEvent:Listen(LocalEvent.Name.PointerWheel, function(delta)
 		camDistance = camDistance + delta * 0.1
-		camDistance = math.min(maxZoomDistance, camDistance)
-		camDistance = math.max(minZoomDistance, camDistance)
+		camDistance = math.min(maxDistance, camDistance)
+		camDistance = math.max(minDistance, camDistance)
 	end)
 	table.insert(entry.listeners, listener)
 

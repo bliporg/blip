@@ -185,75 +185,64 @@ functions:
             Camera:SetModeFirstPerson(Player, 3.0)
 
     - name: "SetModeThirdPerson"
-      argument-sets: 
-        -
-        -
-          - name: "target"
-            type: "Object"
-        -
-          - name: "target"
-            type: "Object"
-          - name: "minDist"
-            type: "number"
-          - name: "maxDist"
-            type: "number"
-          - name: "offset"
-            type: "number"
-        -
-          - name: "target"
-            type: "Object"
-          - name: "minDist"
-            type: "number"
-          - name: "maxDist"
-            type: "number"
-          - name: "offset"
-            type: "Number3"
+      arguments: 
+        - name: "config"
+          type: "table"
+          optional: true
       description: |
-          Puts Camera in "third person" mode. (looking at Camera's target, from a behind-the-shoulder perspective)
+          Puts Camera in "third person" mode, looking at target from behind, moving and rotating with it.
 
-          When calling `SetModeThirdPerson` without parameters, the target defaults to [Player] (local player).
+          When called without `config` parameter, the `target` defaults to [Player] (local player).
 
-          By default, the Camera is placed beind its target. But it's then possible to change its [LocalRotation](#property-localrotation) to look at the target from a different angle.
+          The Camera always tries to back away from the target to reach the `config.distance` value but might collide with other objects and then stop at the collision point.
 
-          `minDist`, `maxDist` and `offset` settings are optional but can be provided to tweak positioning.
+          Mouse wheel or pinch in/out gesture with a touch screen can be used to move the camera closer or farther from the target, while constrained between `config.minDistance` and `config.maxDistance`.
 
       samples:
         - code: |
             Camera:SetModeThirdPerson()
 
-            Camera:SetModeThirdPerson(someShape)
+            Camera:SetModeThirdPerson({ target = someShape })
+
+            -- default config:
+            local defaultConfig ={
+              showPointer = true,
+              distance = 40,
+              minDistance = 0,
+              maxDistance = 75,
+              camera = Camera,
+              target = Player,
+              offset = nil, -- (Number3)
+              rigidity = 0.5,
+              collidesWithGroups = Map.CollisionGroups,
+              rotatesWithTarget = true,
+            }
 
     - name: "SetModeSatellite"
-      argument-sets: 
-          -
-          -
-            - name: "target"
-              type: "Object"
-          -
-            - name: "target"
-              type: "Number3"
-          -
-            - name: "target"
-              type: "Object"
-            - name: "distance"
-              type: "number"
-          -
-            - name: "target"
-              type: "Number3"
-            - name: "distance"
-              type: "number"
+      arguments:
+        - name: "config"
+          type: "table"
+          optional: true
       description: |
-          When in that mode, the camera rotates around its target, maintaining its distance from it.
+          Puts Camera in "satellite" mode, rotating around its target while maintaining its distance.
 
-          When calling `SetModeSatellite` without parameters, the target defaults the current position of the camera.
+          When called without `config` parameter, the target defaults to the current position of the camera.
 
-          `SetModeSatellite` can be called several time to update the `distance`.
+          The `config` table can contain the following fields:
+          - `target`: ([Object] or [Number3]) The target to orbit around
+          - `distance`: (number) Distance from target, defaults to current distance
+          - `camera`: ([Camera]) Camera instance, defaults to main Camera
 
           Once the "satellite mode" is set, [Camera.LocalRotation](#property-localrotation) can be used to rotate around the target.
 
       samples:
         - code: |
-            Camera:SetModeSatellite(Player, 10.0)
+            Camera:SetModeSatellite()
+
+            Camera:SetModeSatellite({ 
+              target = Player,
+              distance = 10.0
+            })
 
     - name: "FitToScreen"
       description: |
