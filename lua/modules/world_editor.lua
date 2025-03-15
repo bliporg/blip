@@ -593,6 +593,10 @@ local statesSettings = {
 			worldEditor.nameInput.Text = obj.Name
 			worldEditor.nameInput.onTextChange = function(o)
 				selectedObject.Name = o.Text
+				worldEditorCommon.updateObject({
+					uuid = obj.uuid,
+					name = o.Text,
+				})
 			end
 			objectInfoFrame:bump()
 
