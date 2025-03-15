@@ -1670,21 +1670,101 @@ if DEV_MODE == true and AI_ASSISTANT_ENABLED == true then
 				typing = false
 				aiCharacter.background.Image = buddyThinking
 				-- print("sending: " .. body.prompt)
-				HTTP:Post("http://localhost", headers, body, function(res)
+
+				local cursor = 1
+				local buffer = ""
+				local messages = {}
+				local currentMessage = nil
+				local MARKER_START = "\n>>>>>>>"
+				local MESSAGE_TYPES = { "CHAT", "SCRIPT" }
+				local CURSOR_STATE = {
+					LOOKING_FOR_MARKER_START = 1,
+					AT_END_OF_MARKER_START = 2,
+					READING_CONTENT = 3,
+				}
+				local cursorState = CURSOR_STATE.LOOKING_FOR_MARKER_START
+
+				local function callback(res)
 					aiCharacter.background.Image = idleBuddy
 					if res.StatusCode ~= 200 then
 						-- print("error: " .. res.StatusCode)
 						setAIText("❌ ERROR: " .. res.StatusCode)
 						return
 					end
-					local data = JSON:Decode(res.Body)
-					if data.type == "chat" then
-						setAIText(data.output)
-					elseif data.type == "code" then
-						removeAIPrompt()
-						System:PublishScript(data.output)
+
+					print("res.Body:", res.Body:ToString())
+
+					-- Legacy JSON handling
+					-- local data = JSON:Decode(res.Body)
+					-- if data.type == "chat" then
+					-- 	setAIText(data.output)
+					-- elseif data.type == "code" then
+					-- 	removeAIPrompt()
+					-- 	-- System:PublishScript(data.output)
+					-- end
+
+					buffer = buffer .. res.Body:ToString()
+
+					while true do
+						if cursorState == CURSOR_STATE.LOOKING_FOR_MARKER_START then
+							-- look for first marker
+							local markerPos = buffer:find(MARKER_START, cursor)
+							if markerPos then
+								cursor = markerPos + #MARKER_START
+								cursorState = CURSOR_STATE.AT_END_OF_MARKER_START
+							else
+								break -- no start marker found in buffer from cursor
+							end
+						elseif cursorState == CURSOR_STATE.AT_END_OF_MARKER_START then
+							local nextNewline = buffer:find("\n", cursor)
+							if nextNewline then
+								local identifier = buffer:sub(cursor, nextNewline - 1)
+								for _, messageType in ipairs(MESSAGE_TYPES) do
+									if identifier == messageType then
+										cursor = nextNewline + 1
+										cursorState = CURSOR_STATE.READING_CONTENT
+										currentMessage = {
+											type = identifier,
+											content = "",
+										}
+										break
+									end
+								end
+								if cursorState ~= CURSOR_STATE.READING_CONTENT then
+									-- invalid identifier, keep looking for next marker
+									cursor = nextNewline -- \n could be the start of the next marker
+									cursorState = CURSOR_STATE.LOOKING_FOR_MARKER_START
+								end
+							else
+								break -- new line found after marker start
+							end
+						elseif cursorState == CURSOR_STATE.READING_CONTENT then
+							local nextMarkerPos = buffer:find(MARKER_START, cursor)
+							if nextMarkerPos then
+								currentMessage.content = buffer:sub(cursor, nextMarkerPos - 1)
+								cursor = nextMarkerPos
+								cursorState = CURSOR_STATE.LOOKING_FOR_MARKER_START
+								print("currentMessage.content:", currentMessage.content)
+							else
+								currentMessage.content = buffer:sub(cursor)
+								print("currentMessage.content:", currentMessage.content)
+								for i = 1, #MARKER_START - 1 do
+									local suffix = currentMessage.content:sub(-i)
+									if MARKER_START:sub(1, i) == suffix then
+										currentMessage.content = currentMessage.content:sub(1, -i - 1)
+										break
+									end
+								end
+								break
+							end
+						else
+							-- invalid cursor state
+							break
+						end
 					end
-				end)
+				end
+
+				HTTP:Post("http://localhost", headers, body, callback)
 			end
 		else
 			removeAIPrompt()
