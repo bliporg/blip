@@ -7,7 +7,7 @@ description: |
 
   An object by itself does not render anything on screen, but it can contain [Shape]s and thus become a parent coordinate system for them.
 
-  An `Object` can also take part in the physics simulation when setting [Object.Physics](#property-physics) to `true`.
+  An `Object` can also take part in the physics simulation when setting [Object.Physics](#property-physics).
 
 constructors:
   - description: "Creates an Object."
@@ -23,7 +23,7 @@ properties:
       description: |
           [This]'s constant acceleration in world coordinates per second squared.
 
-          ⚠️ `Acceleration` will only affect [This]'s position while [This].[Physics](#property-physics) is `true`.
+          ⚠️ `Acceleration` only affects [This] when [This].[Physics](#property-physics) is `PhysicsMode.Dynamic`.
       samples:
         - code: |
             -- Acceleration can be used to compensate gravity: 
@@ -44,17 +44,14 @@ properties:
           - [Object]s collide with the [Map] and other [Object]s
           - [Player]s collide with the [Map] only
 
-          That can all be configured differently depening on your needs.
+          That can all be configured differently depending on your needs.
 
       samples:
         - code: |
             local object1 = Object()
             local object2 = Object()
-            -- It's not mandatory to set Physics to true
-            -- An object with Physics set to false contributes to the
-            -- physics simulation as a static item (can't be moved)
-            object1.Physics = true
-            object2.Physics = true
+            object1.Physics = PhysicsMode.Dynamic
+            object2.Physics = PhysicsMode.Dynamic
 
             -- making sure 2 objects collide with each other
             -- NOTE: by default:
@@ -194,7 +191,7 @@ properties:
       description: |
           `true` when the [This] is not falling.
 
-          ⚠️ `IsOnGround` only makes sense when [This].Physics is `true`.
+          ⚠️ `IsOnGround` only makes sense when [This].Physics is `PhysicsMode.Dynamic`.
 
     - name: "IsHidden"
       type: "boolean"
@@ -270,7 +267,8 @@ properties:
       description: |
           Velocity of the [This] in world coordinates per second.
 
-          ⚠️ `Velocity` will only affect [This]'s position while [This].[Physics](#property-physics) is `true`. Whenever it is set to `false`, `Velocity` is set to `{0,0,0}`.
+          ⚠️ `Velocity` only affects [This] when [This].[Physics](#property-physics) is `PhysicsMode.Dynamic`. 
+          Whenever [Physics](#property-physics) is set to `PhysicsMode.Disabled`, `Velocity` is set to `{0,0,0}`.
       samples:
         - code: |
             -- makes myObject jump:
@@ -289,7 +287,8 @@ properties:
 
           `Motion` is expressed in world coordinates per second.
 
-          ⚠️ `Motion` will only affect [This]'s position while [This].[Physics](#property-physics) is `true`. Whenever it is set to `false`, `Motion` is set to `{0,0,0}`.
+          ⚠️ `Motion` only affects [This] when [This].[Physics](#property-physics) is `PhysicsMode.Dynamic`. 
+          Whenever [Physics](#property-physics) is set to `PhysicsMode.Disabled`, `Motion` is set to `{0,0,0}`.
       samples:
         - code: |
             local speed = 10
