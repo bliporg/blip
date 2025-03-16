@@ -643,6 +643,9 @@ local statesSettings = {
 			tryPickObjectUp(pe)
 		end,
 		onStateEnd = function()
+			worldEditor.nameInput.onTextChange = nil
+			worldEditor.nameInput.Text = ""
+
 			if transformGizmo then
 				transformGizmo:remove()
 				transformGizmo = nil
