@@ -656,3 +656,26 @@ functions:
 
     - name: "ResetCollisionBox"
       description: "Resets to [This]'s original collision box. For example, [Player] and [Shape] objects will revert to fitting their model bounding box."
+
+    - name: "Recurse"
+      arguments:
+        - name: "callback"
+          type: "function"
+        - name: "config"
+          type: "table"
+          optional: true
+      description: |
+          Iterates over all descendants of [This] and calls the callback function for each.
+
+          The callback function is called with the descendant as the only argument.
+
+          The `config` table options are as follows,
+          - `includeRoot` whether to include [This] in the iteration. Default `false`.
+          - `depth` the maximum depth of the iteration. Default `-1` (unlimited).
+          - `deepFirst` whether to iterate in depth-first order. Default `false`.
+
+      samples:
+        - code: |
+            o:Recurse(function(descendant)
+              print(descendant.Name)
+            end, { includeRoot = true })
