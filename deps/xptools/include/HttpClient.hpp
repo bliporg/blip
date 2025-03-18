@@ -101,6 +101,7 @@ public:
                                const QueryParams& queryParams,
                                const bool& secure,
                                const std::unordered_map<std::string, std::string>& headers,
+                               const HttpRequestOpts *opts,
                                const std::string& body,
                                HttpRequestCallback callback);
 
@@ -114,6 +115,7 @@ public:
     ///
     HttpRequest_SharedPtr POST(const std::string &url,
                                const std::unordered_map<std::string, std::string> &headers,
+                               const HttpRequestOpts *opts,
                                const std::string &body,
                                const bool &sendNow,
                                HttpRequestCallback callback);
@@ -121,6 +123,7 @@ public:
     /// Construct a PATCH HTTP request, and sends it now if asked.
     HttpRequest_SharedPtr PATCH(const std::string &url,
                                 const std::unordered_map<std::string, std::string> &headers,
+                                const HttpRequestOpts *opts,
                                 const std::string &body,
                                 const bool &sendNow,
                                 HttpRequestCallback callback);
@@ -134,6 +137,7 @@ public:
     /// Construct a DELETE HTTP request, and sends it now if asked.
     HttpRequest_SharedPtr Delete(const std::string &url,
                                  const std::unordered_map<std::string, std::string> &headers,
+                                 const HttpRequestOpts *opts,
                                  const std::string &body,
                                  const bool &sendNow,
                                  HttpRequestCallback callback);
@@ -168,6 +172,7 @@ private:
     HttpRequest_SharedPtr _makeRequest(const std::string& httpMethod,
                                        const std::string& url,
                                        const std::unordered_map<std::string, std::string>& headers,
+                                       const HttpRequestOpts *opts,
                                        const std::string& body,
                                        const bool& sendNow,
                                        HttpRequestCallback callback);

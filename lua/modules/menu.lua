@@ -1764,7 +1764,13 @@ if DEV_MODE == true and AI_ASSISTANT_ENABLED == true then
 					end
 				end
 
-				HTTP:Post("http://localhost", headers, body, callback)
+				HTTP:Post({
+					url = "http://localhost",
+					headers = headers,
+					body = body,
+					streamed = true,
+					callback = callback,
+				})
 			end
 		else
 			removeAIPrompt()

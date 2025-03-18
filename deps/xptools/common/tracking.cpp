@@ -152,6 +152,7 @@ void TrackingClient::_trackEvent(const std::string& eventType,
                               QueryParams(),
                               this->_secure,
                               HttpClient::noHeaders,
+                              nullptr,
                               jsonStr,
                               [](HttpRequest_SharedPtr req) {
 //                                 vxlog_debug("[TRACK] CALLBACK: %s %d %s",
