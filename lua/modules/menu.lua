@@ -1746,6 +1746,9 @@ if DEV_MODE == true and AI_ASSISTANT_ENABLED == true then
 								cursor = nextMarkerPos
 								cursorState = CURSOR_STATE.LOOKING_FOR_MARKER_START
 								print(currentMessage.type .." -> " .. currentMessage.content)
+								if currentMessage.type == "CHAT" then
+									setAIText(currentMessage.content)
+								end
 							else
 								currentMessage.content = buffer:sub(cursor)
 								for i = 1, #MARKER_START - 1 do
@@ -1754,6 +1757,9 @@ if DEV_MODE == true and AI_ASSISTANT_ENABLED == true then
 										currentMessage.content = currentMessage.content:sub(1, -i - 1)
 										break
 									end
+								end
+								if currentMessage.type == "CHAT" then
+									setAIText(currentMessage.content)
 								end
 								if res.EndOfStream then
 									print(currentMessage.type .." -> " .. currentMessage.content)
