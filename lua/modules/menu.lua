@@ -1755,8 +1755,9 @@ if DEV_MODE == true and AI_ASSISTANT_ENABLED == true then
 										break
 									end
 								end
-								-- print("currentMessage.content:", currentMessage.content)
-								-- todo: if last res, done parsing
+								if res.EndOfStream then
+									print(currentMessage.type .." -> " .. currentMessage.content)
+								end
 								break
 							end
 						else
