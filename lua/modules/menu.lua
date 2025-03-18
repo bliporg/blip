@@ -1692,7 +1692,7 @@ if DEV_MODE == true and AI_ASSISTANT_ENABLED == true then
 						return
 					end
 
-					print("res.Body:", res.Body:ToString())
+					-- print("res.Body:\n", res.Body:ToString())
 
 					-- Legacy JSON handling
 					-- local data = JSON:Decode(res.Body)
@@ -1704,6 +1704,7 @@ if DEV_MODE == true and AI_ASSISTANT_ENABLED == true then
 					-- end
 
 					buffer = buffer .. res.Body:ToString()
+					-- print("buffer:\n", buffer)
 
 					while true do
 						if cursorState == CURSOR_STATE.LOOKING_FOR_MARKER_START then
@@ -1744,10 +1745,9 @@ if DEV_MODE == true and AI_ASSISTANT_ENABLED == true then
 								currentMessage.content = buffer:sub(cursor, nextMarkerPos - 1)
 								cursor = nextMarkerPos
 								cursorState = CURSOR_STATE.LOOKING_FOR_MARKER_START
-								print("currentMessage.content:", currentMessage.content)
+								print(currentMessage.type .." -> " .. currentMessage.content)
 							else
 								currentMessage.content = buffer:sub(cursor)
-								print("currentMessage.content:", currentMessage.content)
 								for i = 1, #MARKER_START - 1 do
 									local suffix = currentMessage.content:sub(-i)
 									if MARKER_START:sub(1, i) == suffix then
@@ -1755,6 +1755,8 @@ if DEV_MODE == true and AI_ASSISTANT_ENABLED == true then
 										break
 									end
 								end
+								-- print("currentMessage.content:", currentMessage.content)
+								-- todo: if last res, done parsing
 								break
 							end
 						else
