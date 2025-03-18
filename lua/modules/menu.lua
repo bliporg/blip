@@ -1542,12 +1542,43 @@ if DEV_MODE == true and AI_ASSISTANT_ENABLED == true then
 		refreshLayout(true)
 	end
 
+	local revealTextTick = nil
+	local fullStr = ""
+	local displayedStr = ""
+	local textRevealMaxDuration = 0.3 -- in seconds
+	local charsPerSecond = 1
+	local function revealText(str)
+		if str:sub(1, #displayedStr) == displayedStr then
+			fullStr = str
+		else
+			displayedStr = ""
+			fullStr = str
+		end
+		aiCharacterText.Text = displayedStr
+		charsPerSecond = math.max(1, math.ceil((#fullStr - #displayedStr) / textRevealMaxDuration))
+		
+		if revealTextTick ~= nil then
+			return
+		end
+
+		revealTextTick = LocalEvent:Listen(LocalEvent.Name.Tick, function(dt)
+			local charsToAdd = math.min(math.ceil(dt * charsPerSecond), #fullStr - #displayedStr)
+			displayedStr = displayedStr .. fullStr:sub(#displayedStr + 1, #displayedStr + charsToAdd) 
+			aiCharacterText.Text = displayedStr
+			if #displayedStr >= #fullStr then
+				revealTextTick:Remove()
+				revealTextTick = nil
+			end
+		end)
+	end
+
 	local function setAIText(text)
-		aiCharacterText.Text = text
+		aiCharacterText.Text = text -- set now to prepare layout
 		aiCharacterText:show()
 		aiCharacterLoadingAnimation:hide()
 		refreshLayout(true)
-		sfx("waterdrop_2", { Volume = 0.5, Pitch = 1.0, Spatialized = false })
+		revealText(text)
+		-- sfx("waterdrop_2", { Volume = 0.5, Pitch = 1.0, Spatialized = false })
 	end
 
 	aiIcon = ui:frame({
