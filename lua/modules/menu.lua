@@ -1430,7 +1430,7 @@ if DEV_MODE == true and AI_ASSISTANT_ENABLED == true then
 		if aiCharacterText:isVisible() then
 			aiCharacterText.object.MaxWidth = aiInput.Width - aiCharacter.Width - PADDING * 3
 			aiCharacterBubble.Width = aiCharacterText.Width + PADDING * 2
-			aiCharacterBubble.Height = aiCharacterText.Height + PADDING * 2
+			aiCharacterBubble.Height = math.min(300, aiCharacterText.Height + PADDING * 2)
 		else
 			aiCharacterBubble.Width = aiCharacterLoadingAnimation.Width + PADDING * 3
 			aiCharacterBubble.Height = aiCharacterLoadingAnimation.Height + PADDING * 3
@@ -1629,6 +1629,7 @@ if DEV_MODE == true and AI_ASSISTANT_ENABLED == true then
 					slice9Scale = 1.0,
 					alpha = true,
 				},
+				mask = true,
 			})
 			aiCharacterBubble:setParent(background)
 
@@ -1779,6 +1780,8 @@ if DEV_MODE == true and AI_ASSISTANT_ENABLED == true then
 								print(currentMessage.type .." -> " .. currentMessage.content)
 								if currentMessage.type == "CHAT" then
 									setAIText(currentMessage.content)
+								elseif currentMessage.type == "SCRIPT" then
+									setAIText(currentMessage.content)
 								end
 							else
 								currentMessage.content = buffer:sub(cursor)
@@ -1790,6 +1793,8 @@ if DEV_MODE == true and AI_ASSISTANT_ENABLED == true then
 									end
 								end
 								if currentMessage.type == "CHAT" then
+									setAIText(currentMessage.content)
+								elseif currentMessage.type == "SCRIPT" then
 									setAIText(currentMessage.content)
 								end
 								if res.EndOfStream then
@@ -1805,7 +1810,7 @@ if DEV_MODE == true and AI_ASSISTANT_ENABLED == true then
 				end
 
 				HTTP:Post({
-					url = "http://localhost",
+					url = "http://10.0.1.2",
 					headers = headers,
 					body = body,
 					streamed = true,
