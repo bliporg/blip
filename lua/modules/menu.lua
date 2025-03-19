@@ -1440,13 +1440,18 @@ if DEV_MODE == true and AI_ASSISTANT_ENABLED == true then
 			parent.Width * 0.5 - aiInput.Width * 0.5,
 			Screen.SafeArea.Bottom + PADDING,
 		}
-		if promptEnabled == false then
-			targetInputPosition[2] = -aiInput.Height - PADDING
-		end
 		local targetCharacterPosition = {
 			targetInputPosition[1],
 			targetInputPosition[2] + aiInput.Height + PADDING,
 		}
+
+		if promptEnabled == false then
+			-- move character and bubble just above safe area
+			targetCharacterPosition[2] = Screen.SafeArea.Bottom + PADDING
+			-- move input below viewport
+			targetInputPosition[2] = -aiInput.Height - PADDING
+		end
+
 		local targetBubblePosition = {
 			targetCharacterPosition[1] + aiCharacter.Width + PADDING,
 			math.max(
