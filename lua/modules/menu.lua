@@ -1430,7 +1430,7 @@ if DEV_MODE == true and AI_ASSISTANT_ENABLED == true then
 		if aiCharacterText:isVisible() then
 			aiCharacterText.object.MaxWidth = aiInput.Width - aiCharacter.Width - PADDING * 3
 			aiCharacterBubble.Width = aiCharacterText.Width + PADDING * 2
-			aiCharacterBubble.Height = math.min(300, aiCharacterText.Height + PADDING * 2)
+			aiCharacterBubble.Height = math.min(200, aiCharacterText.Height + PADDING * 2)
 		else
 			aiCharacterBubble.Width = aiCharacterLoadingAnimation.Width + PADDING * 3
 			aiCharacterBubble.Height = aiCharacterLoadingAnimation.Height + PADDING * 3
@@ -1577,7 +1577,14 @@ if DEV_MODE == true and AI_ASSISTANT_ENABLED == true then
 		end)
 	end
 
-	local function setAIText(text)
+	local function setAIText(text, textType)
+		if textType == "code" then
+			aiCharacterText.object.Scale = 0.5
+			aiCharacterText.Color = Color(220, 220, 220)
+		else
+			aiCharacterText.object.Scale = 1.0
+			aiCharacterText.Color = Color.White
+		end
 		aiCharacterText.Text = text -- set now to prepare layout
 		aiCharacterText:show()
 		aiCharacterLoadingAnimation:hide()
@@ -1782,11 +1789,11 @@ if DEV_MODE == true and AI_ASSISTANT_ENABLED == true then
 								currentMessage.content = buffer:sub(cursor, nextMarkerPos - 1)
 								cursor = nextMarkerPos
 								cursorState = CURSOR_STATE.LOOKING_FOR_MARKER_START
-								print(currentMessage.type .." -> " .. currentMessage.content)
+								-- print(currentMessage.type .." -> " .. currentMessage.content)
 								if currentMessage.type == "CHAT" then
 									setAIText(currentMessage.content)
 								elseif currentMessage.type == "SCRIPT" then
-									setAIText(currentMessage.content)
+									setAIText(currentMessage.content, "code")
 								end
 							else
 								currentMessage.content = buffer:sub(cursor)
@@ -1800,10 +1807,13 @@ if DEV_MODE == true and AI_ASSISTANT_ENABLED == true then
 								if currentMessage.type == "CHAT" then
 									setAIText(currentMessage.content)
 								elseif currentMessage.type == "SCRIPT" then
-									setAIText(currentMessage.content)
+									setAIText(currentMessage.content, "code")
 								end
 								if res.EndOfStream then
-									print(currentMessage.type .." -> " .. currentMessage.content)
+									if currentMessage.type == "SCRIPT" then
+										removeAIPrompt()
+										System:PublishScript(currentMessage.content)
+									end
 								end
 								break
 							end
