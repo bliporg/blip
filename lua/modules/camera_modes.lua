@@ -243,8 +243,6 @@ cameraModes.setFirstPerson = function(self, config)
 	hideAvatar(entry)
 end
 
--- TODO: setThirdPersonWithDynamicOffset
-
 cameraModes.setThirdPerson = function(self, config)
 	if self ~= cameraModes then
 		error("camera_modes:setThirdPerson(config) should be called with `:`", 2)
@@ -391,6 +389,133 @@ cameraModes.setThirdPerson = function(self, config)
 		lerpFactor = math.min(rigidityFactor * dt, 1.0)
 		camera.Position:Lerp(camera.Position, worldObject.Position + worldObject.Backward * distance, lerpFactor)
 		camera.Rotation:Slerp(camera.Rotation, worldObject.Rotation, lerpFactor)
+	end)
+	table.insert(entry.listeners, listener)
+end
+
+cameraModes.setConfig = function(self, config)
+	if self ~= cameraModes then
+		error("camera_modes:setConfig(config) should be called with `:`", 2)
+	end
+
+	local defaultConfig = {
+		camera = Camera, -- main Camera by default
+		positionTarget = nil, -- target to follow
+		positionTargetOffset = nil, -- offset from the target
+		positionTargetBackoffDistance = 40, -- distance from the target
+		positionTargetMinBackoffDistance = 0, -- minimum distance from the target
+		positionTargetMaxBackoffDistance = 75, -- maximum distance from the target
+		rotationTarget = nil, -- target to rotate to (if target has a rotation then rotates to target.Rotation)
+		rotationTargetOffset = nil, -- offset from the rotation target
+		rigidity = 0.5, -- rigidity of the camera
+		collidesWithGroups = nil, -- doesn't collide with anything by default
+		collisionBoxSize = Number3(2, 2, 2)
+	}
+
+	config = conf:merge(defaultConfig, config, {
+		acceptTypes = {
+			camera = { "Camera" },
+			positionTarget = { "Object", "Shape", "MutableShape", "Number3", "Player", "Quad", "Mesh" },
+			positionTargetOffset = { "Number3", "table" },
+			rotationTarget = { "Object", "Shape", "MutableShape", "Number3", "Player", "Quad", "Mesh" },
+			rotationTargetOffset = { "Rotation", "Number3", "table" },
+			collidesWithGroups = { "CollisionGroups", "table" },
+		},
+	})
+
+	config.version = 2
+
+	local entry = insert(config)
+
+	turnOffPhysics(config.camera)
+
+	local camera = config.camera
+
+	-- position
+	local positionTarget
+	if config.positionTarget ~= nil then
+		if typeof(config.positionTarget) == "Number3" then
+			positionTarget = config.positionTarget
+		elseif typeof(config.positionTarget.Position) == "Number3" then
+			positionTarget = config.positionTarget.Position
+		else
+			error("can't assign position target", 2)
+		end
+	end
+	local positionTargetOffset = config.positionTargetOffset or Number3.Zero
+	local distance = config.positionTargetBackoffDistance
+	local minDistance = config.positionTargetMinBackoffDistance
+	local maxDistance = config.positionTargetMaxBackoffDistance
+	
+	-- rotation
+	local rotationTarget
+	if config.rotationTarget ~= nil then
+		if typeof(config.rotationTarget) == "Rotation" then
+			rotationTarget = config.rotationTarget
+		elseif typeof(config.rotationTarget) == "Number3" then
+			rotationTarget = Rotation(config.rotationTarget)
+		elseif typeof(config.rotationTarget.Rotation) == "Rotation" then
+			rotationTarget = config.rotationTarget.Rotation
+		else
+			error("can't assign rotation target", 2)
+		end
+	end
+	local rotationTargetOffset = config.rotationTargetOffset or Rotation(0, 0, 0)
+	
+	-- others
+	local rigidity = config.rigidity
+	local collidesWithGroups = config.collidesWithGroups
+	local collisionBoxSize = config.collisionBoxSize
+
+	camera:SetParent(World)
+
+	if distance < minDistance then
+		minDistance = distance
+	elseif distance > maxDistance then
+		maxDistance = distance
+	end
+
+	local listener
+	listener = LocalEvent:Listen(LocalEvent.Name.PointerWheel, function(delta)
+		distance = distance + delta * 0.1
+		distance = math.min(maxDistance, distance)
+		distance = math.max(minDistance, distance)
+	end)
+	table.insert(entry.listeners, listener)
+
+	local boxHalfSize = collisionBoxSize * 0.5
+	local box = Box()
+	local rigidityFactor = config.rigidity * 60.0
+	local impact
+	local lerpFactor
+	local backoffDistance
+
+	listener = LocalEvent:Listen(LocalEvent.Name.Tick, function(dt)
+
+		if rotationTarget ~= nil then
+			worldObject.Rotation:Set(rotationTargetOffset * rotationTarget)
+		else
+			worldObject.Rotation:Set(rotationTargetOffset * camera.Rotation)
+		end
+
+		if positionTarget ~= nil then
+			worldObject.Position:Set(positionTarget + positionTargetOffset)
+
+			box.Min = worldObject.Position - boxHalfSize -- box.Min:Set doesn't work
+			box.Max = worldObject.Position + boxHalfSize -- box.Max:Set doesn't work
+			
+			impact = box:Cast(worldObject.Backward, distance, collidesWithGroups)
+			
+			backoffDistance = distance
+			if impact and impact.Distance < backoffDistance then
+				backoffDistance = impact.Distance
+			end
+
+			lerpFactor = math.min(rigidityFactor * dt, 1.0)
+
+			camera.Position:Lerp(camera.Position, worldObject.Position + worldObject.Backward * backoffDistance, lerpFactor)
+			camera.Rotation:Slerp(camera.Rotation, worldObject.Rotation, lerpFactor)
+		end
 	end)
 	table.insert(entry.listeners, listener)
 end
