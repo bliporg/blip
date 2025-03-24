@@ -83,7 +83,7 @@ signup.startFlow = function(self, config)
 	local function showBackButton()
 		if backButton == nil then
 			backButton = ui:buttonNegative({ content = "⬅️", textSize = "default", padding = theme.padding })
-			-- backButton = ui:createButton("⬅️", { textSize = "default" })
+			-- backButton = ui:button({ content="⬅️", textSize = "default" })
 			-- backButton:setColor(theme.colorNegative)
 			backButton.parentDidResize = function(self)
 				ease:cancel(self)
@@ -1414,7 +1414,7 @@ signup.startFlow = function(self, config)
 
 				if loginBtn == nil then
 					loginBtn = ui:buttonSecondary({ content = "Login", textSize = "small" })
-					-- loginBtn = ui:createButton("Login", { textSize = "small", borders = false })
+					-- loginBtn = ui:button({ content="Login", textSize = "small", borders = false })
 					-- loginBtn:setColor(Color(0, 0, 0, 0.4), Color(255, 255, 255))
 					loginBtn.parentDidResize = function(self)
 						ease:cancel(self)

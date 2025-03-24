@@ -73,7 +73,7 @@ mod.create = function(_, config)
 
 	local actionBtn
 	if config.action then
-		actionBtn = uikit:createButton(config.actionText, { borders = false, shadow = false })
+		actionBtn = uikit:button({ content=config.actionText, borders = false, shadow = false })
 		actionBtn:setParent(toastFrame)
 		actionBtn.onRelease = function()
 			config.action(toast)
@@ -82,7 +82,7 @@ mod.create = function(_, config)
 
 	local closeBtn
 	if config.closeButton then
-		closeBtn = uikit:createButton("❌", { borders = false, shadow = false })
+		closeBtn = uikit:button({ content="❌", borders = false, shadow = false })
 		closeBtn:setParent(toastFrame)
 		closeBtn.onRelease = function()
 			toast:remove()

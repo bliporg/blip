@@ -78,7 +78,7 @@ local createRadialNode = function(config)
 
 		return frame
 	elseif config.type == "button" then
-		local btn = ui:createButton(config.text)
+		local btn = ui:button({ content=config.text })
 		btn:setParent(_menu)
 		btn.pos = -Number2(btn.Width, btn.Height) * 0.5
 		local angle = math.rad(config.angle)

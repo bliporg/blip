@@ -14,7 +14,7 @@ local horizontalListModuleMetatable = {
 				local onRelease = v.onRelease or config.onRelease
 				if onRelease then
 					local text = (v.text or config.text) or ""
-					local node = ui:createButton(text)
+					local node = ui:button({ content=text })
 					node:setParent(bgNode)
 					node.t = "button"
 					local color = v.color or config.color -- can be nil

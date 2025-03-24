@@ -17,10 +17,10 @@ pages.create = function(_, uikit)
 	node.page = 1
 	node.pageDidChange = nil
 
-	local nextBtn = ui:createButton("➡️")
+	local nextBtn = ui:button({ content="➡️" })
 	nextBtn:setParent(node)
 
-	local prevBtn = ui:createButton("⬅️")
+	local prevBtn = ui:button({ content="⬅️" })
 	prevBtn:setParent(node)
 
 	local label = ui:createText("1/1", theme.textColor)

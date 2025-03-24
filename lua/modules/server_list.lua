@@ -137,7 +137,7 @@ serverList.create = function(_, config)
 
 	node.getCellHeightAndMaxLines = function(height)
 		local t = ui:createText("A")
-		local b = ui:createButton("💬")
+		local b = ui:button({ content="💬" })
 		local cellHeight = math.max(t.Height, b.Height) + theme.padding * 3
 		b:remove()
 		t:remove()
@@ -195,7 +195,7 @@ serverList.create = function(_, config)
 		cellText.pos.X = theme.padding * 2
 		cellText.pos.Y = vPos - cellText.Height * 0.5
 
-		local btn = ui:createButton("Join")
+		local btn = ui:button({ content="Join" })
 		btn:setColor(theme.colorPositive, Color.White)
 		btn:setParent(cell)
 		btn.pos.Y = vPos - btn.Height * 0.5

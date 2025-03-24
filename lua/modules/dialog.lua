@@ -62,9 +62,9 @@ mod.create = function(_, text, target, answers, callback)
 	for i, answer in ipairs(answers) do
 		local btn
 		if type(answer) == "string" then
-			btn = ui:createButton(answer)
+			btn = ui:button({ content=answer })
 		else
-			btn = ui:createButton("ERROR")
+			btn = ui:button({ content="ERROR" })
 		end
 		btn:hide()
 		btn.index = i

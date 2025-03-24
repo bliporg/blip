@@ -334,7 +334,7 @@ settings.createModalContent = function(_, config)
 					return Number2(w, h)
 				end
 
-				local yes = ui:createButton("🗑️ Delete account")
+				local yes = ui:button({ content="🗑️ Delete account" })
 				yes:disable()
 				yes.onRelease = function()
 					yes:disable()
@@ -446,7 +446,7 @@ settings.createModalContent = function(_, config)
 
 	local refresh = function()
 		-- button only used as a min width reference for some buttons
-		local btn = ui:createButton("OFF")
+		local btn = ui:button({ content="OFF" })
 		local toggleWidth = btn.Width + theme.padding * 2
 		btn.Text = "➕"
 		local oneEmojiWidth = btn.Width + theme.padding

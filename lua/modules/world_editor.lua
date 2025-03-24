@@ -910,7 +910,7 @@ function uiShowDefaultMenu()
 	initGallery()
 
 	-- Placing
-	local placingCancelBtn = ui:createButton("❌")
+	local placingCancelBtn = ui:button({ content="❌" })
 	placingCancelBtn.onRelease = function()
 		setState(states.DEFAULT)
 		worldEditor.placingObj:RemoveFromParent()

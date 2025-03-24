@@ -283,12 +283,12 @@ creations.createModalContent = function(_, config)
 						local itemDetailsContent =
 							itemDetails:createModalContent({ mode = "create", uikit = ui, item = cell })
 
-						local btnEdit = ui:createButton("✏️ Edit", { textSize = "big" })
+						local btnEdit = ui:button({ content="✏️ Edit", textSize = "big" })
 						btnEdit.onRelease = function()
 							System.LaunchItemEditor(itemFullName, newCategory)
 						end
 
-						local btnDuplicate = ui:createButton("📑 Duplicate", { textSize = "default" })
+						local btnDuplicate = ui:button({ content="📑 Duplicate", textSize = "default" })
 						btnDuplicate.onRelease = function()
 							-- no need to pass grid, it's already marked
 							-- for refresh at this point

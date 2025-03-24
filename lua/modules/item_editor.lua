@@ -2971,7 +2971,7 @@ function post_item_load()
 		y = Screen.Height / 2 - 100
 		local toggleFocusBtns = {}
 		for i = 1, focusMode.max do
-			local btn = ui:createButton(200, 50)
+			local btn = ui:createButton(200, 50) -- TODO: this signature doesn't exist anymore?
 			btn.LocalPosition = Number3(x, y - (i - 1) * 55, 0)
 			btn.Text = focusModeName[i]
 			btn.onRelease = function()
@@ -3101,9 +3101,9 @@ function post_item_load()
 
 	visibilityMenu = ui:frameTextBackground()
 
-	local onlyItemBtn = ui:createButton("⚅")
-	itemPlusBodyPartBtn = ui:createButton("✋")
-	local itemPlusAvatarBtn = ui:createButton("👤")
+	local onlyItemBtn = ui:button({ content="⚅" })
+	itemPlusBodyPartBtn = ui:button({ content="✋" })
+	local itemPlusAvatarBtn = ui:button({ content="👤" })
 
 	-- Button for item alone
 	onlyItemBtn:setParent(visibilityMenu)
