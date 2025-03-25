@@ -768,7 +768,8 @@ for localEventName, listenerName in pairs(listeners) do
 end
 
 function loadEditedWorld()
-	require("api"):getWorld(Environment["EDITED_WORLD_ID"], { "mapBase64" }, function(data, err)
+	local worldID = Environment["EDITED_WORLD_ID"]
+	require("api"):getWorld(worldID, { "mapBase64", "title" }, function(data, err)
 		if err then
 			print(err)
 			return
@@ -776,8 +777,8 @@ function loadEditedWorld()
 
 		loadWorld({
 			b64 = data.mapBase64,
-			title = cell.title,
-			worldID = cell.id,
+			title = data.title,
+			worldID = worldID,
 			onDone = function()
 				setState(states.DEFAULT)
 				startDefaultMode()

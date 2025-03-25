@@ -44,6 +44,7 @@ CUBZH_MENU_MAIN_BUTTON_HEIGHT = 60
 CUBZH_MENU_SECONDARY_BUTTON_HEIGHT = 40
 
 DEV_MODE = System.LocalUserIsAuthor and System.ServerIsInDevMode
+IN_WORLD_EDITOR = Environment["worldId"] == "world_editor"
 AI_ASSISTANT_ENABLED = true -- feature is not ready yet
 
 -- VARS
@@ -338,6 +339,12 @@ function showAlert(config)
 end
 
 function showLoading(text)
+	-- do not show loading while in world editor
+	-- (tmp, we need to show something when publishing)
+	if IN_WORLD_EDITOR then 
+		return 
+	end
+
 	if loadingModal ~= nil then
 		loadingModal:setText(text)
 		return
@@ -1405,435 +1412,493 @@ end
 
 -- DEV MODE / AI BUTTON
 
-if DEV_MODE == true and AI_ASSISTANT_ENABLED == true then
-	aiBtn = ui:createFrame(_DEBUG and _DebugColor() or Color.transparent)
-	aiBtn:setParent(topBar)
+if DEV_MODE == true then
+	if AI_ASSISTANT_ENABLED == true then
+		aiBtn = ui:createFrame(_DEBUG and _DebugColor() or Color.transparent)
+		aiBtn:setParent(topBar)
 
-	local aiUINeedsFirstLayout = false
+		local aiUINeedsFirstLayout = false
 
-	local function refreshLayout(animate)
-		if aiInput == nil then
-			return
-		end
-
-		ease:cancel(aiInput.pos)
-		ease:cancel(aiCharacter.pos)
-		ease:cancel(aiCharacterBubble.pos)
-
-		local promptEnabled = aiCharacterText:isVisible()
-		local updatePosition = aiUINeedsFirstLayout or animate == false
-		aiUINeedsFirstLayout = false
-
-		local parent = aiInput.parent
-		aiInput.Width = math.min(600, parent.Width - PADDING * 2)
-
-		if aiCharacterText:isVisible() then
-			aiCharacterText.object.MaxWidth = aiInput.Width - aiCharacter.Width - PADDING * 3
-			aiCharacterBubble.Width = aiCharacterText.Width + PADDING * 2
-			aiCharacterBubble.Height = math.min(200, aiCharacterText.Height + PADDING * 2)
-		else
-			aiCharacterBubble.Width = aiCharacterLoadingAnimation.Width + PADDING * 3
-			aiCharacterBubble.Height = aiCharacterLoadingAnimation.Height + PADDING * 3
-		end
-
-		local targetInputPosition = {
-			parent.Width * 0.5 - aiInput.Width * 0.5,
-			Screen.SafeArea.Bottom + PADDING,
-		}
-		local targetCharacterPosition = {
-			targetInputPosition[1],
-			targetInputPosition[2] + aiInput.Height + PADDING,
-		}
-
-		if promptEnabled == false then
-			-- move character and bubble just above safe area
-			targetCharacterPosition[2] = Screen.SafeArea.Bottom + PADDING
-			-- move input below viewport
-			targetInputPosition[2] = -aiInput.Height - PADDING
-		end
-
-		local targetBubblePosition = {
-			targetCharacterPosition[1] + aiCharacter.Width + PADDING,
-			math.max(
-				targetCharacterPosition[2],
-				targetCharacterPosition[2] + aiCharacter.Height * 0.5 - aiCharacterBubble.Height * 0.5
-			),
-		}
-
-		if updatePosition then
-			aiInput.pos = targetInputPosition
-			aiCharacter.pos = targetCharacterPosition
-			aiCharacterBubble.pos = targetBubblePosition
-		end
-
-		if animate then
-			if updatePosition then
-				if promptEnabled then
-					local posY = aiInput.pos.Y
-					aiInput.pos.Y -= 100
-					ease:outBack(aiInput.pos, 0.2, {
-						onDone = function()
-							aiInput:focus()
-						end,
-					}).Y =
-						posY
-
-					posY = aiCharacter.pos.Y
-					aiCharacter.pos.Y -= 150
-					ease:outBack(aiCharacter.pos, 0.25, {
-						onDone = function() end,
-					}).Y = posY
-
-					posY = aiCharacterBubble.pos.Y
-					aiCharacterBubble.pos.Y -= 150
-					ease:outBack(aiCharacterBubble.pos, 0.3, {
-						onDone = function() end,
-					}).Y = posY
-				end
-			else
-				if promptEnabled then
-					ease:outBack(aiInput.pos, 0.2, {
-						onDone = function()
-							aiInput:focus()
-						end,
-					}).Y =
-						targetInputPosition[2]
-					ease:outBack(aiCharacter.pos, 0.22, {
-						onDone = function() end,
-					}).Y =
-						targetCharacterPosition[2]
-					ease:outBack(aiCharacterBubble.pos, 0.24, {
-						onDone = function() end,
-					}).Y =
-						targetBubblePosition[2]
-				else
-					ease:inBack(aiInput.pos, 0.2, {
-						onDone = function() end,
-					}).Y = targetInputPosition[2]
-					ease:inBack(aiCharacter.pos, 0.22, {
-						onDone = function() end,
-					}).Y =
-						targetCharacterPosition[2]
-					ease:inBack(aiCharacterBubble.pos, 0.24, {
-						onDone = function() end,
-					}).Y =
-						targetBubblePosition[2]
-				end
+		local function refreshLayout(animate)
+			if aiInput == nil then
+				return
 			end
-		end
-	end
 
-	local function removeAIPrompt()
-		if aiInput ~= nil then
 			ease:cancel(aiInput.pos)
-			aiInput:remove()
-			aiInput = nil
-		end
-		if aiCharacterBubble ~= nil then
-			ease:cancel(aiCharacterBubble.pos)
-			aiCharacterBubble:remove()
-			aiCharacterBubble = nil
-		end
-		if aiCharacter ~= nil then
 			ease:cancel(aiCharacter.pos)
-			aiCharacter:remove()
-			aiCharacter = nil
-		end
-	end
+			ease:cancel(aiCharacterBubble.pos)
 
-	local function setAILoading()
-		aiCharacterLoadingAnimation:show()
-		aiCharacterText:hide()
-		refreshLayout(true)
-	end
+			local promptEnabled = aiCharacterText:isVisible()
+			local updatePosition = aiUINeedsFirstLayout or animate == false
+			aiUINeedsFirstLayout = false
 
-	local revealTextTick = nil
-	local fullStr = ""
-	local displayedStr = ""
-	local textRevealMaxDuration = 0.3 -- in seconds
-	local charsPerSecond = 1
-	local function revealText(str)
-		if str:sub(1, #displayedStr) == displayedStr then
-			fullStr = str
-		else
-			displayedStr = ""
-			fullStr = str
-		end
-		aiCharacterText.Text = displayedStr
-		charsPerSecond = math.max(1, math.ceil((#fullStr - #displayedStr) / textRevealMaxDuration))
-		
-		if revealTextTick ~= nil then
-			return
-		end
+			local parent = aiInput.parent
+			aiInput.Width = math.min(600, parent.Width - PADDING * 2)
 
-		revealTextTick = LocalEvent:Listen(LocalEvent.Name.Tick, function(dt)
-			local charsToAdd = math.min(math.ceil(dt * charsPerSecond), #fullStr - #displayedStr)
-			displayedStr = displayedStr .. fullStr:sub(#displayedStr + 1, #displayedStr + charsToAdd) 
-			aiCharacterText.Text = displayedStr
-			if #displayedStr >= #fullStr then
-				revealTextTick:Remove()
-				revealTextTick = nil
+			if aiCharacterText:isVisible() then
+				aiCharacterText.object.MaxWidth = aiInput.Width - aiCharacter.Width - PADDING * 3
+				aiCharacterBubble.Width = aiCharacterText.Width + PADDING * 2
+				aiCharacterBubble.Height = math.min(200, aiCharacterText.Height + PADDING * 2)
+			else
+				aiCharacterBubble.Width = aiCharacterLoadingAnimation.Width + PADDING * 3
+				aiCharacterBubble.Height = aiCharacterLoadingAnimation.Height + PADDING * 3
 			end
-		end)
-	end
 
-	local function setAIText(text, textType)
-		if textType == "code" then
-			aiCharacterText.object.Scale = 0.5
-			aiCharacterText.Color = Color(220, 220, 220)
-		else
-			aiCharacterText.object.Scale = 1.0
-			aiCharacterText.Color = Color.White
-		end
-		aiCharacterText.Text = text -- set now to prepare layout
-		aiCharacterText:show()
-		aiCharacterLoadingAnimation:hide()
-		refreshLayout(true)
-		revealText(text)
-		-- sfx("waterdrop_2", { Volume = 0.5, Pitch = 1.0, Spatialized = false })
-	end
+			local targetInputPosition = {
+				parent.Width * 0.5 - aiInput.Width * 0.5,
+				Screen.SafeArea.Bottom + PADDING,
+			}
+			local targetCharacterPosition = {
+				targetInputPosition[1],
+				targetInputPosition[2] + aiInput.Height + PADDING,
+			}
 
-	aiIcon = ui:frame({
-		image = {
-			data = Data:FromBundle("images/icon-ai.png"),
-			alpha = true,
-		},
-	})
-	aiIcon.Width = 50
-	aiIcon.Height = 50
-
-	aiIcon.parentDidResize = function(self)
-		local parent = self.parent
-		self.Height = parent.Height - PADDING * 2
-		self.Width = self.Height
-		self.pos = { PADDING, PADDING }
-	end
-	aiIcon:setParent(aiBtn)
-
-	aiBtn.onPress = topBarBtnPress
-	aiBtn.onCancel = topBarBtnRelease
-	aiBtn.onRelease = function(self)
-		if idleBuddy == nil then
-			idleBuddy = Data:FromBundle("images/ai-buddy-idle.png")
-			welcomingBuddy = Data:FromBundle("images/ai-buddy-welcoming.png")
-			buddyWhenUserIsTyping = Data:FromBundle("images/ai-buddy-user-typing.png")
-			buddyThinking = Data:FromBundle("images/ai-buddy-thinking.png")
-		end
-
-		topBarBtnRelease(self)
-
-		if aiInput == nil then
-			sfx("waterdrop_2", { Volume = 0.5, Pitch = 1.0, Spatialized = false })
-			aiUINeedsFirstLayout = true
-
-			aiCharacter = ui:frame({ image = {
-				data = welcomingBuddy,
-				alpha = true,
-			} })
-			aiCharacter.Width = 60
-			aiCharacter.Height = 47
-			aiCharacter:setParent(background)
-
-			aiCharacterBubble = ui:frame({
-				image = {
-					data = Data:FromBundle("images/chat-background.png"),
-					slice9 = { 0.5, 0.5 },
-					slice9Scale = 1.0,
-					alpha = true,
-				},
-				mask = true,
-			})
-			aiCharacterBubble:setParent(background)
-
-			aiCharacterLoadingAnimation = require("ui_loading_animation"):create({ ui = ui })
-			aiCharacterLoadingAnimation.pos = { PADDING * 1.5, PADDING * 1.5 }
-			aiCharacterLoadingAnimation:setParent(aiCharacterBubble)
-			aiCharacterLoadingAnimation:hide()
-
-			aiCharacterText = ui:createText("Hey! I'm Buzz, I can code, what do you want to do? 🙂", {
-				size = "small",
-				color = Color.White,
-			})
-			aiCharacterText.object.MaxWidth = 200
-			aiCharacterText.pos = { PADDING, PADDING }
-			aiCharacterText:setParent(aiCharacterBubble)
-
-			aiInput = ui:createTextInput("", "", {
-				textSize = "small",
-				returnKeyType = "send",
-			})
-			aiInput:setParent(background)
-			-- background, text, placeholder, border
-			aiInput:setColor(Color(10, 10, 10, 0.9), Color.White, Color(255, 255, 255, 0.4), Color(255, 255, 255, 0.5))
-			aiInput:setColorPressed(
-				Color(10, 10, 10, 0.9),
-				Color.White,
-				Color(255, 255, 255, 0.4),
-				Color(255, 255, 255, 0.5)
-			)
-			aiInput:setColorFocused(
-				Color(10, 10, 10, 0.9),
-				Color.White,
-				Color(255, 255, 255, 0.4),
-				Color(255, 255, 255, 0.5)
-			)
-
-			aiInput.parentDidResize = function(self)
-				refreshLayout(false)
+			if promptEnabled == false then
+				-- move character and bubble just above safe area
+				targetCharacterPosition[2] = Screen.SafeArea.Bottom + PADDING
+				-- move input below viewport
+				targetInputPosition[2] = -aiInput.Height - PADDING
 			end
-			refreshLayout(true)
 
-			local typing = false
-			aiInput.onTextChange = function(self)
-				if self.Text == "" then
-					if typing then
-						aiCharacter.background.Image = idleBuddy
-						typing = false
+			local targetBubblePosition = {
+				targetCharacterPosition[1] + aiCharacter.Width + PADDING,
+				math.max(
+					targetCharacterPosition[2],
+					targetCharacterPosition[2] + aiCharacter.Height * 0.5 - aiCharacterBubble.Height * 0.5
+				),
+			}
+
+			if updatePosition then
+				aiInput.pos = targetInputPosition
+				aiCharacter.pos = targetCharacterPosition
+				aiCharacterBubble.pos = targetBubblePosition
+			end
+
+			if animate then
+				if updatePosition then
+					if promptEnabled then
+						local posY = aiInput.pos.Y
+						aiInput.pos.Y -= 100
+						ease:outBack(aiInput.pos, 0.2, {
+							onDone = function()
+								aiInput:focus()
+							end,
+						}).Y =
+							posY
+
+						posY = aiCharacter.pos.Y
+						aiCharacter.pos.Y -= 150
+						ease:outBack(aiCharacter.pos, 0.25, {
+							onDone = function() end,
+						}).Y = posY
+
+						posY = aiCharacterBubble.pos.Y
+						aiCharacterBubble.pos.Y -= 150
+						ease:outBack(aiCharacterBubble.pos, 0.3, {
+							onDone = function() end,
+						}).Y = posY
 					end
 				else
-					if typing == false then
-						aiCharacter.background.Image = buddyWhenUserIsTyping
-						typing = true
+					if promptEnabled then
+						ease:outBack(aiInput.pos, 0.2, {
+							onDone = function()
+								aiInput:focus()
+							end,
+						}).Y =
+							targetInputPosition[2]
+						ease:outBack(aiCharacter.pos, 0.22, {
+							onDone = function() end,
+						}).Y =
+							targetCharacterPosition[2]
+						ease:outBack(aiCharacterBubble.pos, 0.24, {
+							onDone = function() end,
+						}).Y =
+							targetBubblePosition[2]
+					else
+						ease:inBack(aiInput.pos, 0.2, {
+							onDone = function() end,
+						}).Y = targetInputPosition[2]
+						ease:inBack(aiCharacter.pos, 0.22, {
+							onDone = function() end,
+						}).Y =
+							targetCharacterPosition[2]
+						ease:inBack(aiCharacterBubble.pos, 0.24, {
+							onDone = function() end,
+						}).Y =
+							targetBubblePosition[2]
 					end
 				end
 			end
+		end
 
-			aiInput.onSubmit = function(self)
-				if self.Text == "" then
-					removeAIPrompt()
-					return
+		local function removeAIPrompt()
+			if aiInput ~= nil then
+				ease:cancel(aiInput.pos)
+				aiInput:remove()
+				aiInput = nil
+			end
+			if aiCharacterBubble ~= nil then
+				ease:cancel(aiCharacterBubble.pos)
+				aiCharacterBubble:remove()
+				aiCharacterBubble = nil
+			end
+			if aiCharacter ~= nil then
+				ease:cancel(aiCharacter.pos)
+				aiCharacter:remove()
+				aiCharacter = nil
+			end
+		end
+
+		local function setAILoading()
+			aiCharacterLoadingAnimation:show()
+			aiCharacterText:hide()
+			refreshLayout(true)
+		end
+
+		local revealTextTick = nil
+		local fullStr = ""
+		local displayedStr = ""
+		local textRevealMaxDuration = 0.3 -- in seconds
+		local charsPerSecond = 1
+		local function revealText(str)
+			if str:sub(1, #displayedStr) == displayedStr then
+				fullStr = str
+			else
+				displayedStr = ""
+				fullStr = str
+			end
+			aiCharacterText.Text = displayedStr
+			charsPerSecond = math.max(1, math.ceil((#fullStr - #displayedStr) / textRevealMaxDuration))
+			
+			if revealTextTick ~= nil then
+				return
+			end
+
+			revealTextTick = LocalEvent:Listen(LocalEvent.Name.Tick, function(dt)
+				local charsToAdd = math.min(math.ceil(dt * charsPerSecond), #fullStr - #displayedStr)
+				displayedStr = displayedStr .. fullStr:sub(#displayedStr + 1, #displayedStr + charsToAdd) 
+				aiCharacterText.Text = displayedStr
+				if #displayedStr >= #fullStr then
+					revealTextTick:Remove()
+					revealTextTick = nil
 				end
-				setAILoading()
-				local body = {
-					prompt = self.Text,
-					script = System.Script,
-				}
-				local headers = {}
-				headers["Content-Type"] = "application/json"
-				self.Text = ""
-				typing = false
-				aiCharacter.background.Image = buddyThinking
-				-- print("sending: " .. body.prompt)
+			end)
+		end
 
-				local cursor = 1
-				local buffer = ""
-				local messages = {}
-				local currentMessage = nil
-				local MARKER_START = "\n>>>>>>>"
-				local MESSAGE_TYPES = { "CHAT", "SCRIPT" }
-				local CURSOR_STATE = {
-					LOOKING_FOR_MARKER_START = 1,
-					AT_END_OF_MARKER_START = 2,
-					READING_CONTENT = 3,
-				}
-				local cursorState = CURSOR_STATE.LOOKING_FOR_MARKER_START
+		local function setAIText(text, textType)
+			if textType == "code" then
+				aiCharacterText.object.Scale = 0.5
+				aiCharacterText.Color = Color(220, 220, 220)
+			else
+				aiCharacterText.object.Scale = 1.0
+				aiCharacterText.Color = Color.White
+			end
+			aiCharacterText.Text = text -- set now to prepare layout
+			aiCharacterText:show()
+			aiCharacterLoadingAnimation:hide()
+			refreshLayout(true)
+			revealText(text)
+			-- sfx("waterdrop_2", { Volume = 0.5, Pitch = 1.0, Spatialized = false })
+		end
 
-				local function callback(res)
-					aiCharacter.background.Image = idleBuddy
-					if res.StatusCode ~= 200 then
-						-- print("error: " .. res.StatusCode)
-						setAIText("❌ ERROR: " .. res.StatusCode)
-						return
-					end
+		local aiIcon = ui:frame({
+			image = {
+				data = Data:FromBundle("images/icon-ai.png"),
+				alpha = true,
+			},
+		})
+		aiIcon.Width = 50
+		aiIcon.Height = 50
 
-					-- print("res.Body:\n", res.Body:ToString())
+		aiIcon.parentDidResize = function(self)
+			local parent = self.parent
+			self.Height = parent.Height - PADDING * 2
+			self.Width = self.Height
+			self.pos = { PADDING, PADDING }
+		end
+		aiIcon:setParent(aiBtn)
 
-					-- Legacy JSON handling
-					-- local data = JSON:Decode(res.Body)
-					-- if data.type == "chat" then
-					-- 	setAIText(data.output)
-					-- elseif data.type == "code" then
-					-- 	removeAIPrompt()
-					-- 	-- System:PublishScript(data.output)
-					-- end
+		aiBtn.onPress = topBarBtnPress
+		aiBtn.onCancel = topBarBtnRelease
+		aiBtn.onRelease = function(self)
+			if idleBuddy == nil then
+				idleBuddy = Data:FromBundle("images/ai-buddy-idle.png")
+				welcomingBuddy = Data:FromBundle("images/ai-buddy-welcoming.png")
+				buddyWhenUserIsTyping = Data:FromBundle("images/ai-buddy-user-typing.png")
+				buddyThinking = Data:FromBundle("images/ai-buddy-thinking.png")
+			end
 
-					buffer = buffer .. res.Body:ToString()
-					-- print("buffer:\n", buffer)
+			topBarBtnRelease(self)
 
-					while true do
-						if cursorState == CURSOR_STATE.LOOKING_FOR_MARKER_START then
-							-- look for first marker
-							local markerPos = buffer:find(MARKER_START, cursor)
-							if markerPos then
-								cursor = markerPos + #MARKER_START
-								cursorState = CURSOR_STATE.AT_END_OF_MARKER_START
-							else
-								break -- no start marker found in buffer from cursor
-							end
-						elseif cursorState == CURSOR_STATE.AT_END_OF_MARKER_START then
-							local nextNewline = buffer:find("\n", cursor)
-							if nextNewline then
-								local identifier = buffer:sub(cursor, nextNewline - 1)
-								for _, messageType in ipairs(MESSAGE_TYPES) do
-									if identifier == messageType then
-										cursor = nextNewline + 1
-										cursorState = CURSOR_STATE.READING_CONTENT
-										currentMessage = {
-											type = identifier,
-											content = "",
-										}
-										break
-									end
-								end
-								if cursorState ~= CURSOR_STATE.READING_CONTENT then
-									-- invalid identifier, keep looking for next marker
-									cursor = nextNewline -- \n could be the start of the next marker
-									cursorState = CURSOR_STATE.LOOKING_FOR_MARKER_START
-								end
-							else
-								break -- new line found after marker start
-							end
-						elseif cursorState == CURSOR_STATE.READING_CONTENT then
-							local nextMarkerPos = buffer:find(MARKER_START, cursor)
-							if nextMarkerPos then
-								currentMessage.content = buffer:sub(cursor, nextMarkerPos - 1)
-								cursor = nextMarkerPos
-								cursorState = CURSOR_STATE.LOOKING_FOR_MARKER_START
-								-- print(currentMessage.type .." -> " .. currentMessage.content)
-								if currentMessage.type == "CHAT" then
-									setAIText(currentMessage.content)
-								elseif currentMessage.type == "SCRIPT" then
-									setAIText(currentMessage.content, "code")
-								end
-							else
-								currentMessage.content = buffer:sub(cursor)
-								for i = 1, #MARKER_START - 1 do
-									local suffix = currentMessage.content:sub(-i)
-									if MARKER_START:sub(1, i) == suffix then
-										currentMessage.content = currentMessage.content:sub(1, -i - 1)
-										break
-									end
-								end
-								if currentMessage.type == "CHAT" then
-									setAIText(currentMessage.content)
-								elseif currentMessage.type == "SCRIPT" then
-									setAIText(currentMessage.content, "code")
-								end
-								if res.EndOfStream then
-									if currentMessage.type == "SCRIPT" then
-										removeAIPrompt()
-										System:PublishScript(currentMessage.content)
-									end
-								end
-								break
-							end
-						else
-							-- invalid cursor state
-							break
+			if aiInput == nil then
+				sfx("waterdrop_2", { Volume = 0.5, Pitch = 1.0, Spatialized = false })
+				aiUINeedsFirstLayout = true
+
+				aiCharacter = ui:frame({ image = {
+					data = welcomingBuddy,
+					alpha = true,
+				} })
+				aiCharacter.Width = 60
+				aiCharacter.Height = 47
+				aiCharacter:setParent(background)
+
+				aiCharacterBubble = ui:frame({
+					image = {
+						data = Data:FromBundle("images/chat-background.png"),
+						slice9 = { 0.5, 0.5 },
+						slice9Scale = 1.0,
+						alpha = true,
+					},
+					mask = true,
+				})
+				aiCharacterBubble:setParent(background)
+
+				aiCharacterLoadingAnimation = require("ui_loading_animation"):create({ ui = ui })
+				aiCharacterLoadingAnimation.pos = { PADDING * 1.5, PADDING * 1.5 }
+				aiCharacterLoadingAnimation:setParent(aiCharacterBubble)
+				aiCharacterLoadingAnimation:hide()
+
+				aiCharacterText = ui:createText("Hey! I'm Buzz, I can code, what do you want to do? 🙂", {
+					size = "small",
+					color = Color.White,
+				})
+				aiCharacterText.object.MaxWidth = 200
+				aiCharacterText.pos = { PADDING, PADDING }
+				aiCharacterText:setParent(aiCharacterBubble)
+
+				aiInput = ui:createTextInput("", "", {
+					textSize = "small",
+					returnKeyType = "send",
+				})
+				aiInput:setParent(background)
+				-- background, text, placeholder, border
+				aiInput:setColor(Color(10, 10, 10, 0.9), Color.White, Color(255, 255, 255, 0.4), Color(255, 255, 255, 0.5))
+				aiInput:setColorPressed(
+					Color(10, 10, 10, 0.9),
+					Color.White,
+					Color(255, 255, 255, 0.4),
+					Color(255, 255, 255, 0.5)
+				)
+				aiInput:setColorFocused(
+					Color(10, 10, 10, 0.9),
+					Color.White,
+					Color(255, 255, 255, 0.4),
+					Color(255, 255, 255, 0.5)
+				)
+
+				aiInput.parentDidResize = function(self)
+					refreshLayout(false)
+				end
+				refreshLayout(true)
+
+				local typing = false
+				aiInput.onTextChange = function(self)
+					if self.Text == "" then
+						if typing then
+							aiCharacter.background.Image = idleBuddy
+							typing = false
+						end
+					else
+						if typing == false then
+							aiCharacter.background.Image = buddyWhenUserIsTyping
+							typing = true
 						end
 					end
 				end
 
-				HTTP:Post({
-					url = "http://10.0.1.2",
-					headers = headers,
-					body = body,
-					streamed = true,
-					callback = callback,
-				})
+				aiInput.onSubmit = function(self)
+					if self.Text == "" then
+						removeAIPrompt()
+						return
+					end
+					setAILoading()
+					local body = {
+						prompt = self.Text,
+						script = System.Script,
+					}
+					local headers = {}
+					headers["Content-Type"] = "application/json"
+					self.Text = ""
+					typing = false
+					aiCharacter.background.Image = buddyThinking
+					-- print("sending: " .. body.prompt)
+
+					local cursor = 1
+					local buffer = ""
+					local messages = {}
+					local currentMessage = nil
+					local MARKER_START = "\n>>>>>>>"
+					local MESSAGE_TYPES = { "CHAT", "SCRIPT" }
+					local CURSOR_STATE = {
+						LOOKING_FOR_MARKER_START = 1,
+						AT_END_OF_MARKER_START = 2,
+						READING_CONTENT = 3,
+					}
+					local cursorState = CURSOR_STATE.LOOKING_FOR_MARKER_START
+
+					local function callback(res)
+						aiCharacter.background.Image = idleBuddy
+						if res.StatusCode ~= 200 then
+							-- print("error: " .. res.StatusCode)
+							setAIText("❌ ERROR: " .. res.StatusCode)
+							return
+						end
+
+						-- print("res.Body:\n", res.Body:ToString())
+
+						-- Legacy JSON handling
+						-- local data = JSON:Decode(res.Body)
+						-- if data.type == "chat" then
+						-- 	setAIText(data.output)
+						-- elseif data.type == "code" then
+						-- 	removeAIPrompt()
+						-- 	-- System:PublishScript(data.output)
+						-- end
+
+						buffer = buffer .. res.Body:ToString()
+						-- print("buffer:\n", buffer)
+
+						while true do
+							if cursorState == CURSOR_STATE.LOOKING_FOR_MARKER_START then
+								-- look for first marker
+								local markerPos = buffer:find(MARKER_START, cursor)
+								if markerPos then
+									cursor = markerPos + #MARKER_START
+									cursorState = CURSOR_STATE.AT_END_OF_MARKER_START
+								else
+									break -- no start marker found in buffer from cursor
+								end
+							elseif cursorState == CURSOR_STATE.AT_END_OF_MARKER_START then
+								local nextNewline = buffer:find("\n", cursor)
+								if nextNewline then
+									local identifier = buffer:sub(cursor, nextNewline - 1)
+									for _, messageType in ipairs(MESSAGE_TYPES) do
+										if identifier == messageType then
+											cursor = nextNewline + 1
+											cursorState = CURSOR_STATE.READING_CONTENT
+											currentMessage = {
+												type = identifier,
+												content = "",
+											}
+											break
+										end
+									end
+									if cursorState ~= CURSOR_STATE.READING_CONTENT then
+										-- invalid identifier, keep looking for next marker
+										cursor = nextNewline -- \n could be the start of the next marker
+										cursorState = CURSOR_STATE.LOOKING_FOR_MARKER_START
+									end
+								else
+									break -- new line found after marker start
+								end
+							elseif cursorState == CURSOR_STATE.READING_CONTENT then
+								local nextMarkerPos = buffer:find(MARKER_START, cursor)
+								if nextMarkerPos then
+									currentMessage.content = buffer:sub(cursor, nextMarkerPos - 1)
+									cursor = nextMarkerPos
+									cursorState = CURSOR_STATE.LOOKING_FOR_MARKER_START
+									-- print(currentMessage.type .." -> " .. currentMessage.content)
+									if currentMessage.type == "CHAT" then
+										setAIText(currentMessage.content)
+									elseif currentMessage.type == "SCRIPT" then
+										setAIText(currentMessage.content, "code")
+									end
+								else
+									currentMessage.content = buffer:sub(cursor)
+									for i = 1, #MARKER_START - 1 do
+										local suffix = currentMessage.content:sub(-i)
+										if MARKER_START:sub(1, i) == suffix then
+											currentMessage.content = currentMessage.content:sub(1, -i - 1)
+											break
+										end
+									end
+									if currentMessage.type == "CHAT" then
+										setAIText(currentMessage.content)
+									elseif currentMessage.type == "SCRIPT" then
+										setAIText(currentMessage.content, "code")
+									end
+									if res.EndOfStream then
+										if currentMessage.type == "SCRIPT" then
+											removeAIPrompt()
+											System:PublishScript(currentMessage.content)
+										end
+									end
+									break
+								end
+							else
+								-- invalid cursor state
+								break
+							end
+						end
+					end
+
+					HTTP:Post({
+						url = "http://10.0.1.2",
+						headers = headers,
+						body = body,
+						streamed = true,
+						callback = callback,
+					})
+				end
+			else
+				removeAIPrompt()
 			end
-		else
-			removeAIPrompt()
+		end
+	end
+
+	if IN_WORLD_EDITOR == true then
+		playBtn = ui:createFrame(_DEBUG and _DebugColor() or Color.transparent)
+		playBtn:setParent(topBar)
+
+		local playIcon = ui:frame({
+			image = {
+				data = Data:FromBundle("images/icon-play.png"),
+				alpha = true,
+			},
+		})
+		playIcon.Width = 50
+		playIcon.Height = 50
+
+		playIcon.parentDidResize = function(self)
+			local parent = self.parent
+			self.Height = parent.Height - PADDING * 2
+			self.Width = self.Height
+			self.pos = { PADDING, PADDING }
+		end
+		playIcon:setParent(playBtn)
+
+		playBtn.onPress = topBarBtnPress
+		playBtn.onCancel = topBarBtnRelease
+		playBtn.onRelease = function(self)
+			topBarBtnRelease(self)
+			System.WorldEditorPlay()
+		end
+	else
+		stopBtn = ui:createFrame(_DEBUG and _DebugColor() or Color.transparent)
+		stopBtn:setParent(topBar)
+
+		local stopIcon = ui:frame({
+			image = {
+				data = Data:FromBundle("images/icon-stop.png"),
+				alpha = true,
+			},
+		})
+		stopIcon.Width = 50
+		stopIcon.Height = 50
+
+		stopIcon.parentDidResize = function(self)
+			local parent = self.parent
+			self.Height = parent.Height - PADDING * 2
+			self.Width = self.Height
+			self.pos = { PADDING, PADDING }
+		end
+		stopIcon:setParent(stopBtn)
+
+		stopBtn.onPress = topBarBtnPress
+		stopBtn.onCancel = topBarBtnRelease
+		stopBtn.onRelease = function(self)
+			topBarBtnRelease(self)
+			System.WorldEditorStop()
 		end
 	end
 end
@@ -2238,10 +2303,32 @@ topBar.parentDidResize = function(self)
 		aiBtn.Height = height
 		aiBtn.Width = height
 		aiBtn.pos = { previousBtn.pos.X + previousBtn.Width, 0 }
+		previousBtn = aiBtn
 		width += aiBtn.Width
 	end
 
+	-- PLAY BUTTON
+
+	if playBtn ~= nil and playBtn:isVisible() then
+		playBtn.Height = height
+		playBtn.Width = height
+		playBtn.pos = { previousBtn.pos.X + previousBtn.Width, 0 }
+		previousBtn = playBtn
+		width += playBtn.Width
+	end
+
+	-- STOP BUTTON
+
+	if stopBtn ~= nil and stopBtn:isVisible() then
+		stopBtn.Height = height
+		stopBtn.Width = height
+		stopBtn.pos = { previousBtn.pos.X + previousBtn.Width, 0 }
+		previousBtn = stopBtn	
+		width += stopBtn.Width
+	end
+
 	self.Width = width
+
 end
 topBar:parentDidResize()
 
