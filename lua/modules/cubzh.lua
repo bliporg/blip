@@ -288,9 +288,6 @@ Client.OnStart = function()
 
 	local gameGrid = Data:FromBundle("images/games-background.png")
 
-	-- local logoTile = Data:FromBundle("images/logo-tile-rotated.png")
-	-- local logoTile = Data:FromBundle("images/games-background.png")
-
 	backgroundQuad = Quad()
 	backgroundQuad.IsUnlit = true
 	backgroundQuad.IsDoubleSided = false
@@ -311,7 +308,7 @@ Client.OnStart = function()
 	backgroundLogo.IsDoubleSided = false
 	backgroundLogo.Color = { Color(255, 255, 255, 0.5), alpha = true }
 	backgroundLogo.Image = gameGrid
-	backgroundLogo.Width = math.max(Screen.RenderWidth, Screen.RenderHeight)
+	backgroundLogo.Width = math.max(Screen.RenderWidth, Screen.RenderHeight) * 2
 	backgroundLogo.Height = backgroundLogo.Width * (4.0 / 3.0)
 	backgroundLogo.Tiling = backgroundLogo.Width / Number2(1000, 1000 * (1176 / 882)) -- 882 / 1176
 	backgroundLogo.Anchor = { 0.5, 0.5 }
@@ -349,7 +346,7 @@ Screen.DidResize = function()
 	if backgroundQuad then
 		backgroundQuad.Width = Screen.RenderWidth
 		backgroundQuad.Height = Screen.RenderHeight
-		backgroundLogo.Width = math.max(Screen.RenderWidth, Screen.RenderHeight)
+		backgroundLogo.Width = math.max(Screen.RenderWidth, Screen.RenderHeight) * 2
 		backgroundLogo.Height = backgroundLogo.Width * (4.0 / 3.0)
 		-- backgroundLogo.Tiling = backgroundLogo.Width / Number2(1000, 1000)
 		backgroundLogo.Tiling = backgroundLogo.Width / Number2(1000, 1000)
