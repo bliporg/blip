@@ -54,6 +54,7 @@ signup.startFlow = function(self, config)
 	local coinsButton
 	local drawer
 	local loginBtn
+	local titleLogo
 
 	local cache = {
 		dob = {
@@ -1412,44 +1413,62 @@ signup.startFlow = function(self, config)
 
 				config.signUpOrLoginStep()
 
-				if loginBtn == nil then
-					loginBtn = ui:buttonSecondary({ content = "Login", textSize = "small" })
-					-- loginBtn = ui:createButton("Login", { textSize = "small", borders = false })
-					-- loginBtn:setColor(Color(0, 0, 0, 0.4), Color(255, 255, 255))
-					loginBtn.parentDidResize = function(self)
-						ease:cancel(self)
-						self.pos = {
-							Screen.Width - Screen.SafeArea.Right - self.Width - padding,
-							Screen.Height - Screen.SafeArea.Top - self.Height - padding,
-						}
-					end
+				titleLogo = ui:frame({ image = {
+					data = Data:FromBundle("images/blip-logo.png"),
+					alpha = true,
+				} })
 
-					loginBtn.onRelease = function()
-						signupFlow:push(steps.createLoginStep())
-					end
+				loginBtn = ui:buttonSecondary({ content = "Sign In", textSize = "small" })
+				loginBtn.onRelease = function()
+					signupFlow:push(steps.createLoginStep())
 				end
-				loginBtn:parentDidResize()
-				local targetPos = loginBtn.pos:Copy()
-				loginBtn.pos.X = Screen.Width
-				ease:outSine(loginBtn, animationTime).pos = targetPos
 
-				startBtn = ui:buttonPositive({ content = "Start", textSize = "big", padding = 10 })
+				startBtn = ui:buttonPositive({ content = "Create Account", textSize = "default", padding = 10 })
+
 				startBtn.parentDidResize = function(self)
 					ease:cancel(self)
-					self.Width = 120
-					self.Height = 60
+					ease:cancel(loginBtn)
+
+					local vPadding = math.max(Screen.SafeArea.Top, Screen.SafeArea.Bottom) + 60
+					print("vPadding:", vPadding)
+
+					startBtn.Width = nil
+					startBtn.Width = math.min(400, math.max(startBtn.Width, Screen.Width * 0.8))
+					loginBtn.Width = startBtn.Width
+
+
+					loginBtn.pos = {
+						Screen.Width * 0.5 - loginBtn.Width * 0.5,
+						Menu.BottomBar.pos.Y + Menu.BottomBar.Height + theme.paddingBig * 2,
+					}
+
 					self.pos = {
 						Screen.Width * 0.5 - self.Width * 0.5,
-						Screen.Height / 5.0 - self.Height * 0.5,
+						loginBtn.pos.Y + loginBtn.Height + padding,
+					}
+
+					titleLogo.Width = math.min(300, Screen.Width * 0.5)
+					titleLogo.Height = math.floor(titleLogo.Width / 2.295)
+
+					titleLogo.pos = {
+						Screen.Width * 0.5 - titleLogo.Width * 0.5,
+						Screen.Height - Screen.SafeArea.Top - titleLogo.Height - padding,
 					}
 				end
 				startBtn:parentDidResize()
+
+				-- login btn animation
+				local targetPos = loginBtn.pos:Copy()
+				loginBtn.pos.Y = loginBtn.pos.Y - 50
+				ease:outSine(loginBtn, animationTime).pos = targetPos
+
+				-- start btn animation
 				targetPos = startBtn.pos:Copy()
 				startBtn.pos.Y = startBtn.pos.Y - 50
 				ease:outBack(startBtn, animationTime).pos = targetPos
 
 				startBtn.onRelease = function()
-					System:DebugEvent("User presses start button")
+					System:DebugEvent("User presses Create Account button")
 					signupFlow:push(steps.createAvatarPreviewStep())
 					sfx("whooshes_small_1", { Volume = 0.5 })
 				end
@@ -1464,6 +1483,8 @@ signup.startFlow = function(self, config)
 				startBtn = nil
 				loginBtn:remove()
 				loginBtn = nil
+				titleLogo:remove()
+				titleLogo = nil
 			end,
 			onRemove = function() end,
 		})

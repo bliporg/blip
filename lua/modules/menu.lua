@@ -2334,13 +2334,13 @@ topBar:parentDidResize()
 
 -- BOTTOM BAR
 
-bottomBar = ui:createFrame(Color(255, 255, 255, 0.4))
+bottomBar = ui:createFrame(Color(0, 0, 0, 0.6))
 bottomBar:setParent(background)
 
-appVersion = ui:createText("CUBZH - " .. Client.AppVersion .. " (alpha) #" .. Client.BuildNumber, Color.Black, "small")
+appVersion = ui:createText("Blip " .. Client.AppVersion .. " (alpha) #" .. Client.BuildNumber, Color(100,100,100), "small")
 appVersion:setParent(bottomBar)
 
-copyright = ui:createText("© Voxowl, Inc.", Color.Black, "small")
+copyright = ui:createText("© Voxowl, Inc.", Color(100,100,100), "small")
 copyright:setParent(bottomBar)
 
 bottomBar.parentDidResize = function(self)
@@ -2349,9 +2349,9 @@ bottomBar.parentDidResize = function(self)
 	self.Width = Screen.Width
 	self.Height = Screen.SafeArea.Bottom + appVersion.Height + padding * 2
 
-	appVersion.pos = { Screen.SafeArea.Left + padding, Screen.SafeArea.Bottom + padding, 0 }
+	appVersion.pos = { Screen.SafeArea.Left + padding * 2, Screen.SafeArea.Bottom + padding, 0 }
 	copyright.pos =
-		{ Screen.Width - Screen.SafeArea.Right - copyright.Width - padding, Screen.SafeArea.Bottom + padding, 0 }
+		{ Screen.Width - Screen.SafeArea.Right - copyright.Width - padding * 2, Screen.SafeArea.Bottom + padding, 0 }
 end
 bottomBar:parentDidResize()
 
@@ -2398,6 +2398,8 @@ end
 menu.IsActive = function(_)
 	return activeModal ~= nil or alertModal ~= nil or loadingModal ~= nil or cppMenuIsActive
 end
+
+menu.BottomBar = bottomBar
 
 function menuSectionCanBeShown()
 	if not Client.LoggedIn and Environment.USER_AUTH ~= "disabled" then

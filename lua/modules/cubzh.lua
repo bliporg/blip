@@ -99,6 +99,11 @@ Client.OnStart = function()
 			avatar():centerBodyWithExtraRoomAbove()
 			vCover = 0.9
 			hCover = 1.2
+		elseif avatarCameraFocus == "body_demo" then
+			box = avatarBox()
+			avatar():centerBodyWithExtraRoomAbove()
+			vCover = 0.7
+			hCover = 1.0
 		elseif avatarCameraFocus == "bodyAndItem" then
 			box = avatarBox()
 			avatar():centerBodyWithExtraRoomAbove()
@@ -252,7 +257,9 @@ Client.OnStart = function()
 	LocalEvent:Listen("signup_flow_start_or_login", function()
 		avatar():removeItem()
 		titleScreen():show()
-		avatar():hide()
+		avatar():show({ mode = "demo" })
+		avatarCameraFocus = "body_demo"
+		layoutCamera()
 	end)
 
 	LocalEvent:Listen("signup_drawer_height_update", function(height)
@@ -274,17 +281,23 @@ Client.OnStart = function()
 	light.On = true
 	light.Type = LightType.Directional
 	World:AddChild(light)
-	light.Rotation:Set(math.rad(5), math.rad(-20), 0)
+	light.Rotation:Set(math.rad(5), math.rad(20), 0)
 
 	Light.Ambient.SkyLightFactor = 0.2
 	Light.Ambient.DirectionalLightFactor = 0.5
 
-	local logoTile = Data:FromBundle("images/logo-tile-rotated.png")
+	local gameGrid = Data:FromBundle("images/games-background.png")
+
+	-- local logoTile = Data:FromBundle("images/logo-tile-rotated.png")
+	-- local logoTile = Data:FromBundle("images/games-background.png")
 
 	backgroundQuad = Quad()
 	backgroundQuad.IsUnlit = true
 	backgroundQuad.IsDoubleSided = false
-	backgroundQuad.Color = { gradient = "V", from = Color(208, 97, 255), to = Color(63, 95, 232) }
+	--backgroundQuad.Color = { gradient = "V", from = Color(208, 97, 255), to = Color(63, 95, 232) }
+	-- backgroundQuad.Color = { gradient = "V", from = Color(5, 5, 5), to = Color(50,68,77) }
+	-- backgroundQuad.Color = { gradient = "V", from = Color(5, 5, 5), to = Color(44,90,81) }
+	backgroundQuad.Color = { gradient = "V", from = Color(5, 5, 5), to = Color(44,74,90) }
 
 	backgroundQuad.Width = Screen.RenderWidth
 	backgroundQuad.Height = Screen.RenderHeight
@@ -296,18 +309,19 @@ Client.OnStart = function()
 	backgroundLogo = Quad()
 	backgroundLogo.IsUnlit = true
 	backgroundLogo.IsDoubleSided = false
-	backgroundLogo.Color = { Color(17, 42, 150, 0.2), alpha = true }
-	backgroundLogo.Image = logoTile
+	backgroundLogo.Color = { Color(255, 255, 255, 0.5), alpha = true }
+	backgroundLogo.Image = gameGrid
 	backgroundLogo.Width = math.max(Screen.RenderWidth, Screen.RenderHeight)
-	backgroundLogo.Height = backgroundLogo.Width
-	backgroundLogo.Tiling = backgroundLogo.Width / Number2(100, 100)
+	backgroundLogo.Height = backgroundLogo.Width * (4.0 / 3.0)
+	backgroundLogo.Tiling = backgroundLogo.Width / Number2(1000, 1000 * (1176 / 882)) -- 882 / 1176
 	backgroundLogo.Anchor = { 0.5, 0.5 }
 	backgroundLogo.Layers = { 6 }
 	World:AddChild(backgroundLogo)
 	backgroundLogo.Position.Z = 1
+	backgroundLogo.Rotation.Z = math.rad(-30)
 
-	local delta = Number2(-1, 1)
-	speed = 0.2
+	local delta = Number2(0, 1)
+	speed = 0.05
 	local _x = 0
 	local _y = 0
 	LocalEvent:Listen(LocalEvent.Name.Tick, function(dt)
@@ -336,8 +350,9 @@ Screen.DidResize = function()
 		backgroundQuad.Width = Screen.RenderWidth
 		backgroundQuad.Height = Screen.RenderHeight
 		backgroundLogo.Width = math.max(Screen.RenderWidth, Screen.RenderHeight)
-		backgroundLogo.Height = backgroundLogo.Width
-		backgroundLogo.Tiling = backgroundLogo.Width / Number2(100, 100)
+		backgroundLogo.Height = backgroundLogo.Width * (4.0 / 3.0)
+		-- backgroundLogo.Tiling = backgroundLogo.Width / Number2(1000, 1000)
+		backgroundLogo.Tiling = backgroundLogo.Width / Number2(1000, 1000)
 	end
 end
 
@@ -365,194 +380,13 @@ function titleScreen()
 		layoutCamera({ noAnimation = true })
 
 		local logo = Object()
-		local c = bundle:Shape("shapes/cubzh_logo_c")
-		c.Shadow = true
-		c.Pivot:Set(c.Width * 0.5, c.Height * 0.5, c.Depth * 0.5)
-		c:SetParent(logo)
-
-		local u = bundle:Shape("shapes/cubzh_logo_u")
-		u.Pivot:Set(u.Width * 0.5, u.Height * 0.5, u.Depth * 0.5)
-		u:SetParent(logo)
-
-		local b = bundle:Shape("shapes/cubzh_logo_b")
-		b.Pivot:Set(b.Width * 0.5, b.Height * 1.5 / 4.0, b.Depth * 0.5)
-		b:SetParent(logo)
-
-		local z = bundle:Shape("shapes/cubzh_logo_z")
-		z.Pivot:Set(z.Width * 0.5, z.Height * 0.5, z.Depth * 0.5)
-		z:SetParent(logo)
-
-		local h = bundle:Shape("shapes/cubzh_logo_h")
-		h.Pivot:Set(h.Width * 0.5, h.Height * 1.5 / 4.0, h.Depth * 0.5)
-		h:SetParent(logo)
-
-		local titleShapes = {}
-
-		local function addShape(name, config)
-			local s = bundle:Shape(name)
-			s:SetParent(root)
-			s.Pivot:Set(s.Size * 0.5)
-			s.Scale = config.scale or 1
-			s.LocalPosition:Set(config.position or Number3.Zero)
-			s.rot = config.rotation or Rotation(0, 0, 0)
-			s.Rotation:Set(s.rot)
-			table.insert(titleShapes, s)
-			return s
-		end
-
-		addShape(
-			"shapes/giraffe_head",
-			{ scale = 1, position = Number3(0, 0, 12), rotation = Rotation(0, 0, math.rad(20)) }
-		)
-
-		local chest = addShape(
-			"shapes/chest",
-			{ scale = 0.7, position = Number3(7, -18, -7), rotation = Rotation(0, math.rad(25), math.rad(-5)) }
-		)
-		local chestLid = chest.Lid
-		chest.Coins.IsUnlit = true
-		local chestLidRot = chest.Lid.LocalRotation:Copy()
-
-		addShape(
-			"shapes/pezh_coin_2",
-			{ scale = 0.7, position = Number3(-5, -12, -7), rotation = Rotation(0, 0, math.rad(20)) }
-		)
-
-		addShape(
-			"shapes/cube",
-			{ scale = 0.7, position = Number3(18, -9, -12), rotation = Rotation(0, 0, math.rad(20)) }
-		)
-
-		addShape("shapes/paint_set", {
-			scale = 0.7,
-			position = Number3(-22, 12, 6),
-			rotation = Rotation(math.rad(-60), math.rad(20), math.rad(-20)),
-		})
-
-		addShape(
-			"shapes/pizza_slice",
-			{ scale = 0.7, position = Number3(12, 8, -5), rotation = Rotation(math.rad(-40), math.rad(-20), 0) }
-		)
-
-		addShape("shapes/smartphone", {
-			scale = 0.7,
-			position = Number3(30, 8, 20),
-			rotation = Rotation(math.rad(10), math.rad(30), math.rad(-20)),
-		})
-
-		addShape(
-			"shapes/sword",
-			{ scale = 0.7, position = Number3(-14, -12, 7), rotation = Rotation(0, 0, math.rad(-45)) }
-		)
-
-		addShape("shapes/spaceship_2", {
-			scale = 0.5,
-			position = Number3(-15, -22, -14),
-			rotation = Rotation(math.rad(-10), math.rad(-30), math.rad(-30)),
-		})
-
-		local space = 2
-		local totalWidth = c.Width + u.Width + b.Width + z.Width + h.Width + space * 4
-
-		c.LocalPosition.X = -totalWidth * 0.5 + c.Width * 0.5
-		u.LocalPosition:Set(
-			c.LocalPosition.X + c.Width * 0.5 + space + u.Width * 0.5,
-			c.LocalPosition.Y,
-			c.LocalPosition.Z
-		)
-		b.LocalPosition:Set(
-			u.LocalPosition.X + u.Width * 0.5 + space + b.Width * 0.5,
-			c.LocalPosition.Y,
-			c.LocalPosition.Z
-		)
-		z.LocalPosition:Set(
-			b.LocalPosition.X + b.Width * 0.5 + space + z.Width * 0.5,
-			c.LocalPosition.Y,
-			c.LocalPosition.Z
-		)
-		h.LocalPosition:Set(
-			z.LocalPosition.X + z.Width * 0.5 + space + h.Width * 0.5,
-			c.LocalPosition.Y,
-			c.LocalPosition.Z
-		)
-
-		cRot = Rotation(0, 0, math.rad(10))
-		uRot = Rotation(0, 0, math.rad(-10))
-		bRot = Rotation(0, 0, math.rad(10))
-		zRot = Rotation(0, 0, math.rad(-10))
-		hRot = Rotation(0, 0, math.rad(10))
-
-		c.Rotation = cRot
-		u.Rotation = uRot
-		b.Rotation = bRot
-		z.Rotation = zRot
-		h.Rotation = hRot
-
-		local t = 0
-		local t2 = 1
-		local d1, d2, d3, d4, d5
-
-		local modifiers = {}
-		local nbModifiers = 5
-		local modifier
-		local r
-		for i = 1, nbModifiers do
-			r = math.random(1, 2)
-			modifier = {
-				t = 0,
-				dtCoef = 1 + math.random() * 0.10,
-				amplitude = math.rad(math.random(5, 10)),
-			}
-			if r == 1 then
-				modifier.fn1 = math.cos
-				modifier.fn2 = math.sin
-			else
-				modifier.fn1 = math.sin
-				modifier.fn2 = math.cos
-			end
-			modifiers[i] = modifier
-		end
-
-		tickListener = LocalEvent:Listen(LocalEvent.Name.Tick, function(dt)
-			t = t + dt
-			t2 = t2 + dt * 1.05
-			d1 = math.sin(t) * math.rad(10)
-			d2 = math.cos(t2) * math.rad(10)
-			d3 = math.sin(t2) * math.rad(10)
-			d4 = math.cos(t) * math.rad(10)
-
-			d5 = math.sin(t) * math.rad(5)
-
-			c.Rotation = cRot * Rotation(d1, d2, 0)
-			u.Rotation = uRot * Rotation(d2, d1, 0)
-			b.Rotation = bRot * Rotation(d3, d4, 0)
-			z.Rotation = zRot * Rotation(d4, d3, 0)
-			h.Rotation = hRot * Rotation(d1, d3, 0)
-
-			chestLid.LocalRotation = chestLidRot * Rotation(d5, 0, 0)
-
-			for _, modifier in ipairs(modifiers) do
-				modifier.t = t + dt * modifier.dtCoef
-				modifier.rot = Rotation(
-					modifier.fn1(modifier.t) * modifier.amplitude,
-					modifier.fn2(modifier.t) * modifier.amplitude,
-					0
-				)
-			end
-
-			for i, s in ipairs(titleShapes) do
-				modifier = modifiers[(i % nbModifiers) + 1]
-				s.Rotation = s.rot * modifier.rot
-			end
-		end)
-
 		logo:SetParent(root)
 
 		didResizeFunction = function()
 			layoutCamera({ noAnimation = true })
-			local box = Box()
-			box:Fit(logo, { recursive = true })
-			Camera:FitToScreen(box, 0.8)
+			-- local box = Box()
+			-- box:Fit(logo, { recursive = true })
+			-- Camera:FitToScreen(box, 0.8)
 		end
 
 		didResizeListener = LocalEvent:Listen(LocalEvent.Name.ScreenDidResize, didResizeFunction)
@@ -563,9 +397,14 @@ function titleScreen()
 		if root == nil then
 			return
 		end
-		tickListener:Remove()
-		tickListener = nil
-		didResizeListener:Remove()
+		if tickListener then
+			tickListener:Remove()
+			tickListener = nil
+		end
+		if didResizeListener then
+			didResizeListener:Remove()
+			didResizeListener = nil
+		end
 		didResizeFunction = nil
 
 		root:Destroy()
