@@ -599,6 +599,11 @@ local playerCall = function(_, playerID, username, userID, isLocal)
 
 	local objectIndex = mt.__index
 	mt.__index = function(t, k)
+
+		if k == "ID" then -- legacy
+			k = "ConnectionID"
+		end
+
 		if
 			k == "ConnectionID"
 			or k == "Avatar"
