@@ -458,28 +458,32 @@ itemGrid.create = function(_, config)
 								table.insert(self.timers, timer)
 							elseif type == "worlds" then
 								local timer = Timer(LOAD_CONTENT_DELAY, function()
-									local req = api:getWorldThumbnail(cell.id, function(img, err)
-										if err ~= nil then
-											-- silent error
-											return
+									local req = api:getWorldThumbnail({
+										worldID = cell.id, 
+										width = 250,
+										callback = function(img, err)
+											if err ~= nil then
+												-- silent error
+												return
+											end
+
+											if cell.object == nil then
+												-- should not happen... but in fact it does.
+												-- request should be cancelled when cell is removed,
+												-- so the callback should not be triggered.
+												-- Let's debug this... but in the meantime, let's early return to avoid error.
+												return
+											end
+
+											local thumbnail = ui:frame({ image = img })
+											thumbnail:setParent(cell)
+											thumbnail.Width = cell.Width - theme.paddingTiny * 2
+											thumbnail.Height = cell.Height - theme.paddingTiny * 2
+											thumbnail.pos = { theme.paddingTiny, theme.paddingTiny }
+
+											cell.thumbnail = thumbnail
 										end
-
-										if cell.object == nil then
-											-- should not happen... but in fact it does.
-											-- request should be cancelled when cell is removed,
-											-- so the callback should not be triggered.
-											-- Let's debug this... but in the meantime, let's early return to avoid error.
-											return
-										end
-
-										local thumbnail = ui:frame({ image = img })
-										thumbnail:setParent(cell)
-										thumbnail.Width = cell.Width - theme.paddingTiny * 2
-										thumbnail.Height = cell.Height - theme.paddingTiny * 2
-										thumbnail.pos = { theme.paddingTiny, theme.paddingTiny }
-
-										cell.thumbnail = thumbnail
-									end)
+									})
 									table.insert(self.requests, req)
 								end)
 								table.insert(self.timers, timer)

@@ -1359,18 +1359,22 @@ function home()
 					cell.loadingAnimation = loadingAnimation
 
 					cell.loadThumbnailTimer = Timer(CONFIG.LOAD_CONTENT_DELAY, function()
-						cell.req = api:getWorldThumbnail(world.id, function(img, err)
-							recycleCellLoadingAnimation(cell)
-							if err ~= nil then
-								return
-							end
+						cell.req = api:getWorldThumbnail({ 
+							worldID = world.id,
+							width = 250,
+							callback = function(img, err)
+								recycleCellLoadingAnimation(cell)
+								if err ~= nil then
+									return
+								end
 
-							local thumbnail = ui:frame({ image = img })
-							thumbnail:setParent(cell)
-							cell.thumbnail = thumbnail
-							worldThumbnails[cell.category .. "_" .. world.id] = thumbnail
-							worldCellResizeFn(cell)
-						end)
+								local thumbnail = ui:frame({ image = img })
+								thumbnail:setParent(cell)
+								cell.thumbnail = thumbnail
+								worldThumbnails[cell.category .. "_" .. world.id] = thumbnail
+								worldCellResizeFn(cell)
+							end
+						})
 						table.insert(httpRequests, cell.req)
 					end)
 				end

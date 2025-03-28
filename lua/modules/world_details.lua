@@ -421,14 +421,18 @@ mod.createModalContent = function(_, config)
 		table.insert(requests, req)
 
 		if world.thumbnail == nil then
-			local req = api:getWorldThumbnail(world.id, function(thumbnail, err)
-				if err ~= nil then
-					return
-				end
-				world.thumbnail = thumbnail
+			local req = api:getWorldThumbnail({ 
+				worldID = world.id, 
+				width = 250,
+				callback = function(thumbnail, err)
+					if err ~= nil then
+						return
+					end
+					world.thumbnail = thumbnail
 
-				privateFields:refreshWorld()
-			end)
+					privateFields:refreshWorld()
+				end
+			})
 			table.insert(requests, req)
 		end
 	end
