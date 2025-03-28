@@ -2633,14 +2633,6 @@ menu.ShowCreations = function(_)
 	if menuSectionCanBeShown() == false then
 		return false
 	end
-	if not System.IsPhoneExempted and not System.HasVerifiedPhoneNumber then
-		local text = "A verified phone number is mandatory to create."
-		if System.IsUserUnder13 == true then
-			text = "A verified parent or guardian's phone number is mandatory to create."
-		end
-		showModal(MODAL_KEYS.VERIFY_ACCOUNT_FORM, { text = text })
-		return
-	end
 	if Player.Username == "newbie" then
 		Menu:ShowUsernameForm({ text = "A Username is mandatory to create, ready to pick one now?" })
 		return
@@ -2654,10 +2646,6 @@ end
 menu.ShowUsernameForm = function(_, config)
 	if menuSectionCanBeShown() == false then
 		return false
-	end
-	if not System.IsPhoneExempted and not System.HasVerifiedPhoneNumber then
-		showModal(MODAL_KEYS.VERIFY_ACCOUNT_FORM, {})
-		return
 	end
 	showModal(MODAL_KEYS.USERNAME_FORM, config)
 	return true
@@ -2956,10 +2944,6 @@ if Environment.USER_AUTH == "disabled" then
 elseif not Client.LoggedIn then
 	local signupFlow = signup:startFlow({
 		ui = ui,
-		avatarPreviewStep = function()
-			LocalEvent:Send("signup_flow_avatar_preview")
-			hideBottomBar()
-		end,
 		loginStep = function()
 			LocalEvent:Send("signup_flow_login")
 			hideBottomBar()
@@ -2970,9 +2954,6 @@ elseif not Client.LoggedIn then
 		end,
 		loginSuccess = function()
 			authCompleted()
-		end,
-		avatarEditorStep = function()
-			LocalEvent:Send("signup_flow_avatar_editor")
 		end,
 		dobStep = function()
 			LocalEvent:Send("signup_flow_dob")

@@ -236,20 +236,10 @@ Client.OnStart = function()
 		layoutCamera()
 	end)
 
-	LocalEvent:Listen("signup_flow_avatar_preview", function()
-		avatar():removeItem()
-		titleScreen():hide()
-		avatar():show({ mode = "demo" })
-	end)
-
-	LocalEvent:Listen("signup_flow_avatar_editor", function()
+	LocalEvent:Listen("signup_flow_dob", function()
 		avatar():removeItem()
 		titleScreen():hide()
 		avatar():show({ mode = "user" })
-	end)
-
-	LocalEvent:Listen("signup_flow_dob", function()
-		avatar():removeItem()
 		avatarCameraFocus = "body"
 		layoutCamera()
 	end)
@@ -830,12 +820,6 @@ function avatar()
 		table.insert(listeners, l)
 
 		l = LocalEvent:Listen("avatar_editor_should_focus_on_body", function()
-			avatarCameraFocus = "body"
-			layoutCamera()
-		end)
-		table.insert(listeners, l)
-
-		l = LocalEvent:Listen("signup_flow_avatar_preview", function()
 			avatarCameraFocus = "body"
 			layoutCamera()
 		end)

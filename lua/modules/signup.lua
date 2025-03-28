@@ -1117,277 +1117,12 @@ signup.startFlow = function(self, config)
 				for _, req in ipairs(requests) do
 					req:Cancel()
 				end
-			end,
-			onRemove = function() end,
-		})
-
-		return step
-	end
-
-	steps.createAvatarEditorStep = function()
-		local skipOnFirstEnter = System.HasDOB or System.HasEstimatedDOB
-		local avatarEditor
-		local okBtn
-		local infoFrame
-		local info
-		local avatarUpdateListener
-		local nbPartsToChange = 3
-		local partsChanged = {}
-
-		local step = flow:createStep({
-			onEnter = function()
-				config.avatarEditorStep()
-
-				showBackButton()
-
-				infoFrame = ui:frameTextBackground()
-
-				local s = "Change at least %d things to continue!"
-				if nbPartsToChange == 1 then
-					s = "Change at least %d thing to continue!"
-				end
-
-				info = ui:createText(string.format(s, nbPartsToChange), {
-					color = Color.White,
-				})
-				info:setParent(infoFrame)
-				info.pos = { padding, padding }
-
-				okBtn = ui:buttonPositive({ content = "Done!", textSize = "big", padding = 10 })
-				okBtn.onRelease = function(_)
-					-- go to next step
-					System:DebugEvent("User presses OK button on avatar editor")
-					signupFlow:push(steps.createDOBStep())
-					sfx("whooshes_small_1", { Volume = 0.5 })
-				end
-				okBtn:disable()
-
-				local function layoutInfoFrame()
-					local parent = infoFrame.parent
-					if not parent then
-						return
-					end
-					info.object.MaxWidth = parent.Width - okBtn.Width - padding * 5
-					infoFrame.Width = info.Width + padding * 2
-					infoFrame.Height = info.Height + padding * 2
-					infoFrame.pos = {
-						okBtn.pos.X - infoFrame.Width - padding,
-						infoFrame.Height > okBtn.Height and okBtn.pos.Y
-							or okBtn.pos.Y + okBtn.Height * 0.5 - infoFrame.Height * 0.5,
-					}
-				end
-
-				local function updateProgress()
-					local remaining = math.max(0, nbPartsToChange - cache.nbAvatarPartsChanged)
-					if remaining == 0 then
-						info.text = "You're good to go!"
-						okBtn:enable()
-					else
-						local s = "Change %d more things to continue!"
-						if remaining == 1 then
-							s = "Change %d more thing to continue!"
-						end
-
-						info.text = string.format(s, remaining)
-					end
-				end
-
-				avatarUpdateListener = LocalEvent:Listen("avatar_editor_update", function(config)
-					if config.skinColorIndex then
-						if not partsChanged["skin"] then
-							cache.nbAvatarPartsChanged = cache.nbAvatarPartsChanged + 1
-							partsChanged["skin"] = true
-						end
-					end
-					if config.eyesIndex then
-						if not partsChanged["eyes"] then
-							cache.nbAvatarPartsChanged = cache.nbAvatarPartsChanged + 1
-							partsChanged["eyes"] = true
-						end
-					end
-					if config.eyesColorIndex then
-						if not partsChanged["eyes"] then
-							cache.nbAvatarPartsChanged = cache.nbAvatarPartsChanged + 1
-							partsChanged["eyes"] = true
-						end
-					end
-					if config.noseIndex then
-						if not partsChanged["nose"] then
-							cache.nbAvatarPartsChanged = cache.nbAvatarPartsChanged + 1
-							partsChanged["nose"] = true
-						end
-					end
-					if config.jacket then
-						if not partsChanged["jacket"] then
-							cache.nbAvatarPartsChanged = cache.nbAvatarPartsChanged + 1
-							partsChanged["jacket"] = true
-						end
-					end
-					if config.hair then
-						if not partsChanged["hair"] then
-							cache.nbAvatarPartsChanged = cache.nbAvatarPartsChanged + 1
-							partsChanged["hair"] = true
-						end
-					end
-					if config.pants then
-						if not partsChanged["pants"] then
-							cache.nbAvatarPartsChanged = cache.nbAvatarPartsChanged + 1
-							partsChanged["pants"] = true
-						end
-					end
-					if config.boots then
-						if not partsChanged["boots"] then
-							cache.nbAvatarPartsChanged = cache.nbAvatarPartsChanged + 1
-							partsChanged["boots"] = true
-						end
-					end
-
-					updateProgress()
-					layoutInfoFrame()
-				end)
-
-				updateProgress()
-
-				-- DRAWER
-				if drawer ~= nil then
-					drawer:clear()
-				else
-					drawer = drawerModule:create({ ui = ui })
-				end
-
-				okBtn:setParent(drawer)
-				infoFrame:setParent(drawer)
-
-				avatarEditor = require("ui_avatar_editor"):create({
-					saveOnChangeIfLocalPlayer = true,
-					ui = ui,
-					requestHeightCallback = function(height)
-						drawer:updateConfig({
-							layoutContent = function(self)
-								local drawerHeight = height + padding * 2 + Screen.SafeArea.Bottom
-								drawerHeight = math.floor(math.min(Screen.Height * 0.6, drawerHeight))
-
-								self.Height = drawerHeight
-
-								if avatarEditor then
-									avatarEditor.Width = self.Width - padding * 2
-									avatarEditor.Height = drawerHeight - Screen.SafeArea.Bottom - padding * 2
-									avatarEditor.pos = { padding, Screen.SafeArea.Bottom + padding }
-								end
-
-								okBtn.pos = {
-									self.Width - okBtn.Width - padding,
-									self.Height + padding,
-								}
-
-								layoutInfoFrame()
-
-								LocalEvent:Send("signup_drawer_height_update", drawerHeight)
-							end,
-						})
-						drawer:bump()
-					end,
-				})
-
-				avatarEditor:setParent(drawer)
-
-				drawer:updateConfig({
-					layoutContent = function(self)
-						avatarEditor.Width = self.Width - padding * 2
-						avatarEditor.Height = self.Height - padding * 2 - Screen.SafeArea.Bottom
-
-						avatarEditor.pos = { padding, Screen.SafeArea.Bottom + padding }
-
-						okBtn.pos = {
-							drawer.Width - okBtn.Width - padding,
-							drawer.Height + padding,
-						}
-
-						LocalEvent:Send("signup_drawer_height_update", self.Height)
-					end,
-				})
-
-				drawer:show()
-
-				if skipOnFirstEnter then
-					skipOnFirstEnter = false
-					signupFlow:push(steps.createDOBStep())
-				end
-			end,
-			onExit = function()
-				drawer:hide()
-				okBtn:remove()
-				if avatarUpdateListener then
-					avatarUpdateListener:Remove()
-				end
-			end,
-			onRemove = function() end,
-		})
-
-		return step
-	end
-
-	steps.createAvatarPreviewStep = function()
-		local skipOnFirstEnter = System.HasDOB or System.HasEstimatedDOB
-		local step = flow:createStep({
-			onEnter = function()
-				config.avatarPreviewStep()
-
-				showBackButton()
-				removeCoinsButton()
-
-				-- DRAWER
-				if drawer ~= nil then
-					drawer:clear()
-				else
-					drawer = drawerModule:create({ ui = ui })
-				end
-
-				local okBtn = ui:buttonPositive({ content = "Ok, let's do this!", textSize = "big", padding = 10 })
-				okBtn:setParent(drawer)
-				okBtn.onRelease = function()
-					System:DebugEvent("User presses OK button on avatar presention")
-					signupFlow:push(steps.createAvatarEditorStep())
-					sfx("whooshes_small_1", { Volume = 0.5 })
-				end
-
-				local text = ui:createText("You need an AVATAR to visit Cubzh worlds! Let's create one now ok? 🙂", {
-					color = Color.White,
-				})
-				text:setParent(drawer)
-
-				drawer:updateConfig({
-					layoutContent = function(self)
-						-- here, self.Height can be reduced, but not increased
-						-- TODO: enforce this within drawer module
-
-						text.object.MaxWidth = math.min(350, self.Width - theme.paddingBig * 2)
-
-						self.Width = math.min(self.Width, math.max(text.Width, okBtn.Width) + theme.paddingBig * 2)
-						self.Height = Screen.SafeArea.Bottom + okBtn.Height + text.Height + theme.paddingBig * 3
-
-						okBtn.pos = { self.Width * 0.5 - okBtn.Width * 0.5, Screen.SafeArea.Bottom + theme.paddingBig }
-						text.pos =
-							{ self.Width * 0.5 - text.Width * 0.5, okBtn.pos.Y + okBtn.Height + theme.paddingBig }
-
-						LocalEvent:Send("signup_drawer_height_update", self.Height)
-					end,
-				})
-
-				drawer:show()
-
-				if skipOnFirstEnter then
-					skipOnFirstEnter = false
-					signupFlow:push(steps.createAvatarEditorStep())
-				end
-			end,
-			onExit = function()
 				drawer:updateConfig({
 					layoutContent = function(_) end,
 				})
 				drawer:hide()
 			end,
-			onRemove = function()
+			onRemove = function() 
 				removeBackButton()
 				if drawer ~= nil then
 					drawer:remove()
@@ -1429,13 +1164,9 @@ signup.startFlow = function(self, config)
 					ease:cancel(self)
 					ease:cancel(loginBtn)
 
-					local vPadding = math.max(Screen.SafeArea.Top, Screen.SafeArea.Bottom) + 60
-					print("vPadding:", vPadding)
-
 					startBtn.Width = nil
 					startBtn.Width = math.min(400, math.max(startBtn.Width, Screen.Width * 0.8))
 					loginBtn.Width = startBtn.Width
-
 
 					loginBtn.pos = {
 						Screen.Width * 0.5 - loginBtn.Width * 0.5,
@@ -1469,13 +1200,13 @@ signup.startFlow = function(self, config)
 
 				startBtn.onRelease = function()
 					System:DebugEvent("User presses Create Account button")
-					signupFlow:push(steps.createAvatarPreviewStep())
+					signupFlow:push(steps.createDOBStep())
 					sfx("whooshes_small_1", { Volume = 0.5 })
 				end
 
 				if skipOnFirstEnter then
 					skipOnFirstEnter = false
-					signupFlow:push(steps.createAvatarPreviewStep())
+					signupFlow:push(steps.createDOBStep())
 				end
 			end,
 			onExit = function()
