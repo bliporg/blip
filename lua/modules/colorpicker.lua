@@ -142,7 +142,7 @@ colorPicker.create = function(_, config)
 		end
 	end
 
-	local hexCodeBtn = uikit:createButton("#FFFFFF")
+	local hexCodeBtn = uikit:button({ content="#FFFFFF" })
 	if config.closeBtnColor then
 		hexCodeBtn:setColor(config.closeBtnColor, Color.White)
 	end

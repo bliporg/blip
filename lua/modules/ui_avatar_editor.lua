@@ -116,7 +116,7 @@ mod.create = function(self, config)
 		privateFields[self] = nil
 	end
 
-	local refButton = ui:createButton("dummy")
+	local refButton = ui:button({ content="dummy" })
 	refButton:setParent(nil)
 
 	local categoryNode
@@ -130,7 +130,8 @@ mod.create = function(self, config)
 
 		local btns = {}
 		for skinColorIndex, color in pairs(avatar.skinColors) do
-			local btn = ui:createButton("", {
+			local btn = ui:button({
+				content = "",
 				color = color.skin1,
 			})
 			btn.onRelease = function()
@@ -296,7 +297,8 @@ mod.create = function(self, config)
 						head.pos.X = mask.Width * 0.5 - head.Width * 0.5
 						mask.head = head
 
-						local btn = ui:createButton(mask, {
+						local btn = ui:button({
+							content = mask,
 							color = Color(181, 186, 193),
 							padding = false,
 						})
@@ -435,7 +437,7 @@ mod.create = function(self, config)
 				end
 				return btn
 			-- elseif index == 4 then
-			-- 	local btn = ui:createButton("✨ Ears")
+			-- 	local btn = ui:button({ content="✨ Ears" })
 			-- 	btn:disable()
 			-- 	return btn
 			elseif index == 4 then
@@ -495,7 +497,8 @@ mod.create = function(self, config)
 						head.pos.X = mask.Width * 0.5 - head.Width * 0.5
 						mask.head = head
 
-						local btn = ui:createButton(mask, {
+						local btn = ui:button({
+							content = mask,
 							color = Color(181, 186, 193),
 							padding = false,
 						})
@@ -549,7 +552,7 @@ mod.create = function(self, config)
 				end
 				return btn
 			-- elseif index == 6 then
-			-- 	local btn = ui:createButton("👕 Shirt")
+			-- 	local btn = ui:button({ content="👕 Shirt" })
 			-- 	btn:disable()
 			-- 	return btn
 			elseif index == 5 then
@@ -655,11 +658,11 @@ mod.create = function(self, config)
 				end
 				return btn
 				-- elseif index == 10 then
-				-- 	local btn = ui:createButton("✨ Gloves")
+				-- 	local btn = ui:button({ content="✨ Gloves" })
 				-- 	btn:disable()
 				-- 	return btn
 				-- elseif index == 11 then
-				-- 	local btn = ui:createButton("🎒 Backpack")
+				-- 	local btn = ui:button({ content="🎒 Backpack" })
 				-- 	btn:disable()
 				-- 	return btn
 			end

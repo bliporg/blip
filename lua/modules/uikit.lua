@@ -4406,10 +4406,10 @@ function applyVirtualKeyboardOffset()
 				end
 			end
 
-			-- local undoBtn = ui:createButton("↪️", { unfocuses = false })
+			-- local undoBtn = ui:button({ content="↪️", unfocuses = false })
 			-- undoBtn:setParent(keyboardToolbar)
 
-			-- local redoBtn = ui:createButton("↩️", { unfocuses = false })
+			-- local redoBtn = ui:button({ content="↩️", unfocuses = false })
 			-- redoBtn:setParent(keyboardToolbar)
 
 			local closeBtn = ui:buttonSecondary({ content = "⬇️", unfocuses = false })

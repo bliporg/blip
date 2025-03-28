@@ -162,7 +162,7 @@ inputModal.create = function(_, prompt)
 			if node.okButton then
 				node.okButton.Text = text
 			else
-				local okButton = uikit:createButton(text)
+				local okButton = uikit:button({ content=text })
 				okButton:setColor(Color(161, 217, 0), Color(45, 57, 17), false)
 				okButton:setParent(node)
 				okButton.onRelease = function(_)
@@ -194,7 +194,7 @@ inputModal.create = function(_, prompt)
 			if node.negativeButton then
 				node.negativeButton.Text = text
 			else
-				local negativeButton = uikit:createButton(text)
+				local negativeButton = uikit:button({ content=text })
 				negativeButton:setColor(Color(227, 52, 55), Color.White, false)
 				negativeButton:setParent(node)
 				negativeButton.onRelease = function(_)
@@ -227,7 +227,7 @@ inputModal.create = function(_, prompt)
 			if node.neutralButton then
 				node.neutralButton.Text = text
 			else
-				local neutralButton = uikit:createButton(text)
+				local neutralButton = uikit:button({ content=text })
 				neutralButton:setParent(node)
 				neutralButton.onRelease = function(_)
 					node.neutralCallback()

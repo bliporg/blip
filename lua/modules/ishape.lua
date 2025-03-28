@@ -123,7 +123,7 @@ local _addCallbackTriggerArea = function(pShape, pConfig)
 end
 
 local _addButton = function(pShape, pConfig)
-	pShape.button = require("uikit"):createButton(pConfig.buttonText or "Button Text", { textSize = "default" })
+	pShape.button = require("uikit"):button({ content=pConfig.buttonText or "Button Text", textSize = "default" })
 	pShape.button.onRelease = pConfig.buttonCallback or pConfig.callback
 	pShape.button:hide()
 
