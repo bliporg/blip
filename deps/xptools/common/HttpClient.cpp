@@ -142,9 +142,13 @@ HttpRequest_SharedPtr HttpClient::POST(const std::string& host,
                                        const QueryParams& queryParams,
                                        const bool& secure,
                                        const std::unordered_map<std::string, std::string>& headers,
+                                       const HttpRequestOpts *opts,
                                        const std::string& body,
                                        HttpRequestCallback callback) {
     HttpRequest_SharedPtr req = HttpRequest::make("POST", host, port, path, queryParams, secure);
+    if (opts != nullptr) {
+        req->setOpts(*opts);
+    }
     req->setHeaders(headers);
     req->setBodyBytes(body);
     req->setCallback(callback);
@@ -154,20 +158,22 @@ HttpRequest_SharedPtr HttpClient::POST(const std::string& host,
 
 HttpRequest_SharedPtr HttpClient::POST(const std::string &url,
                                        const std::unordered_map<std::string, std::string> &headers,
+                                       const HttpRequestOpts *opts,
                                        const std::string& body,
                                        const bool &sendNow,
                                        HttpRequestCallback callback) {
     const std::string httpMethod = "POST";
-    return this->_makeRequest(httpMethod, url, headers, body, sendNow, callback);
+    return this->_makeRequest(httpMethod, url, headers, opts, body, sendNow, callback);
 }
 
 HttpRequest_SharedPtr HttpClient::PATCH(const std::string &url,
                                         const std::unordered_map<std::string, std::string> &headers,
+                                        const HttpRequestOpts *opts,
                                         const std::string &body,
                                         const bool &sendNow,
                                         HttpRequestCallback callback) {
     const std::string httpMethod = "PATCH";
-    return this->_makeRequest(httpMethod, url, headers, body, sendNow, callback);
+    return this->_makeRequest(httpMethod, url, headers, opts, body, sendNow, callback);
 }
 
 HttpRequest_SharedPtr HttpClient::PATCH(const URL& url,
@@ -202,11 +208,12 @@ HttpRequest_SharedPtr HttpClient::PATCH(const URL& url,
 
 HttpRequest_SharedPtr HttpClient::Delete(const std::string &url,
                                          const std::unordered_map<std::string, std::string> &headers,
+                                         const HttpRequestOpts *opts,
                                          const std::string &body,
                                          const bool &sendNow,
                                          HttpRequestCallback callback) {
     const std::string httpMethod = "DELETE";
-    return this->_makeRequest(httpMethod, url, headers, body, sendNow, callback);
+    return this->_makeRequest(httpMethod, url, headers, opts, body, sendNow, callback);
 }
 
 void HttpClient::run_unit_tests() {
@@ -221,6 +228,7 @@ void HttpClient::run_unit_tests() {
 HttpRequest_SharedPtr HttpClient::_makeRequest(const std::string& httpMethod,
                                                const std::string& urlStr,
                                                const std::unordered_map<std::string, std::string>& headers,
+                                               const HttpRequestOpts *opts,
                                                const std::string& body,
                                                const bool& sendNow,
                                                HttpRequestCallback callback) {
@@ -236,6 +244,9 @@ HttpRequest_SharedPtr HttpClient::_makeRequest(const std::string& httpMethod,
                                                   url.path(),
                                                   url.queryParams(),
                                                   isSecure);
+    if (opts != nullptr) {
+        req->setOpts(*opts);
+    }
     req->setHeaders(headers);
     req->setBodyBytes(body);
     req->setCallback(callback);

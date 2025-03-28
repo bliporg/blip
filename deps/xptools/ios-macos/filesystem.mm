@@ -65,8 +65,9 @@ bool vx::fs::Helper::setInMemoryStorage(bool b) {
 ///
 /// --------------------------------------------------
 
-///
-static NSString *voxowlAppGroupName = @"9JFN8QQG65.com.voxowl.particubes";
+//static NSString *appGroupName = @"group.com.voxowl.blip";
+static NSString *appGroupName = @"9JFN8QQG65.com.voxowl.particubes";
+static NSString *legacyAppGroupName = @"9JFN8QQG65.com.voxowl.particubes";
 
 std::string dirname(const std::string& fname)
 {
@@ -92,7 +93,7 @@ static NSString *getStoragePath() {
             return [paths firstObject];
         }
     #elif TARGET_OS_MAC
-        NSURL *containerUrl = [NSFileManager.defaultManager containerURLForSecurityApplicationGroupIdentifier:voxowlAppGroupName];
+        NSURL *containerUrl = [NSFileManager.defaultManager containerURLForSecurityApplicationGroupIdentifier:appGroupName];
         NSString *containerPath = [containerUrl path];
         if (containerPath == nil) {
             return nil;

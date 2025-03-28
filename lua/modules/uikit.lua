@@ -3427,6 +3427,8 @@ function createUI(system)
 			textColorPressed = nil,
 			textColorSelected = theme.buttonTextColorSelected,
 			textColorDisabled = theme.buttonTextColorDisabled,
+			textOutline = 0.0,
+			textOutlineColor = Color.Black,
 			padding = true, -- default padding when true, can also be a number
 
 			-- BACKGROUND --
@@ -3697,7 +3699,7 @@ function createUI(system)
 		end
 
 		if type(content) == "string" then
-			local n = ui:createText(content, { size = config.textSize, font = config.textFont })
+			local n = ui:createText(content, { size = config.textSize, font = config.textFont, outline = config.textOutline, outlineColor = config.textOutlineColor })
 			n:setParent(node)
 			node.content = n
 		elseif typeof(content) == "Shape" or typeof(content) == "MutableShape" then

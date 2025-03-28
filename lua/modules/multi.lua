@@ -233,7 +233,7 @@ local receive = function(e)
 
 		if e[KEY_POSITION] then
 			local newPos = e[KEY_POSITION]
-			obj.multi.delta = obj.Position:Copy() - newPos:Copy()
+			obj.multi.delta = obj.Position - newPos
 			obj.parentBox.Position = newPos -- go there right away
 
 			-- TODO: teleportTriggerDistance should be per Object

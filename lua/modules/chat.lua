@@ -117,7 +117,7 @@ local playerSendMessage = function(message)
 			local receiver = { username = string.gmatch(message, "%S+")() }
 			-- find player to send message only to this client
 			recipients = {}
-			for _, p in pairs(Players) do
+			for _, p in Players do
 				if p.Username == receiver.username then
 					if p == Player then
 						LocalEvent:Send(LocalEvent.Name.WarningMessage, "You are trying to send a message to yourself.")

@@ -37,7 +37,7 @@ grid.Width = 10000
 grid.IsUnlit = true
 grid.Anchor = { 0.5, 0.5 }
 grid.Image = {
-	data = bundle:Data("images/frame-white-64x64.png"),
+	data = Data:FromBundle("images/frame-white-64x64.png"),
 	alpha = true,
 }
 grid.Tiling = Number2(3000, 3000)

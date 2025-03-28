@@ -421,6 +421,7 @@ static uint8_t AO_GRADIENT[4] = {0,
 // Home app may not necessarily be an actual world ID,
 // especially when solely an offline experience.
 #define WORLD_HOME_ID "home"
+#define WORLD_EDITOR_ID "world_editor"
 
 // #define LOCAL_SERVER true
 #define GAME_LAUNCH_DISTANT_SERVER false

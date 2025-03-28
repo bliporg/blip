@@ -85,7 +85,7 @@ properties:
     - name: "Action3Release"
       type: "function"
       description: |
-          Triggered when releasing action 3 button. (left click by default when using a mouse)
+          Triggered when releasing action 3 button. (right click by default when using a mouse)
 
           (turned off when [Pointer] is hidden)
       samples:
@@ -105,13 +105,13 @@ properties:
     - name: "DirectionalPad"
       type: "function"
       description: |
-          Triggered when what we call the "directional pad" or "D-pad" is activated. 
+          Triggered when the "directional pad" changes direction.
 
-          The D-pad maps to the direction keys when using a keyboard (WASD by default).
+          The "directional pad" maps to the direction keys when using a keyboard (WASD by default). When using a touch screen, it is by default represented by a virtual pad on the left side of the screen.
 
-          When using a touch screen, the D-pad is by default represented by the virtual pad that's on the left side of the screen.
+          The function is called only when the x or y value changes, not continuously while holding a direction.
 
-          The function receives 2 arguments `x` & `y` to represent 8 possible directions or the idle state:
+          The function receives 2 arguments `x` & `y` to represent 8 possible directions and idle state:
 
           `0,0 -> IDLE`
           `0,1 -> UP`, `1,0 -> RIGHT`, `0,-1 -> DOWN`, `-1,0 -> LEFT`
@@ -121,7 +121,7 @@ properties:
       samples:
         - code: |
             -- DEFAULT IMPLEMENTATION
-            -- (those functions can be redefined)
+            -- (these functions can be redefined)
 
             Client.DirectionalPad = function(x, y)
                 Player.Motion = (Player.Forward * y + Player.Right * x) * 50
@@ -135,19 +135,14 @@ properties:
                 Player.Motion = (Player.Forward * dpad.Y + Player.Right * dpad.X) * 50
             end
 
-    - name: "DPad"
-      type: "function"
-      description: |
-          Shortcut to [DirectionalPad](/reference/client#property-directionalpad).
-
     - name: "AnalogPad"
       type: "function"
       description: |
-          Triggered when what we call the "analog pad" or "A-pad" is activated. 
+          Triggered when the "analog pad" changes position.
 
-          The A-pad maps to the mouse mouvements when using a mouse.
+          The "analog pad" maps to the mouse movements when using a mouse. When using a touch screen, it is activated when moving the finger after a touch down that isn't caught by any other screen component (like [DirectionalPad](/reference/client#property-directionalpad)).
 
-          When using a touch screen, the A-pad is activated when moving the finger after a touch down from anywhere outside the [DirectionalPad](/reference/client#property-directionalpad).
+          The function is called only when the dx or dy value changes, not continuously while moving in a direction.
 
           The function receives 2 arguments `dx` & `dy` to represent the delta compared to the previous position. When both `dx` & `dy` are equal to `0.0`, it means the pad is back to idle state.
 
@@ -156,7 +151,7 @@ properties:
       samples:
         - code: |
             -- DEFAULT IMPLEMENTATION
-            -- (those functions can be redefined)
+            -- (these functions can be redefined)
 
             Client.AnalogPad = function(dx, dy)
                 Player.LocalRotation = Rotation(0, dx * 0.01, 0) * Player.LocalRotation
@@ -169,12 +164,6 @@ properties:
             Client.DirectionalPad = function(x, y)
                 Player.Motion = (Player.Forward * y + Player.Right * x) * 50
             end
-
-    - name: "APad"
-      coming-soon: true
-      type: "function"
-      description: |
-          Shortcut to [AnalogPad](/reference/client#property-analogpad).
 
     - name: "Fog"
       type: "Fog"
@@ -201,7 +190,7 @@ properties:
       description: |
           Triggered when a player joins the game.
 
-          It doens't mean the [Player] has spawned, just that there's a new connection.
+          It doesn't mean the [Player] has spawned, just that there's a new connection.
       samples:
         - code: |
             Client.OnPlayerJoin = function(player)
@@ -247,25 +236,6 @@ properties:
               print("elapsed:", dt, "seconds")
             end
 
-    - name: "UI"
-      type: "UI"
-      description: "See [UI]."
-
     - name: "Pointer"
       type: "Pointer"
       description: "See [Pointer]."
-
-    - name: "WillOpenGameMenu"
-      type: "function"
-      description: |
-        This function is triggered when the user is about to open the menu that offers to resume or leave the experience.
-      samples:
-        - code: |
-            Client.WillOpenGameMenu = function()
-              -- possible things to do:
-              -- - save user data
-              -- - inform other users
-              -- - if in a chat experience, set status as "away from keyboard" or something
-            end
-
-

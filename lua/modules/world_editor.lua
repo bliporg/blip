@@ -504,12 +504,11 @@ local statesSettings = {
 	},
 	[states.PICK_WORLD] = {
 		onStateBegin = function()
-			uiShowWorldPicker()
 			require("controls"):turnOff()
 			Player.Motion:Set(Number3.Zero)
+			loadEditedWorld()
 		end,
 		onStateEnd = function()
-			uiRemoveWorldPicker()
 		end,
 	},
 	[states.DEFAULT] = {
@@ -593,6 +592,10 @@ local statesSettings = {
 			worldEditor.nameInput.Text = obj.Name
 			worldEditor.nameInput.onTextChange = function(o)
 				selectedObject.Name = o.Text
+				worldEditorCommon.updateObject({
+					uuid = obj.uuid,
+					name = o.Text,
+				})
 			end
 			objectInfoFrame:bump()
 
@@ -639,6 +642,9 @@ local statesSettings = {
 			tryPickObjectUp(pe)
 		end,
 		onStateEnd = function()
+			worldEditor.nameInput.onTextChange = nil
+			worldEditor.nameInput.Text = ""
+
 			if transformGizmo then
 				transformGizmo:remove()
 				transformGizmo = nil
@@ -761,69 +767,41 @@ for localEventName, listenerName in pairs(listeners) do
 	end, { topPriority = false })
 end
 
-local worldPicker
-function uiShowWorldPicker()
-	if worldPicker ~= nil then
-		return
-	end
-	local content
-	worldPicker, content = require("creations"):createModal({
-		uikit = ui,
-		categories = { "worlds" },
-		title = "Open World...",
-		onOpen = function(_, cell)
-			require("api"):getWorld(cell.id, { "mapBase64" }, function(data, err)
-				if err then
-					print(err)
+function loadEditedWorld()
+	local worldID = Environment["EDITED_WORLD_ID"]
+	require("api"):getWorld(worldID, { "mapBase64", "title" }, function(data, err)
+		if err then
+			print(err)
+			return
+		end
+
+		loadWorld({
+			b64 = data.mapBase64,
+			title = data.title,
+			worldID = worldID,
+			onDone = function()
+				setState(states.DEFAULT)
+				startDefaultMode()
+			end,
+			onLoad = function(obj, data)
+				if data == "Map" then
+					if map then
+						map:RemoveFromParent()
+					end
+					map = obj
 					return
 				end
+				data.obj = obj
+				spawnObject(data)
+			end,
+		})
 
-				loadWorld({
-					b64 = data.mapBase64,
-					title = cell.title,
-					worldID = cell.id,
-					onDone = function()
-						setState(states.DEFAULT)
-						startDefaultMode()
-					end,
-					onLoad = function(obj, data)
-						if data == "Map" then
-							if map then
-								map:RemoveFromParent()
-							end
-							map = obj
-							return
-						end
-						data.obj = obj
-						spawnObject(data)
-					end,
-				})
-
-				local ambience = worldEditorCommon.getAmbience()
-				if ambience == nil then
-					worldEditorCommon.updateAmbience(defaultAmbience)
-					require("ai_ambience"):loadGeneration(defaultAmbience)
-				end
-
-				
-				-- local textureURL = "https://i.ibb.co/hgRhk0t/Standard-Cube-Map.png"
-				-- local textureURL = "https://files.cu.bzh/skyboxes/green-mushrooms512.png"
-				-- local textureURL = "https://files.cu.bzh/skyboxes/skybox_2.png"
-				-- skybox.load({ url = textureURL }, function(obj) end)
-			end)
-		end,
-	})
-	-- content.tabs[3].selected = true
-	-- content.tabs[3].action()
-	-- worldEditor.uiPickWorld = uiPickWorld
-end
-
-function uiRemoveWorldPicker()
-	if worldPicker == nil then
-		return
-	end
-	worldPicker:remove()
-	worldPicker = nil
+		local ambience = worldEditorCommon.getAmbience()
+		if ambience == nil then
+			worldEditorCommon.updateAmbience(defaultAmbience)
+			require("ai_ambience"):loadGeneration(defaultAmbience)
+		end
+	end)
 end
 
 startDefaultMode = function()

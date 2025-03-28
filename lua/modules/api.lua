@@ -549,26 +549,51 @@ mod.getWorld = function(self, worldID, fields, callback)
 	return req
 end
 
-mod.getWorldThumbnail = function(self, worldID, callback)
+mod.getWorldThumbnail = function(self, config)
 	if self ~= mod then
-		error("api:getWorldThumbnail(worldID, callback): use `:`", 2)
-	end
-	if type(worldID) ~= "string" then
-		error("api:getWorldThumbnail(worldID, callback): worldID should be a string", 2)
-	end
-	if type(callback) ~= "function" then
-		error("api:getWorldThumbnail(worldID, callback): callback should be a function", 2)
+		error("api:getWorldThumbnail(config): use `:`", 2)
 	end
 
-	local u = url:parse(mod.kApiAddr .. "/worlds/" .. worldID .. "/thumbnail")
+	local defaultConfig = {
+		worldID = "",
+		width = nil,
+		callback = nil,
+	}
+
+	ok, err = pcall(function()
+		config = require("config"):merge(defaultConfig, config, {
+			acceptTypes = {
+				width = { "number" },
+				callback = { "function" },
+			},
+		})
+	end)
+
+	if not ok then
+		error("api:getWorldThumbnail(config): config error (" .. err .. ")", 2)
+	end
+
+	if config.worldID == "" then
+		error("api:getWorldThumbnail(config): config.worldID should not be empty", 2)
+	end
+	if config.callback == nil then
+		error("api:getWorldThumbnail(config): config.callback should be a function", 2)
+	end
+
+	local u
+	if config.width ~= nil then
+		u = url:parse(mod.kApiAddr .. "/worlds/" .. config.worldID .. "/thumbnail-" .. config.width .. ".png")
+	else
+		u = url:parse(mod.kApiAddr .. "/worlds/" .. config.worldID .. "/thumbnail.png")
+	end
 
 	local req = HTTP:Get(u:toString(), function(res)
 		if res.StatusCode == 200 then
-			callback(res.Body)
+			config.callback(res.Body)
 		elseif res.StatusCode == 400 then
-			callback(nil, mod:error(res.StatusCode, "status code: " .. res.StatusCode))
+			config.callback(nil, mod:error(res.StatusCode, "status code: " .. res.StatusCode))
 		else
-			callback(nil, mod:error(res.StatusCode, "status code: " .. res.StatusCode))
+			config.callback(nil, mod:error(res.StatusCode, "status code: " .. res.StatusCode))
 		end
 	end)
 
