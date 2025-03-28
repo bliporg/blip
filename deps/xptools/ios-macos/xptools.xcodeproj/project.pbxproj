@@ -290,6 +290,15 @@
 		85E6380D28F703C3001FC12F /* device.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 85E6380B28F703C3001FC12F /* device.cpp */; };
 		85E6380E28F703C3001FC12F /* device.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 85E6380B28F703C3001FC12F /* device.cpp */; };
 		85E9224D24111875008B5D81 /* filesystem.h in Headers */ = {isa = PBXBuildFile; fileRef = 85E9224C24111875008B5D81 /* filesystem.h */; };
+		85FA71DB2D97084200CBD3F7 /* passkey.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 85FA71DA2D97083400CBD3F7 /* passkey.hpp */; };
+		85FA71DC2D97084200CBD3F7 /* passkey.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 85FA71DA2D97083400CBD3F7 /* passkey.hpp */; };
+		85FA71DD2D97084200CBD3F7 /* passkey.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 85FA71DA2D97083400CBD3F7 /* passkey.hpp */; };
+		85FA71DE2D97084200CBD3F7 /* passkey.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 85FA71DA2D97083400CBD3F7 /* passkey.hpp */; };
+		85FA71E02D9709D100CBD3F7 /* passkey.mm in Sources */ = {isa = PBXBuildFile; fileRef = 85FA71DF2D9709CC00CBD3F7 /* passkey.mm */; };
+		85FA71E12D9709D100CBD3F7 /* passkey.mm in Sources */ = {isa = PBXBuildFile; fileRef = 85FA71DF2D9709CC00CBD3F7 /* passkey.mm */; };
+		85FA71E22D9709D100CBD3F7 /* passkey.mm in Sources */ = {isa = PBXBuildFile; fileRef = 85FA71DF2D9709CC00CBD3F7 /* passkey.mm */; };
+		85FA71E32D9709D100CBD3F7 /* passkey.mm in Sources */ = {isa = PBXBuildFile; fileRef = 85FA71DF2D9709CC00CBD3F7 /* passkey.mm */; };
+		85FA71E42D9709D100CBD3F7 /* passkey.mm in Sources */ = {isa = PBXBuildFile; fileRef = 85FA71DF2D9709CC00CBD3F7 /* passkey.mm */; };
 		85FCECA528072D3200CD6115 /* WSBackend.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 85FCECA128072D3200CD6115 /* WSBackend.hpp */; };
 		85FCECA628072D3200CD6115 /* WSBackend.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 85FCECA128072D3200CD6115 /* WSBackend.hpp */; };
 		85FED02C2B0B5C6A00C68F6D /* HttpRequestOpts.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 85FED02B2B0B5C6A00C68F6D /* HttpRequestOpts.cpp */; };
@@ -467,6 +476,8 @@
 		85D52F6A29D9EE2900070F19 /* URL.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = URL.cpp; sourceTree = "<group>"; };
 		85E6380B28F703C3001FC12F /* device.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = device.cpp; sourceTree = "<group>"; };
 		85E9224C24111875008B5D81 /* filesystem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = filesystem.h; sourceTree = "<group>"; };
+		85FA71DA2D97083400CBD3F7 /* passkey.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = passkey.hpp; sourceTree = "<group>"; };
+		85FA71DF2D9709CC00CBD3F7 /* passkey.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = passkey.mm; sourceTree = "<group>"; };
 		85FCECA128072D3200CD6115 /* WSBackend.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = WSBackend.hpp; sourceTree = "<group>"; };
 		85FED0252B0AB80F00C68F6D /* HttpRequestOpts.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = HttpRequestOpts.hpp; sourceTree = "<group>"; };
 		85FED02B2B0B5C6A00C68F6D /* HttpRequestOpts.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = HttpRequestOpts.cpp; sourceTree = "<group>"; };
@@ -577,6 +588,7 @@
 				858ABB892A52F5E6007AE641 /* Macros.h */,
 				85BD47D32A5DAB7A00556C6E /* notifications.hpp */,
 				858ABB8C2A52F5EE007AE641 /* OperationQueue.hpp */,
+				85FA71DA2D97083400CBD3F7 /* passkey.hpp */,
 				85AF77412AA1C40F007480C2 /* preferences.hpp */,
 				855CB5DA28731FFE00072D5F /* process.hpp */,
 				10C63D2F246C59FD003DEC3E /* strings.h */,
@@ -588,7 +600,6 @@
 				85D52F6729D9EE1500070F19 /* URL.hpp */,
 				8559F24D244CFF9A00574528 /* vxlog.h */,
 				1033951C25626D130083F4C0 /* vxtime.h */,
-				8534FDD1240E9762004B3494 /* xptools.h */,
 				10EE2BC3272C080000EC374C /* web.hpp */,
 				85FCECA128072D3200CD6115 /* WSBackend.hpp */,
 				85471B2F27E3E006000575D5 /* WSConnection.hpp */,
@@ -596,6 +607,7 @@
 				85471B3027E3E006000575D5 /* WSServerConnection.hpp */,
 				85471B9127E85AF6000575D5 /* WSService.hpp */,
 				85471B6C27E4C99E000575D5 /* WSTypes.hpp */,
+				8534FDD1240E9762004B3494 /* xptools.h */,
 			);
 			name = include;
 			path = ../include;
@@ -637,6 +649,7 @@
 		8534FDD0240E9723004B3494 /* ios-macos */ = {
 			isa = PBXGroup;
 			children = (
+				85FA71DF2D9709CC00CBD3F7 /* passkey.mm */,
 				10974C8C244D6916008153FE /* device-ios.mm */,
 				8534FDD5240E97D5004B3494 /* device-macos.mm */,
 				10974C89244D690C008153FE /* filesystem.mm */,
@@ -711,6 +724,7 @@
 				1021450D2C75E0C000099E38 /* process.hpp in Headers */,
 				1021450E2C75E0C000099E38 /* WSServerConnection.hpp in Headers */,
 				1021450F2C75E0C000099E38 /* Macros.h in Headers */,
+				85FA71DC2D97084200CBD3F7 /* passkey.hpp in Headers */,
 				102145102C75E0C000099E38 /* json.hpp in Headers */,
 				102145112C75E0C000099E38 /* filesystem.h in Headers */,
 			);
@@ -743,6 +757,7 @@
 				10847CBF270EE8C6006A5E91 /* filesystem.hpp in Headers */,
 				855CB5DF28731FFE00072D5F /* process.hpp in Headers */,
 				85471B3827E3E006000575D5 /* WSServerConnection.hpp in Headers */,
+				85FA71DD2D97084200CBD3F7 /* passkey.hpp in Headers */,
 				8518D0A427BA6DF100A438D6 /* json.hpp in Headers */,
 				10847CC1270EE8C6006A5E91 /* filesystem.h in Headers */,
 			);
@@ -775,6 +790,7 @@
 				850BDE842D19EC0F00A85B76 /* process.hpp in Headers */,
 				850BDE852D19EC0F00A85B76 /* WSServerConnection.hpp in Headers */,
 				850BDE862D19EC0F00A85B76 /* Macros.h in Headers */,
+				85FA71DB2D97084200CBD3F7 /* passkey.hpp in Headers */,
 				850BDE872D19EC0F00A85B76 /* json.hpp in Headers */,
 				850BDE882D19EC0F00A85B76 /* filesystem.h in Headers */,
 			);
@@ -807,6 +823,7 @@
 				855CB5DE28731FFE00072D5F /* process.hpp in Headers */,
 				85471B3727E3E006000575D5 /* WSServerConnection.hpp in Headers */,
 				858ABB8A2A52F5E6007AE641 /* Macros.h in Headers */,
+				85FA71DE2D97084200CBD3F7 /* passkey.hpp in Headers */,
 				8518D0A227BA6DF100A438D6 /* json.hpp in Headers */,
 				85E9224D24111875008B5D81 /* filesystem.h in Headers */,
 			);
@@ -997,6 +1014,7 @@
 				1021451A2C75E0C000099E38 /* json.cpp in Sources */,
 				1021451B2C75E0C000099E38 /* filesystem.cpp in Sources */,
 				1021451C2C75E0C000099E38 /* notifications.mm in Sources */,
+				85FA71E02D9709D100CBD3F7 /* passkey.mm in Sources */,
 				1021451D2C75E0C000099E38 /* audio.cpp in Sources */,
 				1021451E2C75E0C000099E38 /* HttpCookie.cpp in Sources */,
 				1021451F2C75E0C000099E38 /* HttpClient.cpp in Sources */,
@@ -1053,6 +1071,7 @@
 				85471B4227E3E4AA000575D5 /* LocalConnection.cpp in Sources */,
 				10EE2BC9272C098A00EC374C /* web-macos.mm in Sources */,
 				85BB0193279F3B56000F1B10 /* HttpRequest.cpp in Sources */,
+				85FA71E42D9709D100CBD3F7 /* passkey.mm in Sources */,
 				85471B4527E3E4AA000575D5 /* Connection.cpp in Sources */,
 				85FED02E2B0B5C6A00C68F6D /* HttpRequestOpts.cpp in Sources */,
 				101554E72C04D57E001E9057 /* cJSON.c in Sources */,
@@ -1109,6 +1128,7 @@
 				850BDEAB2D19EC0F00A85B76 /* strings.cpp in Sources */,
 				850BDEAC2D19EC0F00A85B76 /* WSServer.cpp in Sources */,
 				850BDEAD2D19EC0F00A85B76 /* WSConnection.cpp in Sources */,
+				85FA71E32D9709D100CBD3F7 /* passkey.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1152,6 +1172,7 @@
 				10C63D2C246C4F61003DEC3E /* strings.cpp in Sources */,
 				85471B4627E3E4AA000575D5 /* WSServer.cpp in Sources */,
 				100512112CC6BECB00B16FB1 /* WSConnection.cpp in Sources */,
+				85FA71E12D9709D100CBD3F7 /* passkey.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1195,6 +1216,7 @@
 				85471B4727E3E4AA000575D5 /* WSServer.cpp in Sources */,
 				1022D09428AF8EEF00C1F1E9 /* process-ios.cpp in Sources */,
 				100512122CC6BECB00B16FB1 /* WSConnection.cpp in Sources */,
+				85FA71E22D9709D100CBD3F7 /* passkey.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
