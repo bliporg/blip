@@ -41,20 +41,20 @@
                  domain:(const std::string&)domain
                username:(const std::string&)username {
 #if TARGET_OS_IPHONE || TARGET_OS_SIMULATOR
-    if (@available(iOS 16.0, *)) {
-        // Obtain these from the server
-        NSData *challengeData = [NSData dataWithBytes:challenge.c_str() length:challenge.length()];
-        NSData *userIDData = [NSData dataWithBytes:userID.c_str() length:userID.length()];
-        NSString *domainStr = [NSString stringWithUTF8String:domain.c_str()];
-        NSString *usernameStr = [NSString stringWithUTF8String:username.c_str()];
-
-        ASAuthorizationPlatformPublicKeyCredentialProvider *platformProvider = [[ASAuthorizationPlatformPublicKeyCredentialProvider alloc] initWithRelyingPartyIdentifier:domainStr];
-        ASAuthorizationPlatformPublicKeyCredentialRegistrationRequest *platformKeyRequest = [platformProvider createCredentialRegistrationRequestWithChallenge:challengeData name:usernameStr userID:userIDData];
-
-        ASAuthorizationController *authController = [[ASAuthorizationController alloc] initWithAuthorizationRequests:@[platformKeyRequest]];
-        authController.delegate = self;
-        [authController performRequests];
-    }
+//    if (@available(iOS 16.0, *)) {
+//        // Obtain these from the server
+//        NSData *challengeData = [NSData dataWithBytes:challenge.c_str() length:challenge.length()];
+//        NSData *userIDData = [NSData dataWithBytes:userID.c_str() length:userID.length()];
+//        NSString *domainStr = [NSString stringWithUTF8String:domain.c_str()];
+//        NSString *usernameStr = [NSString stringWithUTF8String:username.c_str()];
+//
+//        ASAuthorizationPlatformPublicKeyCredentialProvider *platformProvider = [[ASAuthorizationPlatformPublicKeyCredentialProvider alloc] initWithRelyingPartyIdentifier:domainStr];
+//        ASAuthorizationPlatformPublicKeyCredentialRegistrationRequest *platformKeyRequest = [platformProvider createCredentialRegistrationRequestWithChallenge:challengeData name:usernameStr userID:userIDData];
+//
+//        ASAuthorizationController *authController = [[ASAuthorizationController alloc] initWithAuthorizationRequests:@[platformKeyRequest]];
+//        authController.delegate = self;
+//        [authController performRequests];
+//    }
 #endif
 }
 
