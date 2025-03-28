@@ -46,6 +46,10 @@
 #define TRANSFORM_FLAG_ANIMATIONS 8
 // helper to debug a specific transform
 #define TRANSFORM_FLAG_DEBUG 16
+// mask allowing to block inheritance of select transform from parent
+#define TRANSFORM_FLAG_LOCK_T 32
+#define TRANSFORM_FLAG_LOCK_R 64
+#define TRANSFORM_FLAG_LOCK_S 128
 
 #if DEBUG_TRANSFORM
 static int debug_transform_refresh_calls = 0;
@@ -622,6 +626,42 @@ void transform_set_name(Transform *t, const char *name) {
         free(t->name);
     }
     t->name = string_new_copy(name);
+}
+
+void transform_set_locks(Transform *t, bool translation, bool rotation, bool scale) {
+    const bool setTranslation = _transform_get_flag(t, TRANSFORM_FLAG_LOCK_T) != translation;
+    const bool setRotation = _transform_get_flag(t, TRANSFORM_FLAG_LOCK_R) != rotation;
+    const bool setScale = _transform_get_flag(t, TRANSFORM_FLAG_LOCK_S) != scale;
+
+    if (setTranslation || setRotation) {
+        _transform_check_and_refresh_parents(t);
+    }
+    if (setTranslation) {
+        _transform_refresh_local_position(t);
+        _transform_set_dirty(t, TRANSFORM_DIRTY_POS | TRANSFORM_DIRTY_MTX, false);
+        _transform_toggle_flag(t, TRANSFORM_FLAG_LOCK_T, translation);
+    }
+    if (setRotation) {
+        _transform_refresh_local_rotation(t);
+        _transform_set_dirty(t, TRANSFORM_DIRTY_ROT | TRANSFORM_DIRTY_MTX, false);
+        _transform_toggle_flag(t, TRANSFORM_FLAG_LOCK_R, rotation);
+    }
+    if (setScale) {
+        _transform_set_dirty(t, TRANSFORM_DIRTY_MTX, false);
+        _transform_toggle_flag(t, TRANSFORM_FLAG_LOCK_S, scale);
+    }
+}
+
+void transform_get_locks(Transform *t, bool *translation, bool *rotation, bool *scale) {
+    if (translation != NULL) {
+        *translation = _transform_get_flag(t, TRANSFORM_FLAG_LOCK_T);
+    }
+    if (rotation != NULL) {
+        *rotation = _transform_get_flag(t, TRANSFORM_FLAG_LOCK_R);
+    }
+    if (scale != NULL) {
+        *scale = _transform_get_flag(t, TRANSFORM_FLAG_LOCK_S);
+    }
 }
 
 // MARK: - Scale -
@@ -1451,10 +1491,40 @@ static void _transform_refresh_matrices(Transform *t, bool hierarchyDirty) {
     }
 
     if (dirty || hierarchyDirty) {
+
         /// refreshes ltw & wtl
         matrix4x4_copy(t->ltw, t->mtx);
         if (t->parent != NULL) {
-            matrix4x4_op_multiply_2(t->parent->ltw, t->ltw);
+            // if any lock in place, build custom parent ltw matrix
+            if (_transform_get_flag(t,
+                                    TRANSFORM_FLAG_LOCK_T | TRANSFORM_FLAG_LOCK_R |
+                                        TRANSFORM_FLAG_LOCK_S)) {
+                Matrix4x4 *parentLtw = matrix4x4_new_identity();
+
+                if (_transform_get_flag(t, TRANSFORM_FLAG_LOCK_S) == false) {
+                    float3 lossyScale;
+                    matrix4x4_get_scaleXYZ(t->parent->ltw, &lossyScale);
+                    matrix4x4_set_scaleXYZ(parentLtw, lossyScale.x, lossyScale.y, lossyScale.z);
+                }
+                if (_transform_get_flag(t, TRANSFORM_FLAG_LOCK_R) == false) {
+                    Matrix4x4 mtx;
+                    quaternion_to_rotation_matrix(t->parent->rotation, &mtx);
+                    matrix4x4_op_multiply_2(&mtx, parentLtw);
+                }
+                if (_transform_get_flag(t, TRANSFORM_FLAG_LOCK_T) == false) {
+                    Matrix4x4 mtx;
+                    matrix4x4_set_translation(&mtx,
+                                              t->parent->ltw->x4y1,
+                                              t->parent->ltw->x4y2,
+                                              t->parent->ltw->x4y3);
+                    matrix4x4_op_multiply_2(&mtx, parentLtw);
+                }
+
+                matrix4x4_op_multiply_2(parentLtw, t->ltw);
+                matrix4x4_free(parentLtw);
+            } else {
+                matrix4x4_op_multiply_2(t->parent->ltw, t->ltw);
+            }
         }
         matrix4x4_copy(t->wtl, t->ltw);
         matrix4x4_op_invert(t->wtl);

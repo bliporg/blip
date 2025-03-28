@@ -138,6 +138,8 @@ bool transform_is_removed_from_scene(Transform *t);
 void transform_set_removed_from_scene(Transform *t, bool value);
 const char *transform_get_name(const Transform *t);
 void transform_set_name(Transform *t, const char *value);
+void transform_set_locks(Transform *t, bool translation, bool rotation, bool scale);
+void transform_get_locks(Transform *t, bool *translation, bool *rotation, bool *scale);
 
 /// MARK: - Scale -
 void transform_set_local_scale(Transform *t, const float x, const float y, const float z);
