@@ -13,16 +13,18 @@ bool vx::auth::PassKey::IsAvailable() {
     return false;
 }
 
-std::string vx::auth::PassKey::createPasskey(const std::string& relyingPartyIdentifier,
-                                             const std::string& challenge,
-                                             const std::string& userID,
-                                             const std::string& username,
-                                             vx::auth::PassKey::CreatePasskeyCallbackFunc callback) {
+std::string vx::auth::PassKey::createPasskey(
+    const std::string &relyingPartyIdentifier,
+    const std::string &challenge,
+    const std::string &userID,
+    const std::string &username,
+    vx::auth::PassKey::CreatePasskeyCallbackFunc callback) {
     return "not implemented"; // error
 }
 
-std::string vx::auth::PassKey::loginWithPasskey(const std::string& relyingPartyIdentifier,
-                                                const std::string& challengeBytes,
-                                                vx::auth::PassKey::LoginWithPasskeyCallbackFunc callback) {
+std::string vx::auth::PassKey::loginWithPasskey(
+    const std::string &relyingPartyIdentifier,
+    const std::string &challengeBytes,
+    vx::auth::PassKey::LoginWithPasskeyCallbackFunc callback) {
     return "not implemented"; // error
 }
