@@ -28,6 +28,96 @@ const (
 
 type Blip struct{}
 
+// Check code formatting on the entire repository
+func (m *Blip) GlobalCodeFormat(
+	ctx context.Context,
+	// +defaultPath="/"
+	// +ignore=["*", "!.clang-format", "!deps/xptools/android"]
+	workdir *dagger.Directory,
+	// Only check, don't fix
+	// +optional
+	dryrun bool,
+) (*dagger.Directory, error) {
+
+	// ------------------------------------------
+	// How to use this function:
+	// ------------------------------------------
+
+	// dagger call global-code-format --workdir=. --dryrun=true
+	// dagger call global-code-format --workdir=. --dryrun=false
+
+	// ------------------------------------------
+	// TODO
+	// ------------------------------------------
+
+	// - /core (TODO)
+	// - /deps/xptools (TODO)
+	//   - /deps/xptools/android (TODO)
+	//   - /deps/xptools/common (TODO)
+	//   - /deps/xptools/include (TODO)
+	//   - /deps/xptools/ios-macos (TODO)
+	//   - /deps/xptools/linux (TODO)
+	//   - /deps/xptools/web (TODO)
+	//   - /deps/xptools/windows (TODO)
+	// - /lua/modules (TODO)
+
+	// ------------------------------------------
+	// C/C++ source code
+	// ------------------------------------------
+
+	// directories containing C/C++ source files
+	directories := []string{
+		"./deps/xptools/android",
+		// ...
+	}
+
+	// file selection
+	fileSelection := `\( -name "*.h" -o -name "*.hpp" -o -name "*.c" -o -name "*.cpp" \)`
+
+	// clang-format command
+	// arguments:
+	// -i: apply changes
+	// --Werror: consider warnings as errors
+	// -style-file: follow the rules from the .clang-format file
+	clangFormatCommand := "clang-format"
+	if dryrun {
+		clangFormatCommand += " --dry-run" // only check formatting
+	} else {
+		clangFormatCommand += " -i" // apply changes (TODO: gaetan: is this flag really needed?)
+	}
+	clangFormatCommand += " --Werror"    // consider warnings as errors (TODO: gaetan: maybe this is needed only for dryrun?)
+	clangFormatCommand += " -style=file" // follow the rules from the .clang-format file
+
+	// construct script
+
+	var script string
+	script += `set -e ; set -o pipefail ; `
+
+	for _, dir := range directories {
+		script += `find ` + dir + ` -type f ` + fileSelection + ` -print0 | xargs -0 ` + clangFormatCommand
+	}
+
+	// if dryrun {
+	// 	script = `
+	// 	set -e
+	// 	set -o pipefail
+	// 	find ./deps/xptools -type f \( -name "*.cpp" -o -name "*.c" \) -print0 | xargs -0 clang-format --dry-run --Werror -style=file
+	// 	`
+	// } else {
+	// 	script = `set -e ; set -o pipefail ; find ./deps/xptools -type f \( -name "*.cpp" -o -name "*.c" \) -print0 | xargs -0 clang-format -i --Werror -style=file`
+	// }
+
+	workdir = dag.
+		Container().
+		From("gaetan/clang-tools").
+		WithMountedDirectory("/project", workdir).
+		WithWorkdir("/project").
+		WithExec([]string{"ash", "-c", script}).
+		Directory(".")
+
+	return workdir, nil
+}
+
 // Run core unit tests
 func (m *Blip) TestCore(
 	ctx context.Context,
@@ -114,6 +204,40 @@ func (m *Blip) FormatCore(
 	}
 	return output, nil
 }
+
+// // Format the C/C++ source code in /deps/xptools using clang tools
+// // Command:
+// // dagger call format-xptools --src=. -o .
+// func (m *Blip) FormatXPTools(
+// 	ctx context.Context,
+// 	// Source code to format
+// 	// +defaultPath="/"
+// 	// +ignore=["*", "!.clang-format", "!deps/xptools/android"]
+// 	src *dagger.Directory,
+// ) (*dagger.Directory, error) {
+
+// 	// clang-format arguments:
+// 	// -i: apply changes
+// 	// --Werror: consider warnings as errors
+// 	// -style-file: follow the rules from the .clang-format file
+
+// 	// script := `set -e ; set -o pipefail ; find ./deps/xptools -maxdepth 2 -regex '^.*\\.\\(cpp\\|hpp\\|c\\|h\\)$' -print0 | xargs -0 clang-format -i --Werror -style=file`
+// 	script := `set -e ; set -o pipefail ; find ./deps/xptools -type f \( -name "*.cpp" -o -name "*.c" \) -print0 | xargs -0 clang-format -i --Werror -style=file`
+
+// 	output := dag.
+// 		Container().
+// 		From("gaetan/clang-tools").
+// 		WithMountedDirectory("/project", src).
+// 		WithWorkdir("/project").
+// 		WithExec([]string{"ash", "-c", script}).
+// 		Directory(".")
+
+// 	// if check {
+// 	// 	return output.Sync(ctx)
+// 	// }
+
+// 	return output, nil
+// }
 
 // Build a Lua dev container with modules source code mounted
 func (m *Blip) LuaDev(
