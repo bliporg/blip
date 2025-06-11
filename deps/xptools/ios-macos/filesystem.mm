@@ -17,6 +17,7 @@
 #if TARGET_OS_IPHONE
 #import <Photos/Photos.h>
 #import <UIKit/UIKit.h>
+#import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
 #elif TARGET_OS_MAC
 #import <AppKit/AppKit.h>
 #import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
@@ -76,6 +77,36 @@ std::string dirname(const std::string& fname)
          ? ""
          : fname.substr(0, pos);
 }
+
+#if TARGET_OS_IPHONE
+// Helper function to get the root view controller in a modern way
+UIViewController* getRootViewController() {
+    if (@available(iOS 13.0, *)) {
+        // iOS 13+ scene-based approach
+        UIWindow *window = nil;
+        for (UIWindowScene* windowScene in [UIApplication sharedApplication].connectedScenes) {
+            if (windowScene.activationState == UISceneActivationStateForegroundActive) {
+                for (UIWindow *w in windowScene.windows) {
+                    if (w.isKeyWindow) {
+                        window = w;
+                        break;
+                    }
+                }
+                if (window) break;
+            }
+        }
+        if (window) {
+            return window.rootViewController;
+        }
+    }
+    
+    // Fallback for iOS 12 and earlier, or if scene approach fails
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+    return [UIApplication sharedApplication].keyWindow.rootViewController;
+#pragma clang diagnostic pop
+}
+#endif
 
 ///
 static NSString *getStoragePath() {
@@ -369,7 +400,7 @@ void showIOSPhotosPickerForImport(vx::fs::ImportFileCallback callback) {
                         delegate.callback = callback;
                         imagePicker.delegate = delegate;
 
-                        UIViewController *rootController = [[[UIApplication sharedApplication] keyWindow] rootViewController];
+                        UIViewController *rootController = getRootViewController();
                         [rootController presentViewController:imagePicker animated:true completion:nil];
                     }
                 });
@@ -387,7 +418,7 @@ void showIOSPhotosPickerForImport(vx::fs::ImportFileCallback callback) {
                 delegate.callback = callback;
                 imagePicker.delegate = delegate;
 
-                UIViewController *rootController = [[[UIApplication sharedApplication] keyWindow] rootViewController];
+                UIViewController *rootController = getRootViewController();
                 [rootController presentViewController:imagePicker animated:true completion:nil];
             }
         });
@@ -399,24 +430,38 @@ void showIOSPhotosPickerForImport(vx::fs::ImportFileCallback callback) {
 
 void showIOSFilesPickerForImport(vx::fs::ImportFileCallback callback) {
     dispatch_async(dispatch_get_main_queue(), ^{
-        UIViewController *vc = [UIApplication sharedApplication].keyWindow.rootViewController;
+        UIViewController *vc = getRootViewController();
         
-        // Create UTType objects for each file type - modern approach
-        NSMutableArray<UTType *> *allowedTypes = [NSMutableArray array];
+        UIDocumentPickerViewController *pickerVC = nil;
         
-        // Standard image types
-        [allowedTypes addObject:UTTypePNG];
-        [allowedTypes addObject:UTTypeJPEG];
-        [allowedTypes addObject:UTTypeGIF];
-        
-        // Custom voxel/3D model types
-        [allowedTypes addObject:[UTType typeWithFilenameExtension:@"vox"]];
-        [allowedTypes addObject:[UTType typeWithFilenameExtension:@"pcubes"]];
-        [allowedTypes addObject:[UTType typeWithFilenameExtension:@"3zh"]];
-        [allowedTypes addObject:[UTType typeWithFilenameExtension:@"glb"]];
-        [allowedTypes addObject:[UTType typeWithFilenameExtension:@"gltf"]];
-        
-        UIDocumentPickerViewController *pickerVC = [[UIDocumentPickerViewController alloc] initForOpeningContentTypes:allowedTypes];
+        // Use modern UTType approach for iOS 14+ when available
+        if (@available(iOS 14.0, *)) {
+            // Create UTType objects for each file type - modern approach
+            NSMutableArray<UTType *> *allowedTypes = [NSMutableArray arrayWithObjects:
+                                                     // Standard image types
+                                                     UTTypePNG,
+                                                     UTTypeJPEG,
+                                                     UTTypeGIF,
+                                                     // Custom voxel/3D model types
+                                                     [UTType typeWithFilenameExtension:@"vox"],
+                                                     [UTType typeWithFilenameExtension:@"pcubes"],
+                                                     [UTType typeWithFilenameExtension:@"3zh"],
+                                                     [UTType typeWithFilenameExtension:@"glb"],
+                                                     [UTType typeWithFilenameExtension:@"gltf"],
+                                                     nil];
+            pickerVC = [[UIDocumentPickerViewController alloc] initForOpeningContentTypes:allowedTypes];
+        } else {
+            // Fallback for iOS 13 and earlier
+            NSArray<NSString *> *documentTypes = @[@"public.png",
+                                                   @"public.jpeg", 
+                                                   @"com.compuserve.gif",
+                                                   @"com.voxowl.particubes.vox",
+                                                   @"com.voxowl.particubes.pcubes",
+                                                   @"com.voxowl.particubes.3zh",
+                                                   @"com.voxowl.particubes.glb",
+                                                   @"com.voxowl.particubes.gltf"];
+            pickerVC = [[UIDocumentPickerViewController alloc] initWithDocumentTypes:documentTypes inMode:UIDocumentPickerModeImport];
+        }
 
         DocumentPickerDelegate *d = [DocumentPickerDelegate shared];
         d.callback = callback;
@@ -427,7 +472,7 @@ void showIOSFilesPickerForImport(vx::fs::ImportFileCallback callback) {
 
 void showImportFileOptions(vx::fs::ImportFileCallback callback) {
     dispatch_async(dispatch_get_main_queue(), ^{
-        UIViewController *vc = [UIApplication sharedApplication].keyWindow.rootViewController;
+        UIViewController *vc = getRootViewController();
         
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Import File" 
                                                                                  message:@"Choose the source for your file" 
@@ -914,7 +959,7 @@ bool vx::fs::mergeBundleDirInStorage(const std::string& bundleDir, const std::st
 
 -(void)prepareForPopoverPresentation:(UIPopoverPresentationController *)popoverPresentationController {
     
-    UIViewController *vc = [UIApplication sharedApplication].keyWindow.rootViewController;
+    UIViewController *vc = getRootViewController();
     [UIView animateWithDuration:0.2 animations:^{
         vc.view.alpha = 0.5;
     }];
@@ -922,7 +967,7 @@ bool vx::fs::mergeBundleDirInStorage(const std::string& bundleDir, const std::st
 
 - (void)popoverPresentationController:(UIPopoverPresentationController *)popoverPresentationController willRepositionPopoverToRect:(inout CGRect *)rect inView:(inout UIView * _Nonnull __autoreleasing *)view {
  
-    UIViewController *vc = [UIApplication sharedApplication].keyWindow.rootViewController;
+    UIViewController *vc = getRootViewController();
     
     *rect = CGRectMake(CGRectGetMidX(vc.view.bounds),
                       CGRectGetMidY(vc.view.bounds),
@@ -941,7 +986,7 @@ void vx::fs::shareFile(const std::string& filepath,
     
     vxlog_info("📸 [shareFile] %s", filepath.c_str());
 #if TARGET_OS_IPHONE
-    UIViewController *vc = [UIApplication sharedApplication].keyWindow.rootViewController;
+    UIViewController *vc = getRootViewController();
 
     NSString *filepathStr = [NSString stringWithCString:filepath.c_str() encoding:NSUTF8StringEncoding];
     NSString *srcFullpath = [NSString stringWithFormat:@"%@/%@", getStoragePath(), filepathStr];
@@ -1189,7 +1234,7 @@ void showIOSPhotoPicker() {
                         imagePicker.allowsEditing = false;
                         imagePicker.delegate = [ImagePickerDelegate shared];
 
-                        UIViewController *rootController = [[[UIApplication sharedApplication] keyWindow] rootViewController];
+                        UIViewController *rootController = getRootViewController();
                         [rootController presentViewController:imagePicker animated:true completion:nil];
                     }
                 });
@@ -1205,7 +1250,7 @@ void showIOSPhotoPicker() {
                 imagePicker.allowsEditing = false;
                 imagePicker.delegate = [ImagePickerDelegate shared];
 
-                UIViewController *rootController = [[[UIApplication sharedApplication] keyWindow] rootViewController];
+                UIViewController *rootController = getRootViewController();
                 [rootController presentViewController:imagePicker animated:true completion:nil];
             }
         });
@@ -1217,11 +1262,20 @@ void showIOSPhotoPicker() {
 
 void showIOSFilePicker() {
     dispatch_async(dispatch_get_main_queue(), ^{
-        UIViewController *vc = [UIApplication sharedApplication].keyWindow.rootViewController;
+        UIViewController *vc = getRootViewController();
         
-        // Use modern UTType approach for images
-        NSArray<UTType *> *imageTypes = @[UTTypePNG, UTTypeJPEG, UTTypeGIF];
-        UIDocumentPickerViewController *pickerVC = [[UIDocumentPickerViewController alloc] initForOpeningContentTypes:imageTypes];
+        UIDocumentPickerViewController *pickerVC = nil;
+        
+        // Use modern UTType approach for iOS 14+ when available
+        if (@available(iOS 14.0, *)) {
+            // Use modern UTType approach for images
+            NSArray<UTType *> *imageTypes = @[UTTypePNG, UTTypeJPEG, UTTypeGIF];
+            pickerVC = [[UIDocumentPickerViewController alloc] initForOpeningContentTypes:imageTypes];
+        } else {
+            // Fallback for iOS 13 and earlier
+            NSArray<NSString *> *documentTypes = @[@"public.png", @"public.jpeg", @"com.compuserve.gif"];
+            pickerVC = [[UIDocumentPickerViewController alloc] initWithDocumentTypes:documentTypes inMode:UIDocumentPickerModeImport];
+        }
 
         DocumentPickerDelegateForThumbnail *d = [DocumentPickerDelegateForThumbnail shared];
         pickerVC.delegate = d;
@@ -1231,7 +1285,7 @@ void showIOSFilePicker() {
 
 void showThumbnailPickerOptions() {
     dispatch_async(dispatch_get_main_queue(), ^{
-        UIViewController *vc = [UIApplication sharedApplication].keyWindow.rootViewController;
+        UIViewController *vc = getRootViewController();
         
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Select Thumbnail" 
                                                                                  message:@"Choose the source for your thumbnail image" 
@@ -1375,43 +1429,3 @@ void prepareThumbnail(NSImage *image) {
 }
 
 #endif
-
-//void vx::fs::pickThumbnail(std::function<void(FILE* thumbnail)> callback) {
-//
-//    Helper::shared()->setThumbnailCallback(callback);
-//
-//#if TARGET_OS_IPHONE
-//
-//    // Show options to user instead of directly going to Photos
-//    showThumbnailPickerOptions();
-//
-//#elif TARGET_OS_MAC
-//    
-//    NSOpenPanel *panel = [NSOpenPanel openPanel];
-//    [panel setCanChooseFiles:YES];
-//    [panel setCanChooseDirectories:NO];
-//    [panel setAllowsMultipleSelection:NO];
-//    [panel setAllowedContentTypes:@[UTTypePNG, UTTypeJPEG]];
-//
-//    NSInteger modalResult = [panel runModal];
-//    if (modalResult == NSModalResponseOK) {
-//        if ([[panel URLs] count] > 0) {
-//
-//            NSData *data = [NSData dataWithContentsOfURL:[panel URLs][0]];
-//
-//            if (data == nil) {
-//                callback(nullptr);
-//                return;
-//            }
-//
-//            NSImage *img = [[NSImage alloc] initWithData:data];
-//            if (img == nil) {
-//                callback(nullptr);
-//                return;
-//            }
-//
-//            prepareThumbnail(img);
-//        }
-//    }
-//#endif
-//}
