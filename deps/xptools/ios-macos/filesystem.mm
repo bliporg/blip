@@ -25,6 +25,7 @@
 
 // xptools
 #include "vxlog.h"
+#include "utils.h"
 
 // --------------------------------------------------
 // MARK: - Path separator -
@@ -77,36 +78,6 @@ std::string dirname(const std::string& fname)
          ? ""
          : fname.substr(0, pos);
 }
-
-#if TARGET_OS_IPHONE
-// Helper function to get the root view controller in a modern way
-UIViewController* getRootViewController() {
-    if (@available(iOS 13.0, *)) {
-        // iOS 13+ scene-based approach
-        UIWindow *window = nil;
-        for (UIWindowScene* windowScene in [UIApplication sharedApplication].connectedScenes) {
-            if (windowScene.activationState == UISceneActivationStateForegroundActive) {
-                for (UIWindow *w in windowScene.windows) {
-                    if (w.isKeyWindow) {
-                        window = w;
-                        break;
-                    }
-                }
-                if (window) break;
-            }
-        }
-        if (window) {
-            return window.rootViewController;
-        }
-    }
-    
-    // Fallback for iOS 12 and earlier, or if scene approach fails
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-    return [UIApplication sharedApplication].keyWindow.rootViewController;
-#pragma clang diagnostic pop
-}
-#endif
 
 ///
 static NSString *getStoragePath() {
@@ -400,7 +371,7 @@ void showIOSPhotosPickerForImport(vx::fs::ImportFileCallback callback) {
                         delegate.callback = callback;
                         imagePicker.delegate = delegate;
 
-                        UIViewController *rootController = getRootViewController();
+                        UIViewController *rootController = vx::utils::ios::getRootViewController();
                         [rootController presentViewController:imagePicker animated:true completion:nil];
                     }
                 });
@@ -418,7 +389,7 @@ void showIOSPhotosPickerForImport(vx::fs::ImportFileCallback callback) {
                 delegate.callback = callback;
                 imagePicker.delegate = delegate;
 
-                UIViewController *rootController = getRootViewController();
+                UIViewController *rootController = vx::utils::ios::getRootViewController();
                 [rootController presentViewController:imagePicker animated:true completion:nil];
             }
         });
@@ -430,8 +401,8 @@ void showIOSPhotosPickerForImport(vx::fs::ImportFileCallback callback) {
 
 void showIOSFilesPickerForImport(vx::fs::ImportFileCallback callback) {
     dispatch_async(dispatch_get_main_queue(), ^{
-        UIViewController *vc = getRootViewController();
-        
+        UIViewController *vc = vx::utils::ios::getRootViewController();
+
         UIDocumentPickerViewController *pickerVC = nil;
         
         // Use modern UTType approach for iOS 14+ when available
@@ -472,8 +443,8 @@ void showIOSFilesPickerForImport(vx::fs::ImportFileCallback callback) {
 
 void showImportFileOptions(vx::fs::ImportFileCallback callback) {
     dispatch_async(dispatch_get_main_queue(), ^{
-        UIViewController *vc = getRootViewController();
-        
+        UIViewController *vc = vx::utils::ios::getRootViewController();
+
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Import File" 
                                                                                  message:@"Choose the source for your file" 
                                                                           preferredStyle:UIAlertControllerStyleActionSheet];
@@ -959,7 +930,7 @@ bool vx::fs::mergeBundleDirInStorage(const std::string& bundleDir, const std::st
 
 -(void)prepareForPopoverPresentation:(UIPopoverPresentationController *)popoverPresentationController {
     
-    UIViewController *vc = getRootViewController();
+    UIViewController *vc = vx::utils::ios::getRootViewController();
     [UIView animateWithDuration:0.2 animations:^{
         vc.view.alpha = 0.5;
     }];
@@ -967,8 +938,8 @@ bool vx::fs::mergeBundleDirInStorage(const std::string& bundleDir, const std::st
 
 - (void)popoverPresentationController:(UIPopoverPresentationController *)popoverPresentationController willRepositionPopoverToRect:(inout CGRect *)rect inView:(inout UIView * _Nonnull __autoreleasing *)view {
  
-    UIViewController *vc = getRootViewController();
-    
+    UIViewController *vc = vx::utils::ios::getRootViewController();
+
     *rect = CGRectMake(CGRectGetMidX(vc.view.bounds),
                       CGRectGetMidY(vc.view.bounds),
                       0,
@@ -986,7 +957,7 @@ void vx::fs::shareFile(const std::string& filepath,
     
     vxlog_info("📸 [shareFile] %s", filepath.c_str());
 #if TARGET_OS_IPHONE
-    UIViewController *vc = getRootViewController();
+    UIViewController *vc = vx::utils::ios::getRootViewController();
 
     NSString *filepathStr = [NSString stringWithCString:filepath.c_str() encoding:NSUTF8StringEncoding];
     NSString *srcFullpath = [NSString stringWithFormat:@"%@/%@", getStoragePath(), filepathStr];
@@ -1234,7 +1205,7 @@ void showIOSPhotoPicker() {
                         imagePicker.allowsEditing = false;
                         imagePicker.delegate = [ImagePickerDelegate shared];
 
-                        UIViewController *rootController = getRootViewController();
+                        UIViewController *rootController = vx::utils::ios::getRootViewController();
                         [rootController presentViewController:imagePicker animated:true completion:nil];
                     }
                 });
@@ -1250,7 +1221,7 @@ void showIOSPhotoPicker() {
                 imagePicker.allowsEditing = false;
                 imagePicker.delegate = [ImagePickerDelegate shared];
 
-                UIViewController *rootController = getRootViewController();
+                UIViewController *rootController = vx::utils::ios::getRootViewController();
                 [rootController presentViewController:imagePicker animated:true completion:nil];
             }
         });
@@ -1262,8 +1233,8 @@ void showIOSPhotoPicker() {
 
 void showIOSFilePicker() {
     dispatch_async(dispatch_get_main_queue(), ^{
-        UIViewController *vc = getRootViewController();
-        
+        UIViewController *vc = vx::utils::ios::getRootViewController();
+
         UIDocumentPickerViewController *pickerVC = nil;
         
         // Use modern UTType approach for iOS 14+ when available
@@ -1285,8 +1256,8 @@ void showIOSFilePicker() {
 
 void showThumbnailPickerOptions() {
     dispatch_async(dispatch_get_main_queue(), ^{
-        UIViewController *vc = getRootViewController();
-        
+        UIViewController *vc = vx::utils::ios::getRootViewController();
+
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Select Thumbnail" 
                                                                                  message:@"Choose the source for your thumbnail image" 
                                                                           preferredStyle:UIAlertControllerStyleActionSheet];

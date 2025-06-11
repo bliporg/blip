@@ -210,11 +210,11 @@
 		850BDEAC2D19EC0F00A85B76 /* WSServer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 85471B3E27E3E4AA000575D5 /* WSServer.cpp */; };
 		850BDEAD2D19EC0F00A85B76 /* WSConnection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 85471B3F27E3E4AA000575D5 /* WSConnection.cpp */; };
 		850D25BA2AE11C7500B00B13 /* notifications.mm in Sources */ = {isa = PBXBuildFile; fileRef = 85BD47D62A5DABAE00556C6E /* notifications.mm */; };
-		851224D12DD1DB7E00F84200 /* utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 851224D02DD1DB7100F84200 /* utils.m */; };
-		851224D22DD1DB7E00F84200 /* utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 851224D02DD1DB7100F84200 /* utils.m */; };
-		851224D32DD1DB7E00F84200 /* utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 851224D02DD1DB7100F84200 /* utils.m */; };
-		851224D42DD1DB7E00F84200 /* utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 851224D02DD1DB7100F84200 /* utils.m */; };
-		851224D52DD1DB7E00F84200 /* utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 851224D02DD1DB7100F84200 /* utils.m */; };
+		851224D12DD1DB7E00F84200 /* utils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 851224D02DD1DB7100F84200 /* utils.mm */; };
+		851224D22DD1DB7E00F84200 /* utils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 851224D02DD1DB7100F84200 /* utils.mm */; };
+		851224D32DD1DB7E00F84200 /* utils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 851224D02DD1DB7100F84200 /* utils.mm */; };
+		851224D42DD1DB7E00F84200 /* utils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 851224D02DD1DB7100F84200 /* utils.mm */; };
+		851224D52DD1DB7E00F84200 /* utils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 851224D02DD1DB7100F84200 /* utils.mm */; };
 		8518D09827BA6D9000A438D6 /* ThreadManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8518D09727BA6D9000A438D6 /* ThreadManager.cpp */; };
 		8518D09927BA6D9000A438D6 /* ThreadManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8518D09727BA6D9000A438D6 /* ThreadManager.cpp */; };
 		8518D09B27BA6D9000A438D6 /* ThreadManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8518D09727BA6D9000A438D6 /* ThreadManager.cpp */; };
@@ -223,6 +223,10 @@
 		8518D0A027BA6DD900A438D6 /* json.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8518D09C27BA6DD900A438D6 /* json.cpp */; };
 		8518D0A227BA6DF100A438D6 /* json.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 8518D0A127BA6DF100A438D6 /* json.hpp */; };
 		8518D0A427BA6DF100A438D6 /* json.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 8518D0A127BA6DF100A438D6 /* json.hpp */; };
+		851AAEC32DF9C76D00B54B83 /* utils.h in Headers */ = {isa = PBXBuildFile; fileRef = 851AAEC22DF9C76900B54B83 /* utils.h */; };
+		851AAEC42DF9C76D00B54B83 /* utils.h in Headers */ = {isa = PBXBuildFile; fileRef = 851AAEC22DF9C76900B54B83 /* utils.h */; };
+		851AAEC52DF9C76D00B54B83 /* utils.h in Headers */ = {isa = PBXBuildFile; fileRef = 851AAEC22DF9C76900B54B83 /* utils.h */; };
+		851AAEC62DF9C76D00B54B83 /* utils.h in Headers */ = {isa = PBXBuildFile; fileRef = 851AAEC22DF9C76900B54B83 /* utils.h */; };
 		851F2A3F2B63C44500E2863F /* HttpCookie.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 851F2A3E2B63C44500E2863F /* HttpCookie.hpp */; };
 		851F2A402B63C44500E2863F /* HttpCookie.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 851F2A3E2B63C44500E2863F /* HttpCookie.hpp */; };
 		851F2A422B63C45E00E2863F /* HttpCookie.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 851F2A412B63C45E00E2863F /* HttpCookie.cpp */; };
@@ -381,11 +385,12 @@
 		8506234F2877881F00B270A6 /* AVFAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFAudio.framework; path = System/Library/Frameworks/AVFAudio.framework; sourceTree = SDKROOT; };
 		850623592877898C00B270A6 /* miniaudio_impl.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = miniaudio_impl.mm; sourceTree = "<group>"; };
 		850BDEB32D19EC0F00A85B76 /* libxptools-macos-epicgames.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libxptools-macos-epicgames.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		851224D02DD1DB7100F84200 /* utils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = utils.m; sourceTree = "<group>"; };
+		851224D02DD1DB7100F84200 /* utils.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = utils.mm; sourceTree = "<group>"; };
 		8518D09627BA6D7C00A438D6 /* ThreadManager.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ThreadManager.hpp; sourceTree = "<group>"; };
 		8518D09727BA6D9000A438D6 /* ThreadManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThreadManager.cpp; sourceTree = "<group>"; };
 		8518D09C27BA6DD900A438D6 /* json.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = json.cpp; sourceTree = "<group>"; };
 		8518D0A127BA6DF100A438D6 /* json.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = json.hpp; sourceTree = "<group>"; };
+		851AAEC22DF9C76900B54B83 /* utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = utils.h; sourceTree = "<group>"; };
 		851F2A3E2B63C44500E2863F /* HttpCookie.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = HttpCookie.hpp; sourceTree = "<group>"; };
 		851F2A412B63C45E00E2863F /* HttpCookie.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = HttpCookie.cpp; sourceTree = "<group>"; };
 		8534FDC7240E92C1004B3494 /* libxptools-macos-steam.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libxptools-macos-steam.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -614,6 +619,7 @@
 		8534FDD0240E9723004B3494 /* ios-macos */ = {
 			isa = PBXGroup;
 			children = (
+				851AAEC22DF9C76900B54B83 /* utils.h */,
 				10974C8C244D6916008153FE /* device-ios.mm */,
 				8534FDD5240E97D5004B3494 /* device-macos.mm */,
 				10974C89244D690C008153FE /* filesystem.mm */,
@@ -624,7 +630,7 @@
 				85FA71DF2D9709CC00CBD3F7 /* passkey.mm */,
 				855CB5E4287320E200072D5F /* process-ios.cpp */,
 				855CB5E12873204100072D5F /* process-macos.cpp */,
-				851224D02DD1DB7100F84200 /* utils.m */,
+				851224D02DD1DB7100F84200 /* utils.mm */,
 				8559F24F244D00C400574528 /* vxlog.mm */,
 				1033952225626D220083F4C0 /* vxtime.cpp */,
 				10EE2BCA272C099000EC374C /* web-ios.mm */,
@@ -676,6 +682,7 @@
 				102145082C75E0C000099E38 /* OperationQueue.hpp in Headers */,
 				10975C922DCFC73C009637FD /* iap.hpp in Headers */,
 				102145092C75E0C000099E38 /* Channel.hpp in Headers */,
+				851AAEC32DF9C76D00B54B83 /* utils.h in Headers */,
 				1021450A2C75E0C000099E38 /* vxtime.h in Headers */,
 				1021450B2C75E0C000099E38 /* preferences.hpp in Headers */,
 				1021450C2C75E0C000099E38 /* filesystem.hpp in Headers */,
@@ -711,6 +718,7 @@
 				85471B3227E3E006000575D5 /* Connection.hpp in Headers */,
 				10975C912DCFC73C009637FD /* iap.hpp in Headers */,
 				85471B3B27E3E10C000575D5 /* Channel.hpp in Headers */,
+				851AAEC52DF9C76D00B54B83 /* utils.h in Headers */,
 				10847CBE270EE8C6006A5E91 /* vxtime.h in Headers */,
 				85AF77432AA1C40F007480C2 /* preferences.hpp in Headers */,
 				858ABB8B2A52F5E6007AE641 /* Macros.h in Headers */,
@@ -746,6 +754,7 @@
 				850BDE7F2D19EC0F00A85B76 /* OperationQueue.hpp in Headers */,
 				10975C902DCFC73C009637FD /* iap.hpp in Headers */,
 				850BDE802D19EC0F00A85B76 /* Channel.hpp in Headers */,
+				851AAEC42DF9C76D00B54B83 /* utils.h in Headers */,
 				850BDE812D19EC0F00A85B76 /* vxtime.h in Headers */,
 				850BDE822D19EC0F00A85B76 /* preferences.hpp in Headers */,
 				850BDE832D19EC0F00A85B76 /* filesystem.hpp in Headers */,
@@ -781,6 +790,7 @@
 				858ABB8D2A52F5EE007AE641 /* OperationQueue.hpp in Headers */,
 				10975C8F2DCFC73C009637FD /* iap.hpp in Headers */,
 				85471B3A27E3E10C000575D5 /* Channel.hpp in Headers */,
+				851AAEC62DF9C76D00B54B83 /* utils.h in Headers */,
 				1033951D25626D130083F4C0 /* vxtime.h in Headers */,
 				85AF77422AA1C40F007480C2 /* preferences.hpp in Headers */,
 				8534FDD4240E978B004B3494 /* filesystem.hpp in Headers */,
@@ -963,7 +973,7 @@
 				1021452F2C75E0C000099E38 /* filesystem.mm in Sources */,
 				102145302C75E0C000099E38 /* process-macos.cpp in Sources */,
 				102145312C75E0C000099E38 /* textinput.cpp in Sources */,
-				851224D52DD1DB7E00F84200 /* utils.m in Sources */,
+				851224D52DD1DB7E00F84200 /* utils.mm in Sources */,
 				102145322C75E0C000099E38 /* BZMD5.cpp in Sources */,
 				102145332C75E0C000099E38 /* strings.cpp in Sources */,
 				102145342C75E0C000099E38 /* WSServer.cpp in Sources */,
@@ -985,7 +995,7 @@
 				101758BA2C99C254008318A8 /* notifications.cpp in Sources */,
 				85D70CD72DEDE99800087BFE /* encoding_base64.cpp in Sources */,
 				10847CC3270EE8C6006A5E91 /* vxtime.cpp in Sources */,
-				851224D42DD1DB7E00F84200 /* utils.m in Sources */,
+				851224D42DD1DB7E00F84200 /* utils.mm in Sources */,
 				8518D0A027BA6DD900A438D6 /* json.cpp in Sources */,
 				10847CC4270EE8C6006A5E91 /* filesystem.cpp in Sources */,
 				85BB018B279EFA0E000F1B10 /* HttpClient.cpp in Sources */,
@@ -1061,7 +1071,7 @@
 				850BDEAA2D19EC0F00A85B76 /* BZMD5.cpp in Sources */,
 				850BDEAB2D19EC0F00A85B76 /* strings.cpp in Sources */,
 				850BDEAC2D19EC0F00A85B76 /* WSServer.cpp in Sources */,
-				851224D32DD1DB7E00F84200 /* utils.m in Sources */,
+				851224D32DD1DB7E00F84200 /* utils.mm in Sources */,
 				850BDEAD2D19EC0F00A85B76 /* WSConnection.cpp in Sources */,
 				85FA71E32D9709D100CBD3F7 /* passkey.mm in Sources */,
 			);
@@ -1110,7 +1120,7 @@
 				101554E02C04D57E001E9057 /* BZMD5.cpp in Sources */,
 				10C63D2C246C4F61003DEC3E /* strings.cpp in Sources */,
 				85471B4627E3E4AA000575D5 /* WSServer.cpp in Sources */,
-				851224D22DD1DB7E00F84200 /* utils.m in Sources */,
+				851224D22DD1DB7E00F84200 /* utils.mm in Sources */,
 				100512112CC6BECB00B16FB1 /* WSConnection.cpp in Sources */,
 				85FA71E12D9709D100CBD3F7 /* passkey.mm in Sources */,
 			);
@@ -1159,7 +1169,7 @@
 				101554E12C04D57E001E9057 /* BZMD5.cpp in Sources */,
 				85471B4727E3E4AA000575D5 /* WSServer.cpp in Sources */,
 				1022D09428AF8EEF00C1F1E9 /* process-ios.cpp in Sources */,
-				851224D12DD1DB7E00F84200 /* utils.m in Sources */,
+				851224D12DD1DB7E00F84200 /* utils.mm in Sources */,
 				100512122CC6BECB00B16FB1 /* WSConnection.cpp in Sources */,
 				85FA71E22D9709D100CBD3F7 /* passkey.mm in Sources */,
 			);

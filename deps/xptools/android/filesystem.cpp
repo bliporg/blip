@@ -320,11 +320,6 @@ bool vx::fs::mergeBundleDirInStorage(const std::string &bundleDir, const std::st
     return result;
 }
 
-void vx::fs::pickThumbnail(std::function<void(FILE* thumbnail)> callback) {
-    // TODO: implement
-    callback(nullptr);
-}
-
 void vx::fs::shareFile(const std::string& filepath,
                        const std::string& title,
                        const std::string& filename,
