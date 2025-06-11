@@ -8,9 +8,6 @@
 
 #include "utils.h"
 
-// Apple
-#import <Foundation/Foundation.h>
-
 @implementation NSData (Base64UrlEncoding)
 
 - (NSString *)base64UrlEncodedString {
@@ -32,8 +29,9 @@
 //
 
 #if TARGET_OS_IPHONE
+
 // Helper function to get the root view controller in a modern way
-UIViewController* vx::utils::ios::getRootViewController() {
+UIViewController* vx::utils::ios::getRootUIViewController() {
     if (@available(iOS 13.0, *)) {
         // iOS 13+ scene-based approach
         UIWindow *window = nil;
@@ -59,4 +57,5 @@ UIViewController* vx::utils::ios::getRootViewController() {
     return [UIApplication sharedApplication].keyWindow.rootViewController;
 #pragma clang diagnostic pop
 }
+
 #endif

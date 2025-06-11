@@ -371,7 +371,7 @@ void showIOSPhotosPickerForImport(vx::fs::ImportFileCallback callback) {
                         delegate.callback = callback;
                         imagePicker.delegate = delegate;
 
-                        UIViewController *rootController = vx::utils::ios::getRootViewController();
+                        UIViewController *rootController = vx::utils::ios::getRootUIViewController();
                         [rootController presentViewController:imagePicker animated:true completion:nil];
                     }
                 });
@@ -389,7 +389,7 @@ void showIOSPhotosPickerForImport(vx::fs::ImportFileCallback callback) {
                 delegate.callback = callback;
                 imagePicker.delegate = delegate;
 
-                UIViewController *rootController = vx::utils::ios::getRootViewController();
+                UIViewController *rootController = vx::utils::ios::getRootUIViewController();
                 [rootController presentViewController:imagePicker animated:true completion:nil];
             }
         });
@@ -401,7 +401,7 @@ void showIOSPhotosPickerForImport(vx::fs::ImportFileCallback callback) {
 
 void showIOSFilesPickerForImport(vx::fs::ImportFileCallback callback) {
     dispatch_async(dispatch_get_main_queue(), ^{
-        UIViewController *vc = vx::utils::ios::getRootViewController();
+        UIViewController *vc = vx::utils::ios::getRootUIViewController();
 
         UIDocumentPickerViewController *pickerVC = nil;
         
@@ -443,7 +443,7 @@ void showIOSFilesPickerForImport(vx::fs::ImportFileCallback callback) {
 
 void showImportFileOptions(vx::fs::ImportFileCallback callback) {
     dispatch_async(dispatch_get_main_queue(), ^{
-        UIViewController *vc = vx::utils::ios::getRootViewController();
+        UIViewController *vc = vx::utils::ios::getRootUIViewController();
 
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Import File" 
                                                                                  message:@"Choose the source for your file" 
@@ -930,7 +930,7 @@ bool vx::fs::mergeBundleDirInStorage(const std::string& bundleDir, const std::st
 
 -(void)prepareForPopoverPresentation:(UIPopoverPresentationController *)popoverPresentationController {
     
-    UIViewController *vc = vx::utils::ios::getRootViewController();
+    UIViewController *vc = vx::utils::ios::getRootUIViewController();
     [UIView animateWithDuration:0.2 animations:^{
         vc.view.alpha = 0.5;
     }];
@@ -938,7 +938,7 @@ bool vx::fs::mergeBundleDirInStorage(const std::string& bundleDir, const std::st
 
 - (void)popoverPresentationController:(UIPopoverPresentationController *)popoverPresentationController willRepositionPopoverToRect:(inout CGRect *)rect inView:(inout UIView * _Nonnull __autoreleasing *)view {
  
-    UIViewController *vc = vx::utils::ios::getRootViewController();
+    UIViewController *vc = vx::utils::ios::getRootUIViewController();
 
     *rect = CGRectMake(CGRectGetMidX(vc.view.bounds),
                       CGRectGetMidY(vc.view.bounds),
@@ -957,7 +957,7 @@ void vx::fs::shareFile(const std::string& filepath,
     
     vxlog_info("📸 [shareFile] %s", filepath.c_str());
 #if TARGET_OS_IPHONE
-    UIViewController *vc = vx::utils::ios::getRootViewController();
+    UIViewController *vc = vx::utils::ios::getRootUIViewController();
 
     NSString *filepathStr = [NSString stringWithCString:filepath.c_str() encoding:NSUTF8StringEncoding];
     NSString *srcFullpath = [NSString stringWithFormat:@"%@/%@", getStoragePath(), filepathStr];
@@ -1192,110 +1192,6 @@ inline double rad(double deg) {
 
 @end
 
-void showIOSPhotoPicker() {
-    PHAuthorizationStatus status = [PHPhotoLibrary authorizationStatus];
-    if(status == PHAuthorizationStatusNotDetermined) {
-        // Request photo authorization
-        [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus authStatus) {
-            if (authStatus == PHAuthorizationStatusAuthorized) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    UIImagePickerController* imagePicker = [[UIImagePickerController alloc]init];
-                    if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
-                        imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-                        imagePicker.allowsEditing = false;
-                        imagePicker.delegate = [ImagePickerDelegate shared];
-
-                        UIViewController *rootController = vx::utils::ios::getRootViewController();
-                        [rootController presentViewController:imagePicker animated:true completion:nil];
-                    }
-                });
-            } else {
-                vx::fs::Helper::shared()->callThumbnailCallback(nullptr);
-            }
-        }];
-    } else if (status == PHAuthorizationStatusAuthorized) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            UIImagePickerController* imagePicker = [[UIImagePickerController alloc]init];
-            if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
-                imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-                imagePicker.allowsEditing = false;
-                imagePicker.delegate = [ImagePickerDelegate shared];
-
-                UIViewController *rootController = vx::utils::ios::getRootViewController();
-                [rootController presentViewController:imagePicker animated:true completion:nil];
-            }
-        });
-    } else {
-        // Permission denied or restricted
-        vx::fs::Helper::shared()->callThumbnailCallback(nullptr);
-    }
-}
-
-void showIOSFilePicker() {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        UIViewController *vc = vx::utils::ios::getRootViewController();
-
-        UIDocumentPickerViewController *pickerVC = nil;
-        
-        // Use modern UTType approach for iOS 14+ when available
-        if (@available(iOS 14.0, *)) {
-            // Use modern UTType approach for images
-            NSArray<UTType *> *imageTypes = @[UTTypePNG, UTTypeJPEG, UTTypeGIF];
-            pickerVC = [[UIDocumentPickerViewController alloc] initForOpeningContentTypes:imageTypes];
-        } else {
-            // Fallback for iOS 13 and earlier
-            NSArray<NSString *> *documentTypes = @[@"public.png", @"public.jpeg", @"com.compuserve.gif"];
-            pickerVC = [[UIDocumentPickerViewController alloc] initWithDocumentTypes:documentTypes inMode:UIDocumentPickerModeImport];
-        }
-
-        DocumentPickerDelegateForThumbnail *d = [DocumentPickerDelegateForThumbnail shared];
-        pickerVC.delegate = d;
-        [vc presentViewController:pickerVC animated:YES completion:nil];
-    });
-}
-
-void showThumbnailPickerOptions() {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        UIViewController *vc = vx::utils::ios::getRootViewController();
-
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Select Thumbnail" 
-                                                                                 message:@"Choose the source for your thumbnail image" 
-                                                                          preferredStyle:UIAlertControllerStyleActionSheet];
-        
-        UIAlertAction *photosAction = [UIAlertAction actionWithTitle:@"Photo Library" 
-                                                               style:UIAlertActionStyleDefault 
-                                                             handler:^(UIAlertAction * action) {
-            showIOSPhotoPicker();
-        }];
-        
-        UIAlertAction *filesAction = [UIAlertAction actionWithTitle:@"Files" 
-                                                              style:UIAlertActionStyleDefault 
-                                                            handler:^(UIAlertAction * action) {
-            showIOSFilePicker();
-        }];
-        
-        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" 
-                                                               style:UIAlertActionStyleCancel 
-                                                             handler:^(UIAlertAction * action) {
-            vx::fs::Helper::shared()->callThumbnailCallback(nullptr);
-        }];
-        
-        [alertController addAction:photosAction];
-        [alertController addAction:filesAction];
-        [alertController addAction:cancelAction];
-        
-        // For iPad
-        if (alertController.popoverPresentationController != nil) {
-            alertController.popoverPresentationController.sourceView = vc.view;
-            alertController.popoverPresentationController.sourceRect = CGRectMake(CGRectGetMidX(vc.view.bounds),
-                                                                                 CGRectGetMidY(vc.view.bounds),
-                                                                                 0,
-                                                                                 0);
-        }
-        
-        [vc presentViewController:alertController animated:YES completion:nil];
-    });
-}
 #elif TARGET_OS_MAC
 
 @interface NSImage (PCubesAdditions)
