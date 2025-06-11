@@ -1028,11 +1028,10 @@ void vx::fs::pickThumbnail(std::function<void(FILE* thumbnail)> callback) {
     [panel setCanChooseFiles:YES];
     [panel setCanChooseDirectories:NO];
     [panel setAllowsMultipleSelection:NO];
-    [panel setAllowedFileTypes:[NSArray arrayWithObjects:@"png", @"jpg", @"jpeg", nil]];
+    [panel setAllowedContentTypes:@[UTTypePNG, UTTypeJPEG]];
 
-    NSInteger clicked = [panel runModal];
-
-    if (clicked == NSModalResponseOK) {
+    NSInteger modalResult = [panel runModal];
+    if (modalResult == NSModalResponseOK) {
         if ([[panel URLs] count] > 0) {
 
             NSData *data = [NSData dataWithContentsOfURL:[panel URLs][0]];
