@@ -24,8 +24,8 @@
 #endif
 
 // xptools
+#include "apple-utils.h"
 #include "vxlog.h"
-#include "utils.h"
 
 // --------------------------------------------------
 // MARK: - Path separator -
@@ -120,243 +120,24 @@ static NSString *getStoragePath() {
 }
 
 #if TARGET_OS_IPHONE
-@interface DocumentPickerDelegate: NSObject<UIDocumentPickerDelegate>
 
-@property (nonatomic, assign) vx::fs::ImportFileCallback callback;
+void showIOSPhotosPickerForImport(vx::fs::ImportFileCallback importFileCallback) {
 
-+ (id)shared;
+    // define callback function for the picker delegate
+    PickerCallback pickerCallback = [importFileCallback](PickerCallbackStatus status, std::string bytes){
+        switch (status) {
+            case PickerCallbackStatus::OK:
+                importFileCallback(vx::fs::ImportFileCallbackStatus::OK, bytes);
+                break;
+            case PickerCallbackStatus::ERROR:
+                importFileCallback(vx::fs::ImportFileCallbackStatus::ERROR, bytes);
+                break;
+            case PickerCallbackStatus::CANCELLED:
+                importFileCallback(vx::fs::ImportFileCallbackStatus::CANCELLED, bytes);
+                break;
+        }
+    };
 
-@end
-
-@implementation DocumentPickerDelegate
-
-@synthesize callback;
-
-+ (id)shared {
-    static DocumentPickerDelegate *sharedDelegate = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        sharedDelegate = [[DocumentPickerDelegate alloc] init];
-    });
-    return sharedDelegate;
-}
-
-- (id)init {
-    if ((self = [super init])) {
-      // someProperty = [[NSString alloc] initWithString:@"Default Property Value"];
-  }
-  return self;
-}
-
-- (void)dealloc {
-  // Should never be called
-}
-
-- (void)documentPickerWasCancelled:(UIDocumentPickerViewController *)controller {
-    static_cast<DocumentPickerDelegate*>([DocumentPickerDelegate shared]).callback(nullptr, 0, vx::fs::ImportFileCallbackStatus::CANCELLED);
-}
-
-- (void)documentPicker:(UIDocumentPickerViewController *)controller didPickDocumentsAtURLs:(NSArray<NSURL *> *)urls {
-    NSURL* fileURL = [urls objectAtIndex:0];
-    NSError* error = nil;
-    NSData* data = [NSData dataWithContentsOfURL:fileURL options:NSDataReadingUncached error:&error];
-    if (error) {
-        static_cast<DocumentPickerDelegate*>([DocumentPickerDelegate shared]).callback(nullptr, 0, vx::fs::ImportFileCallbackStatus::ERROR_IMPORT);
-
-    } else {
-        void *bytes = static_cast<void*>(malloc(data.length));
-        memcpy(bytes, data.bytes, data.length);
-        static_cast<DocumentPickerDelegate*>([DocumentPickerDelegate shared]).callback(bytes, data.length, vx::fs::ImportFileCallbackStatus::OK);
-    }
-}
-
-@end
-
-@interface DocumentPickerDelegateForThumbnail: NSObject<UIDocumentPickerDelegate>
-
-+ (id)shared;
-
-@end
-
-@implementation DocumentPickerDelegateForThumbnail
-
-+ (id)shared {
-    static DocumentPickerDelegateForThumbnail *sharedDelegate = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        sharedDelegate = [[DocumentPickerDelegateForThumbnail alloc] init];
-    });
-    return sharedDelegate;
-}
-
-- (id)init {
-    if ((self = [super init])) {
-      // someProperty = [[NSString alloc] initWithString:@"Default Property Value"];
-  }
-  return self;
-}
-
-- (void)dealloc {
-  // Should never be called
-}
-
-- (void)documentPickerWasCancelled:(UIDocumentPickerViewController *)controller {
-    vx::fs::Helper::shared()->callThumbnailCallback(nullptr);
-}
-
-- (void)documentPicker:(UIDocumentPickerViewController *)controller didPickDocumentsAtURLs:(NSArray<NSURL *> *)urls {
-    NSURL* fileURL = [urls objectAtIndex:0];
-    NSError* error = nil;
-    NSData* data = [NSData dataWithContentsOfURL:fileURL options:NSDataReadingUncached error:&error];
-    if (error) {
-        vx::fs::Helper::shared()->callThumbnailCallback(nullptr);
-        return;
-    }
-
-    UIImage *image = [UIImage imageWithData:data];
-    if (image == nil) {
-        vx::fs::Helper::shared()->callThumbnailCallback(nullptr);
-        return;
-    }
-
-    // Process the image using the same logic as ImagePickerDelegate
-    NSString *storagePath = getStoragePath();
-    if (storagePath == nil) {
-        vx::fs::Helper::shared()->callThumbnailCallback(nullptr);
-        return;
-    }
-
-    UIImage *normalizedImage = image;
-
-    if (image.imageOrientation != UIImageOrientationUp) {
-        UIGraphicsBeginImageContextWithOptions(image.size, NO, image.scale);
-        [image drawInRect:CGRectMake(0, 0, image.size.width, image.size.height)];
-        normalizedImage = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
-    }
-
-    // CROP
-    double ratio = 16.0 / 9.0;
-
-    CGFloat imageWidth = normalizedImage.size.width;
-    CGFloat imageHeight = normalizedImage.size.height;
-
-    CGRect crop = CGRectMake(0, 0, imageWidth, imageHeight);
-
-    // check if too large
-    if (imageWidth / imageHeight > ratio) {
-        crop.size.width = imageHeight * ratio;
-        crop.origin.x = (imageWidth - crop.size.width) * 0.5;
-    } else if (imageWidth / imageHeight < ratio) { // check if too tall
-        crop.size.height = imageWidth / ratio;
-        crop.origin.y = (imageHeight - crop.size.height) * 0.5;
-    }
-
-    CGImageRef imageRef = CGImageCreateWithImageInRect(normalizedImage.CGImage, crop);
-
-    UIImage *result = [UIImage imageWithCGImage:imageRef scale: 1.0 orientation: UIImageOrientationUp];
-
-    // SCALE
-    CGImageRelease(imageRef);
-
-    imageWidth = 800.0;
-    imageHeight = 450.0;
-
-    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-    CGContextRef context = CGBitmapContextCreate(nullptr, imageWidth, imageHeight, 8, 0, colorSpace, kCGImageAlphaPremultipliedLast);
-    CGContextClearRect(context, CGRectMake(0, 0, imageWidth, imageHeight));
-
-    CGContextDrawImage(context, CGRectMake(0, 0, imageWidth, imageHeight), result.CGImage);
-
-    imageRef = CGBitmapContextCreateImage(context);
-
-    CGColorSpaceRelease(colorSpace);
-    CGContextRelease(context);
-
-    result = [UIImage imageWithCGImage:imageRef scale: 1.0 orientation: UIImageOrientationUp];
-
-    CGImageRelease(imageRef);
-
-    // generate absolute file path
-    NSString *absoluteFilePath = [storagePath stringByAppendingPathComponent:@"new-thumbnail.png"];
-
-    BOOL success = [UIImagePNGRepresentation(result) writeToFile:absoluteFilePath atomically:YES];
-
-    if (success == false) {
-        vx::fs::Helper::shared()->callThumbnailCallback(nullptr);
-        return;
-    }
-
-    vx::fs::Helper::shared()->callThumbnailCallback(vx::fs::openStorageFile("new-thumbnail.png"));
-}
-
-@end
-
-@interface ImagePickerDelegateForImport: NSObject<UIImagePickerControllerDelegate, UINavigationControllerDelegate>
-
-@property (nonatomic, assign) vx::fs::ImportFileCallback callback;
-
-+ (id)shared;
-
-@end
-
-@implementation ImagePickerDelegateForImport
-
-@synthesize callback;
-
-+ (id)shared {
-    static ImagePickerDelegateForImport *sharedDelegate = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        sharedDelegate = [[ImagePickerDelegateForImport alloc] init];
-    });
-    return sharedDelegate;
-}
-
-- (id)init {
-    if ((self = [super init])) {
-      // someProperty = [[NSString alloc] initWithString:@"Default Property Value"];
-  }
-  return self;
-}
-
-- (void)dealloc {
-  // Should never be called
-}
-
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-    UIImage *image = info[UIImagePickerControllerOriginalImage];
-    [picker dismissViewControllerAnimated:YES completion:nil];
-
-    if (image == nil) {
-        static_cast<ImagePickerDelegateForImport*>([ImagePickerDelegateForImport shared]).callback(nullptr, 0, vx::fs::ImportFileCallbackStatus::ERROR_IMPORT);
-        return;
-    }
-
-    NSData *imageData = UIImagePNGRepresentation(image);
-    if (imageData == nil) {
-        // Try JPEG if PNG fails
-        imageData = UIImageJPEGRepresentation(image, 0.9);
-    }
-
-    if (imageData == nil) {
-        static_cast<ImagePickerDelegateForImport*>([ImagePickerDelegateForImport shared]).callback(nullptr, 0, vx::fs::ImportFileCallbackStatus::ERROR_IMPORT);
-        return;
-    }
-
-    void *bytes = static_cast<void*>(malloc(imageData.length));
-    memcpy(bytes, imageData.bytes, imageData.length);
-    static_cast<ImagePickerDelegateForImport*>([ImagePickerDelegateForImport shared]).callback(bytes, imageData.length, vx::fs::ImportFileCallbackStatus::OK);
-}
-
-- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
-    [picker dismissViewControllerAnimated:YES completion:nil];
-    static_cast<ImagePickerDelegateForImport*>([ImagePickerDelegateForImport shared]).callback(nullptr, 0, vx::fs::ImportFileCallbackStatus::CANCELLED);
-}
-
-@end
-
-void showIOSPhotosPickerForImport(vx::fs::ImportFileCallback callback) {
     PHAuthorizationStatus status = [PHPhotoLibrary authorizationStatus];
     if(status == PHAuthorizationStatusNotDetermined) {
         // Request photo authorization
@@ -367,8 +148,8 @@ void showIOSPhotosPickerForImport(vx::fs::ImportFileCallback callback) {
                     if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
                         imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
                         imagePicker.allowsEditing = false;
-                        ImagePickerDelegateForImport *delegate = [ImagePickerDelegateForImport shared];
-                        delegate.callback = callback;
+                        ImagePickerDelegate *delegate = [ImagePickerDelegate shared];
+                        delegate.callback = pickerCallback;
                         imagePicker.delegate = delegate;
 
                         UIViewController *rootController = vx::utils::ios::getRootUIViewController();
@@ -376,7 +157,7 @@ void showIOSPhotosPickerForImport(vx::fs::ImportFileCallback callback) {
                     }
                 });
             } else {
-                callback(nullptr, 0, vx::fs::ImportFileCallbackStatus::CANCELLED);
+                importFileCallback(vx::fs::ImportFileCallbackStatus::CANCELLED, std::string());
             }
         }];
     } else if (status == PHAuthorizationStatusAuthorized) {
@@ -385,8 +166,8 @@ void showIOSPhotosPickerForImport(vx::fs::ImportFileCallback callback) {
             if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
                 imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
                 imagePicker.allowsEditing = false;
-                ImagePickerDelegateForImport *delegate = [ImagePickerDelegateForImport shared];
-                delegate.callback = callback;
+                ImagePickerDelegate *delegate = [ImagePickerDelegate shared];
+                delegate.callback = pickerCallback;
                 imagePicker.delegate = delegate;
 
                 UIViewController *rootController = vx::utils::ios::getRootUIViewController();
@@ -395,11 +176,11 @@ void showIOSPhotosPickerForImport(vx::fs::ImportFileCallback callback) {
         });
     } else {
         // Permission denied or restricted
-        callback(nullptr, 0, vx::fs::ImportFileCallbackStatus::CANCELLED);
+        importFileCallback(vx::fs::ImportFileCallbackStatus::CANCELLED, std::string());
     }
 }
 
-void showIOSFilesPickerForImport(vx::fs::ImportFileCallback callback) {
+void showIOSFilesPickerForImport(vx::fs::ImportFileCallback importFileCallback) {
     dispatch_async(dispatch_get_main_queue(), ^{
         UIViewController *vc = vx::utils::ios::getRootUIViewController();
 
@@ -431,11 +212,24 @@ void showIOSFilesPickerForImport(vx::fs::ImportFileCallback callback) {
                                                    @"com.voxowl.particubes.3zh",
                                                    @"com.voxowl.particubes.glb",
                                                    @"com.voxowl.particubes.gltf"];
+            // TODO: gaetan: disable deprecation warning
             pickerVC = [[UIDocumentPickerViewController alloc] initWithDocumentTypes:documentTypes inMode:UIDocumentPickerModeImport];
         }
 
         DocumentPickerDelegate *d = [DocumentPickerDelegate shared];
-        d.callback = callback;
+        d.callback = [importFileCallback](PickerCallbackStatus status, std::string bytes){
+            switch (status) {
+                case PickerCallbackStatus::OK:
+                    importFileCallback(vx::fs::ImportFileCallbackStatus::OK, bytes);
+                    break;
+                case PickerCallbackStatus::ERROR:
+                    importFileCallback(vx::fs::ImportFileCallbackStatus::ERROR, bytes);
+                    break;
+                case PickerCallbackStatus::CANCELLED:
+                    importFileCallback(vx::fs::ImportFileCallbackStatus::CANCELLED, bytes);
+                    break;
+            }
+        };
         pickerVC.delegate = d;
         [vc presentViewController:pickerVC animated:YES completion:nil];
     });
@@ -464,7 +258,7 @@ void showImportFileOptions(vx::fs::ImportFileCallback callback) {
         UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" 
                                                                style:UIAlertActionStyleCancel 
                                                              handler:^(UIAlertAction * action) {
-            callback(nullptr, 0, vx::fs::ImportFileCallbackStatus::CANCELLED);
+            callback(vx::fs::ImportFileCallbackStatus::CANCELLED, std::string());
         }];
         
         [alertController addAction:photosAction];
@@ -1079,118 +873,6 @@ bool vx::fs::removeStorageFilesWithPrefix(const std::string& directory,
 }
 
 #if TARGET_OS_IPHONE
-@interface ImagePickerDelegate: NSObject<UIImagePickerControllerDelegate> {
-
-}
-
-+ (id)shared;
-
-@end
-
-@implementation ImagePickerDelegate
-
-+ (id)shared {
-    static ImagePickerDelegate *sharedDelegate = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        sharedDelegate = [[ImagePickerDelegate alloc] init];
-    });
-    return sharedDelegate;
-}
-
-- (id)init {
-    if ((self = [super init])) {
-      // someProperty = [[NSString alloc] initWithString:@"Default Property Value"];
-  }
-  return self;
-}
-
-- (void)dealloc {
-  // Should never be called
-}
-
-inline double rad(double deg) {
-    return deg / 180.0 * M_PI;
-}
-
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-
-    UIImage *image = info[UIImagePickerControllerOriginalImage];
-
-    [picker dismissViewControllerAnimated:YES completion:nil];
-
-    NSString *storagePath = getStoragePath();
-    if (storagePath == nil) {
-        return;
-    }
-
-    UIImage *normalizedImage = image;
-
-    if (image.imageOrientation != UIImageOrientationUp) {
-        UIGraphicsBeginImageContextWithOptions(image.size, NO, image.scale);
-        [image drawInRect:CGRectMake(0, 0, image.size.width, image.size.height)];
-        normalizedImage = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
-    }
-
-    // CROP
-
-    double ratio = 16.0 / 9.0;
-
-    CGFloat imageWidth = normalizedImage.size.width;
-    CGFloat imageHeight = normalizedImage.size.height;
-
-    CGRect crop = CGRectMake(0, 0, imageWidth, imageHeight);
-
-    // check if too large
-    if (imageWidth / imageHeight > ratio) {
-        crop.size.width = imageHeight * ratio;
-        crop.origin.x = (imageWidth - crop.size.width) * 0.5;
-    } else if (imageWidth / imageHeight < ratio) { // check if too tall
-        crop.size.height = imageWidth / ratio;
-        crop.origin.y = (imageHeight - crop.size.height) * 0.5;
-    }
-
-    CGImageRef imageRef = CGImageCreateWithImageInRect(normalizedImage.CGImage, crop);
-
-    UIImage *result = [UIImage imageWithCGImage:imageRef scale: 1.0 orientation: UIImageOrientationUp];
-
-    // SCALE
-
-    CGImageRelease(imageRef);
-
-    imageWidth = 800.0;
-    imageHeight = 450.0;
-
-    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-    CGContextRef context = CGBitmapContextCreate(nullptr, imageWidth, imageHeight, 8, 0, colorSpace, kCGImageAlphaPremultipliedLast);
-    CGContextClearRect(context, CGRectMake(0, 0, imageWidth, imageHeight));
-
-    CGContextDrawImage(context, CGRectMake(0, 0, imageWidth, imageHeight), result.CGImage);
-
-    imageRef = CGBitmapContextCreateImage(context);
-
-    CGColorSpaceRelease(colorSpace);
-    CGContextRelease(context);
-
-    result = [UIImage imageWithCGImage:imageRef scale: 1.0 orientation: UIImageOrientationUp];
-
-    CGImageRelease(imageRef);
-
-    // generate absolute file path
-    NSString *absoluteFilePath = [storagePath stringByAppendingPathComponent:@"new-thumbnail.png"];
-
-    BOOL success = [UIImagePNGRepresentation(result) writeToFile:absoluteFilePath atomically:YES];
-
-    if (success == false) {
-        vx::fs::Helper::shared()->callThumbnailCallback(nullptr);
-        return;
-    }
-
-    vx::fs::Helper::shared()->callThumbnailCallback(vx::fs::openStorageFile("new-thumbnail.png"));
-}
-
-@end
 
 #elif TARGET_OS_MAC
 
