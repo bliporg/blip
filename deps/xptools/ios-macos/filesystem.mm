@@ -1002,14 +1002,15 @@ void vx::fs::pickThumbnail(std::function<void(FILE* thumbnail)> callback) {
     Helper::shared()->setThumbnailCallback(callback);
 
 #if TARGET_OS_IPHONE
+
     PHAuthorizationStatus status = [PHPhotoLibrary authorizationStatus];
     if(status == PHAuthorizationStatusNotDetermined) {
 
         // Request photo authorization
-        [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
+        [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus authStatus) {
             showIOSPicker();
+        }];
 
-    }];
     } else if (status == PHAuthorizationStatusAuthorized) {
 
         showIOSPicker();
@@ -1023,7 +1024,9 @@ void vx::fs::pickThumbnail(std::function<void(FILE* thumbnail)> callback) {
         Helper::shared()->callThumbnailCallback(nullptr);
 
     }
+
 #elif TARGET_OS_MAC
+    
     NSOpenPanel *panel = [NSOpenPanel openPanel];
     [panel setCanChooseFiles:YES];
     [panel setCanChooseDirectories:NO];
