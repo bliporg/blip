@@ -211,7 +211,7 @@ bool mergeBundleDirInStorage(const std::string& bundleDir, const std::string& st
 /// directory, ready to be uploaded.
 /// Uses callback to return a FILE* that can be NULL if anything goes wrong
 /// or if the operation is cancelled.
-void pickThumbnail(std::function<void(FILE* thumbnail)> callback);
+//void pickThumbnail(std::function<void(FILE* thumbnail)> callback);
 
 /// filepath is relative to storage
 void shareFile(const std::string& filepath, // where the file to export is stored
