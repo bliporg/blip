@@ -289,28 +289,190 @@ static NSString *getStoragePath() {
 }
 
 @end
+
+@interface ImagePickerDelegateForImport: NSObject<UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+
+@property (nonatomic, assign) vx::fs::ImportFileCallback callback;
+
++ (id)shared;
+
+@end
+
+@implementation ImagePickerDelegateForImport
+
+@synthesize callback;
+
++ (id)shared {
+    static ImagePickerDelegateForImport *sharedDelegate = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedDelegate = [[ImagePickerDelegateForImport alloc] init];
+    });
+    return sharedDelegate;
+}
+
+- (id)init {
+    if ((self = [super init])) {
+      // someProperty = [[NSString alloc] initWithString:@"Default Property Value"];
+  }
+  return self;
+}
+
+- (void)dealloc {
+  // Should never be called
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    UIImage *image = info[UIImagePickerControllerOriginalImage];
+    [picker dismissViewControllerAnimated:YES completion:nil];
+
+    if (image == nil) {
+        static_cast<ImagePickerDelegateForImport*>([ImagePickerDelegateForImport shared]).callback(nullptr, 0, vx::fs::ImportFileCallbackStatus::ERROR_IMPORT);
+        return;
+    }
+
+    NSData *imageData = UIImagePNGRepresentation(image);
+    if (imageData == nil) {
+        // Try JPEG if PNG fails
+        imageData = UIImageJPEGRepresentation(image, 0.9);
+    }
+
+    if (imageData == nil) {
+        static_cast<ImagePickerDelegateForImport*>([ImagePickerDelegateForImport shared]).callback(nullptr, 0, vx::fs::ImportFileCallbackStatus::ERROR_IMPORT);
+        return;
+    }
+
+    void *bytes = static_cast<void*>(malloc(imageData.length));
+    memcpy(bytes, imageData.bytes, imageData.length);
+    static_cast<ImagePickerDelegateForImport*>([ImagePickerDelegateForImport shared]).callback(bytes, imageData.length, vx::fs::ImportFileCallbackStatus::OK);
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    [picker dismissViewControllerAnimated:YES completion:nil];
+    static_cast<ImagePickerDelegateForImport*>([ImagePickerDelegateForImport shared]).callback(nullptr, 0, vx::fs::ImportFileCallbackStatus::CANCELLED);
+}
+
+@end
+
+void showIOSPhotosPickerForImport(vx::fs::ImportFileCallback callback) {
+    PHAuthorizationStatus status = [PHPhotoLibrary authorizationStatus];
+    if(status == PHAuthorizationStatusNotDetermined) {
+        // Request photo authorization
+        [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus authStatus) {
+            if (authStatus == PHAuthorizationStatusAuthorized) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    UIImagePickerController* imagePicker = [[UIImagePickerController alloc]init];
+                    if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
+                        imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+                        imagePicker.allowsEditing = false;
+                        ImagePickerDelegateForImport *delegate = [ImagePickerDelegateForImport shared];
+                        delegate.callback = callback;
+                        imagePicker.delegate = delegate;
+
+                        UIViewController *rootController = [[[UIApplication sharedApplication] keyWindow] rootViewController];
+                        [rootController presentViewController:imagePicker animated:true completion:nil];
+                    }
+                });
+            } else {
+                callback(nullptr, 0, vx::fs::ImportFileCallbackStatus::CANCELLED);
+            }
+        }];
+    } else if (status == PHAuthorizationStatusAuthorized) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            UIImagePickerController* imagePicker = [[UIImagePickerController alloc]init];
+            if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
+                imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+                imagePicker.allowsEditing = false;
+                ImagePickerDelegateForImport *delegate = [ImagePickerDelegateForImport shared];
+                delegate.callback = callback;
+                imagePicker.delegate = delegate;
+
+                UIViewController *rootController = [[[UIApplication sharedApplication] keyWindow] rootViewController];
+                [rootController presentViewController:imagePicker animated:true completion:nil];
+            }
+        });
+    } else {
+        // Permission denied or restricted
+        callback(nullptr, 0, vx::fs::ImportFileCallbackStatus::CANCELLED);
+    }
+}
+
+void showIOSFilesPickerForImport(vx::fs::ImportFileCallback callback) {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        UIViewController *vc = [UIApplication sharedApplication].keyWindow.rootViewController;
+        
+        // Create UTType objects for each file type - modern approach
+        NSMutableArray<UTType *> *allowedTypes = [NSMutableArray array];
+        
+        // Standard image types
+        [allowedTypes addObject:UTTypePNG];
+        [allowedTypes addObject:UTTypeJPEG];
+        [allowedTypes addObject:UTTypeGIF];
+        
+        // Custom voxel/3D model types
+        [allowedTypes addObject:[UTType typeWithFilenameExtension:@"vox"]];
+        [allowedTypes addObject:[UTType typeWithFilenameExtension:@"pcubes"]];
+        [allowedTypes addObject:[UTType typeWithFilenameExtension:@"3zh"]];
+        [allowedTypes addObject:[UTType typeWithFilenameExtension:@"glb"]];
+        [allowedTypes addObject:[UTType typeWithFilenameExtension:@"gltf"]];
+        
+        UIDocumentPickerViewController *pickerVC = [[UIDocumentPickerViewController alloc] initForOpeningContentTypes:allowedTypes];
+
+        DocumentPickerDelegate *d = [DocumentPickerDelegate shared];
+        d.callback = callback;
+        pickerVC.delegate = d;
+        [vc presentViewController:pickerVC animated:YES completion:nil];
+    });
+}
+
+void showImportFileOptions(vx::fs::ImportFileCallback callback) {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        UIViewController *vc = [UIApplication sharedApplication].keyWindow.rootViewController;
+        
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Import File" 
+                                                                                 message:@"Choose the source for your file" 
+                                                                          preferredStyle:UIAlertControllerStyleActionSheet];
+        
+        UIAlertAction *photosAction = [UIAlertAction actionWithTitle:@"Photo Library" 
+                                                               style:UIAlertActionStyleDefault 
+                                                             handler:^(UIAlertAction * action) {
+            showIOSPhotosPickerForImport(callback);
+        }];
+        
+        UIAlertAction *filesAction = [UIAlertAction actionWithTitle:@"Files" 
+                                                              style:UIAlertActionStyleDefault 
+                                                            handler:^(UIAlertAction * action) {
+            showIOSFilesPickerForImport(callback);
+        }];
+        
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" 
+                                                               style:UIAlertActionStyleCancel 
+                                                             handler:^(UIAlertAction * action) {
+            callback(nullptr, 0, vx::fs::ImportFileCallbackStatus::CANCELLED);
+        }];
+        
+        [alertController addAction:photosAction];
+        [alertController addAction:filesAction];
+        [alertController addAction:cancelAction];
+        
+        // For iPad
+        if (alertController.popoverPresentationController != nil) {
+            alertController.popoverPresentationController.sourceView = vc.view;
+            alertController.popoverPresentationController.sourceRect = CGRectMake(CGRectGetMidX(vc.view.bounds),
+                                                                                 CGRectGetMidY(vc.view.bounds),
+                                                                                 0,
+                                                                                 0);
+        }
+        
+        [vc presentViewController:alertController animated:YES completion:nil];
+    });
+}
 #endif
 
-// TODO: allow to choose what file types to import
 void ::vx::fs::importFile(ImportFileCallback callback) {
 #if TARGET_OS_IPHONE
-    UIViewController *vc = [UIApplication sharedApplication].keyWindow.rootViewController;
-    
-    UIDocumentPickerViewController *pickerVC = [[UIDocumentPickerViewController alloc] initWithDocumentTypes:@[@"com.voxowl.particubes.vox",
-                                                                                                               @"com.voxowl.particubes.pcubes",
-                                                                                                               @"com.voxowl.particubes.particubes",
-                                                                                                               @"com.voxowl.particubes.3zh",
-                                                                                                               @"com.voxowl.particubes.glb",
-                                                                                                               @"com.voxowl.particubes.gltf",
-                                                                                                               @"com.voxowl.particubes.gif",
-                                                                                                               @"com.voxowl.particubes.jpg",
-                                                                                                               @"com.voxowl.particubes.jpeg",
-                                                                                                               @"com.voxowl.particubes.png"] inMode:UIDocumentPickerModeImport];
-
-    DocumentPickerDelegate *d = [DocumentPickerDelegate shared];
-    d.callback = callback;
-    pickerVC.delegate = d;
-    [vc presentViewController:pickerVC animated:YES completion:nil];
+    // Show options to user to choose between Photos and Files
+    showImportFileOptions(callback);
 
 #elif TARGET_OS_MAC
 
@@ -1057,7 +1219,9 @@ void showIOSFilePicker() {
     dispatch_async(dispatch_get_main_queue(), ^{
         UIViewController *vc = [UIApplication sharedApplication].keyWindow.rootViewController;
         
-        UIDocumentPickerViewController *pickerVC = [[UIDocumentPickerViewController alloc] initWithDocumentTypes:@[@"public.image"] inMode:UIDocumentPickerModeImport];
+        // Use modern UTType approach for images
+        NSArray<UTType *> *imageTypes = @[UTTypePNG, UTTypeJPEG, UTTypeGIF];
+        UIDocumentPickerViewController *pickerVC = [[UIDocumentPickerViewController alloc] initForOpeningContentTypes:imageTypes];
 
         DocumentPickerDelegateForThumbnail *d = [DocumentPickerDelegateForThumbnail shared];
         pickerVC.delegate = d;
