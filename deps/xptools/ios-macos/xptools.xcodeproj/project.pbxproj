@@ -325,6 +325,15 @@
 		85FA71E22D9709D100CBD3F7 /* passkey.mm in Sources */ = {isa = PBXBuildFile; fileRef = 85FA71DF2D9709CC00CBD3F7 /* passkey.mm */; };
 		85FA71E32D9709D100CBD3F7 /* passkey.mm in Sources */ = {isa = PBXBuildFile; fileRef = 85FA71DF2D9709CC00CBD3F7 /* passkey.mm */; };
 		85FA71E42D9709D100CBD3F7 /* passkey.mm in Sources */ = {isa = PBXBuildFile; fileRef = 85FA71DF2D9709CC00CBD3F7 /* passkey.mm */; };
+		85FB39B62DFB61CC00AA831E /* xp_http.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 85FB39B52DFB61AD00AA831E /* xp_http.hpp */; };
+		85FB39B72DFB61CC00AA831E /* xp_http.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 85FB39B52DFB61AD00AA831E /* xp_http.hpp */; };
+		85FB39B82DFB61CC00AA831E /* xp_http.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 85FB39B52DFB61AD00AA831E /* xp_http.hpp */; };
+		85FB39B92DFB61CC00AA831E /* xp_http.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 85FB39B52DFB61AD00AA831E /* xp_http.hpp */; };
+		85FB39BB2DFB634D00AA831E /* xp_http.mm in Sources */ = {isa = PBXBuildFile; fileRef = 85FB39BA2DFB634300AA831E /* xp_http.mm */; };
+		85FB39BC2DFB634D00AA831E /* xp_http.mm in Sources */ = {isa = PBXBuildFile; fileRef = 85FB39BA2DFB634300AA831E /* xp_http.mm */; };
+		85FB39BD2DFB634D00AA831E /* xp_http.mm in Sources */ = {isa = PBXBuildFile; fileRef = 85FB39BA2DFB634300AA831E /* xp_http.mm */; };
+		85FB39BE2DFB634D00AA831E /* xp_http.mm in Sources */ = {isa = PBXBuildFile; fileRef = 85FB39BA2DFB634300AA831E /* xp_http.mm */; };
+		85FB39BF2DFB634D00AA831E /* xp_http.mm in Sources */ = {isa = PBXBuildFile; fileRef = 85FB39BA2DFB634300AA831E /* xp_http.mm */; };
 		85FCECA528072D3200CD6115 /* WSBackend.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 85FCECA128072D3200CD6115 /* WSBackend.hpp */; };
 		85FCECA628072D3200CD6115 /* WSBackend.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 85FCECA128072D3200CD6115 /* WSBackend.hpp */; };
 		85FED02C2B0B5C6A00C68F6D /* HttpRequestOpts.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 85FED02B2B0B5C6A00C68F6D /* HttpRequestOpts.cpp */; };
@@ -444,6 +453,8 @@
 		85F95C2F2D97380D00374D5F /* passkey.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = passkey.cpp; sourceTree = "<group>"; };
 		85FA71DA2D97083400CBD3F7 /* passkey.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = passkey.hpp; sourceTree = "<group>"; };
 		85FA71DF2D9709CC00CBD3F7 /* passkey.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = passkey.mm; sourceTree = "<group>"; };
+		85FB39B52DFB61AD00AA831E /* xp_http.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = xp_http.hpp; sourceTree = "<group>"; };
+		85FB39BA2DFB634300AA831E /* xp_http.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = xp_http.mm; sourceTree = "<group>"; };
 		85FCECA128072D3200CD6115 /* WSBackend.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = WSBackend.hpp; sourceTree = "<group>"; };
 		85FED0252B0AB80F00C68F6D /* HttpRequestOpts.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = HttpRequestOpts.hpp; sourceTree = "<group>"; };
 		85FED02B2B0B5C6A00C68F6D /* HttpRequestOpts.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = HttpRequestOpts.cpp; sourceTree = "<group>"; };
@@ -569,6 +580,7 @@
 				85471B3027E3E006000575D5 /* WSServerConnection.hpp */,
 				85471B9127E85AF6000575D5 /* WSService.hpp */,
 				85471B6C27E4C99E000575D5 /* WSTypes.hpp */,
+				85FB39B52DFB61AD00AA831E /* xp_http.hpp */,
 				8534FDD1240E9762004B3494 /* xptools.h */,
 			);
 			name = include;
@@ -630,6 +642,7 @@
 				10EE2BCA272C099000EC374C /* web-ios.mm */,
 				10EE2BC4272C091100EC374C /* web-macos.mm */,
 				100512092CC6A77500B16FB1 /* WSConnection.mm */,
+				85FB39BA2DFB634300AA831E /* xp_http.mm */,
 			);
 			name = "ios-macos";
 			sourceTree = "<group>";
@@ -674,6 +687,7 @@
 				102145062C75E0C000099E38 /* device.hpp in Headers */,
 				102145072C75E0C000099E38 /* Connection.hpp in Headers */,
 				102145082C75E0C000099E38 /* OperationQueue.hpp in Headers */,
+				85FB39B72DFB61CC00AA831E /* xp_http.hpp in Headers */,
 				10975C922DCFC73C009637FD /* iap.hpp in Headers */,
 				102145092C75E0C000099E38 /* Channel.hpp in Headers */,
 				1021450A2C75E0C000099E38 /* vxtime.h in Headers */,
@@ -709,6 +723,7 @@
 				85FCECA628072D3200CD6115 /* WSBackend.hpp in Headers */,
 				10847CBD270EE8C6006A5E91 /* device.hpp in Headers */,
 				85471B3227E3E006000575D5 /* Connection.hpp in Headers */,
+				85FB39B62DFB61CC00AA831E /* xp_http.hpp in Headers */,
 				10975C912DCFC73C009637FD /* iap.hpp in Headers */,
 				85471B3B27E3E10C000575D5 /* Channel.hpp in Headers */,
 				10847CBE270EE8C6006A5E91 /* vxtime.h in Headers */,
@@ -744,6 +759,7 @@
 				850BDE7D2D19EC0F00A85B76 /* device.hpp in Headers */,
 				850BDE7E2D19EC0F00A85B76 /* Connection.hpp in Headers */,
 				850BDE7F2D19EC0F00A85B76 /* OperationQueue.hpp in Headers */,
+				85FB39B92DFB61CC00AA831E /* xp_http.hpp in Headers */,
 				10975C902DCFC73C009637FD /* iap.hpp in Headers */,
 				850BDE802D19EC0F00A85B76 /* Channel.hpp in Headers */,
 				850BDE812D19EC0F00A85B76 /* vxtime.h in Headers */,
@@ -779,6 +795,7 @@
 				10974C90244D6D69008153FE /* device.hpp in Headers */,
 				85471B3127E3E006000575D5 /* Connection.hpp in Headers */,
 				858ABB8D2A52F5EE007AE641 /* OperationQueue.hpp in Headers */,
+				85FB39B82DFB61CC00AA831E /* xp_http.hpp in Headers */,
 				10975C8F2DCFC73C009637FD /* iap.hpp in Headers */,
 				85471B3A27E3E10C000575D5 /* Channel.hpp in Headers */,
 				1033951D25626D130083F4C0 /* vxtime.h in Headers */,
@@ -964,6 +981,7 @@
 				102145302C75E0C000099E38 /* process-macos.cpp in Sources */,
 				102145312C75E0C000099E38 /* textinput.cpp in Sources */,
 				851224D52DD1DB7E00F84200 /* utils.m in Sources */,
+				85FB39BF2DFB634D00AA831E /* xp_http.mm in Sources */,
 				102145322C75E0C000099E38 /* BZMD5.cpp in Sources */,
 				102145332C75E0C000099E38 /* strings.cpp in Sources */,
 				102145342C75E0C000099E38 /* WSServer.cpp in Sources */,
@@ -1012,6 +1030,7 @@
 				858ABB882A52F5CD007AE641 /* OperationQueue.cpp in Sources */,
 				855CB5E32873204100072D5F /* process-macos.cpp in Sources */,
 				1022D09828AFBC8E00C1F1E9 /* process.cpp in Sources */,
+				85FB39BC2DFB634D00AA831E /* xp_http.mm in Sources */,
 				10847CCD270EE8C6006A5E91 /* strings.cpp in Sources */,
 				85471B4827E3E4AA000575D5 /* WSServer.cpp in Sources */,
 				85471B4B27E3E4AA000575D5 /* WSConnection.cpp in Sources */,
@@ -1060,6 +1079,7 @@
 				850BDEA92D19EC0F00A85B76 /* textinput.cpp in Sources */,
 				850BDEAA2D19EC0F00A85B76 /* BZMD5.cpp in Sources */,
 				850BDEAB2D19EC0F00A85B76 /* strings.cpp in Sources */,
+				85FB39BD2DFB634D00AA831E /* xp_http.mm in Sources */,
 				850BDEAC2D19EC0F00A85B76 /* WSServer.cpp in Sources */,
 				851224D32DD1DB7E00F84200 /* utils.m in Sources */,
 				850BDEAD2D19EC0F00A85B76 /* WSConnection.cpp in Sources */,
@@ -1109,6 +1129,7 @@
 				10FF17812BC3F02000A8E2E7 /* textinput.cpp in Sources */,
 				101554E02C04D57E001E9057 /* BZMD5.cpp in Sources */,
 				10C63D2C246C4F61003DEC3E /* strings.cpp in Sources */,
+				85FB39BE2DFB634D00AA831E /* xp_http.mm in Sources */,
 				85471B4627E3E4AA000575D5 /* WSServer.cpp in Sources */,
 				851224D22DD1DB7E00F84200 /* utils.m in Sources */,
 				100512112CC6BECB00B16FB1 /* WSConnection.cpp in Sources */,
@@ -1158,6 +1179,7 @@
 				10FF17832BC3F02000A8E2E7 /* textinput.cpp in Sources */,
 				101554E12C04D57E001E9057 /* BZMD5.cpp in Sources */,
 				85471B4727E3E4AA000575D5 /* WSServer.cpp in Sources */,
+				85FB39BB2DFB634D00AA831E /* xp_http.mm in Sources */,
 				1022D09428AF8EEF00C1F1E9 /* process-ios.cpp in Sources */,
 				851224D12DD1DB7E00F84200 /* utils.m in Sources */,
 				100512122CC6BECB00B16FB1 /* WSConnection.cpp in Sources */,
