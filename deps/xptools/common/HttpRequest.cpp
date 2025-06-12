@@ -165,9 +165,10 @@ void HttpRequest::sendAsync() {
         }
     }
 
-    // Caching is not needed on WASM platform,
-    // as the web browser is already taking care of it.
-#if !defined(__VX_PLATFORM_WASM)
+    // Don't use our own HTTP caching on the following platforms:
+    // - iOS & macOS (Apple's HTTP API is taking care of it)
+    // - wasm (the web browser is taking care of it)
+#if !defined(__VX_PLATFORM_WASM) && !defined(__VX_PLATFORM_IOS) && !defined(__VX_PLATFORM_MACOS)
     // check if cache is available for GET requests
     if (this->getMethod() == "GET") {
         HttpClient::CacheMatch cacheMatch = vx::HttpClient::shared().getCachedResponseForRequest(strongSelf);
