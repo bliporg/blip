@@ -195,7 +195,7 @@ mod.createModalContent = function(_, config)
 			-- Name
 			local nameTextOrEdit = nil
 			if config.mode == "create" or config.mode == "edit" then
-				nameTextOrEdit = ui:createTextInput("", "Badge Name")
+				nameTextOrEdit = ui:createTextInput(config.badgeObj.name or "", "Badge Name")
 			elseif config.mode == "display" then
 				name = config.badgeObj.name
 				nameTextOrEdit = ui:createText(name, {
@@ -208,7 +208,7 @@ mod.createModalContent = function(_, config)
 			-- Description
 			local descriptionTextOrEdit = nil
 			if config.mode == "create" or config.mode == "edit" then
-				descriptionTextOrEdit = ui:createTextInput("", "Description")
+				descriptionTextOrEdit = ui:createTextInput(config.badgeObj.description or "", "Description")
 			elseif config.mode == "display" then
 				description = config.badgeObj.description
 				descriptionTextOrEdit = ui:createText(description, {
@@ -411,6 +411,7 @@ mod.createModalContent = function(_, config)
 							}, System)
 						else
 							-- badge created successfully, going back to world details
+							LocalEvent:Send("badgesNeedRefresh")
 							Menu:ShowAlert({
 								message = loc("Badge Created! ✅"),
 								neutralLabel = loc("OK"),
@@ -428,15 +429,15 @@ mod.createModalContent = function(_, config)
 						description = description,
 					}, function(err)
 						if err then
-							print("Edit badge error:", err)
+							Menu:ShowAlert({
+								message = loc("Sorry, something went wrong. 😕"),
+								neutralLabel = loc("OK"),
+								neutralCallback = function() end,
+							}, System)
+							return
 						end
-						-- if err then
-						-- 	Menu:ShowAlert({
-						-- 		message = loc("Sorry, something went wrong. 😕"),
-						-- 		neutralLabel = loc("OK"),
-						-- 		neutralCallback = function() end,
-						-- 	}, System)
-						-- end
+						LocalEvent:Send("badgesNeedRefresh")
+						content:pop()
 					end)
 				elseif config.mode == "display" then
 					content:pop()

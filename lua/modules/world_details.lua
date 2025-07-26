@@ -354,8 +354,15 @@ mod.createModalContent = function(_, config)
 		end
 	end
 
+	local badgesNeedRefresh = true
+	local badgesNeedRefreshListener = LocalEvent:Listen("badgesNeedRefresh", function()
+		badgesNeedRefresh = true
+		-- badges will be refreshed when content becomes active
+	end)
+
 	worldDetails.onRemove = function(_)
 		cancelRequestsTimersAndListeners()
+		badgesNeedRefreshListener:Remove()
 	end
 
 	content.title = ""
@@ -505,11 +512,15 @@ mod.createModalContent = function(_, config)
 	badgesScroll:setParent(cell)
 
 	function fetchBadgesAndUpdateUI()
+		if not badgesNeedRefresh then
+			return
+		end
 		api:listBadgesForWorld(world.id, function(err, badges)
 			if err ~= nil or badges == nil then
-				print("🐞 [badges] could not list badges for world", world.id, err)
+				-- print("🐞 [badges] could not list badges for world", world.id, err)
 				return
 			end
+			badgesNeedRefresh = false
 
 			table.sort(badges, function(a, b)
 				-- unlocked first
