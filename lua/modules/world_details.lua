@@ -386,7 +386,16 @@ mod.createModalContent = function(_, config)
 	local btnServers
 
 	if not createMode then
-		btnLaunch = ui:buttonPositive({ content = "Start", textSize = "big", padding = 10 })
+		local playIcon = ui:frame({
+			image = {
+				data = Data:FromBundle("images/icon-play-white.png"),
+				alpha = true,
+			},
+		})
+		playIcon.Width = 36
+		playIcon.Height = 36
+
+		btnLaunch = ui:buttonPositive({ content = playIcon })
 		btnLaunch.onRelease = function()
 			System:DebugEvent("User presses Start button to launch world", { ["world-id"] = world.id })
 			URL:Open("https://app.cu.bzh?worldID=" .. world.id)
@@ -418,6 +427,7 @@ mod.createModalContent = function(_, config)
 	local editIconBtn
 	local description
 	local views
+	local serverSize
 	local creationDate
 	local updateDate
 	local serverSizeText
@@ -488,10 +498,7 @@ mod.createModalContent = function(_, config)
 	end
 	title:setParent(cell)
 
-	-- local descriptionTitle = ui:createText("Description", { color = Color.White, size = "default" })
-	-- descriptionTitle:setParent(cell)
-
-	local badgesTitle = ui:createText("Badges", { color = Color.White, size = "default" })
+	local badgesTitle = ui:createText("🏅 Badges", { color = Color.White, size = "default" })
 	badgesTitle:setParent(cell)
 
 	-- create scroll to display badges
@@ -510,6 +517,11 @@ mod.createModalContent = function(_, config)
 		unloadCell = badgesScrollUnloadCell,
 	})
 	badgesScroll:setParent(cell)
+
+	if config.mode ~= "create" then
+		badgesTitle:hide()
+		badgesScroll:hide()
+	end
 
 	function fetchBadgesAndUpdateUI()
 		if not badgesNeedRefresh then
@@ -538,7 +550,20 @@ mod.createModalContent = function(_, config)
 
 			badgesScroll:flush()
 			removeAllCells()
-			badgesScroll:refresh()
+
+			if config.mode == "create" then
+				badgesScroll:refresh()
+
+			elseif badgesFetched and #badgesFetched > 0 then
+				badgesTitle:show()
+				badgesScroll:show()
+
+				worldDetails:refresh()
+				badgesScroll:refresh()
+			else
+				badgesTitle:hide()
+				badgesScroll:hide()
+			end
 		end)
 	end
 
@@ -613,6 +638,9 @@ mod.createModalContent = function(_, config)
 	end
 
 	local secondaryTextColor = Color(150, 150, 150)
+
+	serverSize = ui:createText("👤 …", { color = secondaryTextColor, size = "small" })
+	serverSize:setParent(cell)
 
 	creationDate = ui:createText("🌎 published … ago", secondaryTextColor, "small")
 	creationDate:setParent(cell)
@@ -779,6 +807,14 @@ mod.createModalContent = function(_, config)
 		end
 
 		views.Text = "👁 " .. (world.views and math.floor(world.views) or 0)
+
+		if world.maxPlayers then
+			if world.maxPlayers == 1 then
+				serverSize.Text = "👤 solo game (no server)"
+			else
+				serverSize.Text = "👥 " .. world.maxPlayers .. " players per server"
+			end
+		end
 
 		if world.created then
 			local n, unitType = time.ago(world.created)
@@ -976,17 +1012,22 @@ mod.createModalContent = function(_, config)
 			+ padding
 			+ viewAndLikesHeight -- views and likes
 			+ padding
-			-- + descriptionTitle.Height
-			-- + padding
 			+ description.Height
 			+ theme.paddingBig
-			+ badgesTitle.Height
+			+ singleLineHeight -- server size
 			+ padding
-			+ badgesScroll.Height
-			+ theme.paddingBig
 			+ singleLineHeight -- publication date
 			+ padding
 			+ singleLineHeight -- update date
+			+ theme.paddingBig
+
+		if badgesTitle:isVisible() then
+			contentHeight += badgesTitle.Height + padding
+		end
+
+		if badgesScroll:isVisible() then
+			contentHeight += badgesScroll.Height + padding
+		end
 
 		if serverSizeText then
 			local h = math.max(serverSizeText.Height, serverSizeSlider.Height)
@@ -1057,8 +1098,6 @@ mod.createModalContent = function(_, config)
 		end
 
 		-- description
-		-- y = y - padding - descriptionTitle.Height
-		-- descriptionTitle.pos = { padding, y }
 		y = y - padding - description.Height
 		description.pos = { padding, y }
 
@@ -1068,12 +1107,20 @@ mod.createModalContent = function(_, config)
 		end
 
 		-- badges
-		y = y - theme.paddingBig - badgesTitle.Height
-		badgesTitle.pos = { padding, y }
-		y = y - padding - badgesScroll.Height
-		badgesScroll.pos = { padding, y }
+		if badgesTitle:isVisible() then
+			y = y - theme.paddingBig - badgesTitle.Height
+			badgesTitle.pos = { padding, y }
+		end
+		if badgesScroll:isVisible() then
+			y = y - padding - badgesScroll.Height
+			badgesScroll.pos = { padding, y }
+		end
 
 		-- info
+		y = y - theme.paddingBig - singleLineHeight * 0.5
+		serverSize.pos = { padding, y - serverSize.Height * 0.5 }
+		y = y - singleLineHeight * 0.5
+
 		y = y - theme.paddingBig - singleLineHeight * 0.5
 		creationDate.pos = { padding, y - creationDate.Height * 0.5 }
 		y = y - singleLineHeight * 0.5

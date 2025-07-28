@@ -1884,7 +1884,7 @@ function home()
 				end,
 			},
 			{
-				title = loc("✨ Featured"),
+				title = loc("✨ Recommended Games"),
 				cellSize = CONFIG.WORLD_CELL_HEIGHT,
 				loadCell = function(index, dataFetcher)
 					if index <= dataFetcher.nbEntities then
@@ -1972,22 +1972,22 @@ function home()
 					requestRecentCreators(dataFetcher)
 				end,
 			},
-			{
-				title = loc("🤠 Playing solo"),
-				cellSize = CONFIG.WORLD_CELL_HEIGHT,
-				loadCell = function(index, dataFetcher)
-					if index <= dataFetcher.nbEntities then
-						local world = dataFetcher.entities[index]
-						return getOrCreateWorldCell(world, "solo")
-					end
-				end,
-				unloadCell = function(_, cell)
-					recycleWorldCell(cell)
-				end,
-				extraSetup = function(dataFetcher)
-					requestWorlds(dataFetcher, { category = "solo" })
-				end,
-			},
+			-- {
+			-- 	title = loc("🤠 Playing solo"),
+			-- 	cellSize = CONFIG.WORLD_CELL_HEIGHT,
+			-- 	loadCell = function(index, dataFetcher)
+			-- 		if index <= dataFetcher.nbEntities then
+			-- 			local world = dataFetcher.entities[index]
+			-- 			return getOrCreateWorldCell(world, "solo")
+			-- 		end
+			-- 	end,
+			-- 	unloadCell = function(_, cell)
+			-- 		recycleWorldCell(cell)
+			-- 	end,
+			-- 	extraSetup = function(dataFetcher)
+			-- 		requestWorlds(dataFetcher, { category = "solo" })
+			-- 	end,
+			-- },
 			{
 				title = loc("🍏 New Items"),
 				buttonLabel = loc("all items"),
@@ -2008,22 +2008,22 @@ function home()
 					requestItems(dataFetcher, { sortBy = "updatedAt:desc" })
 				end,
 			},
-			{
-				title = loc("❤️ Top Rated"),
-				cellSize = CONFIG.WORLD_CELL_HEIGHT,
-				loadCell = function(index, dataFetcher)
-					if index <= dataFetcher.nbEntities then
-						local world = dataFetcher.entities[index]
-						return getOrCreateWorldCell(world, "top_rated")
-					end
-				end,
-				unloadCell = function(_, cell)
-					recycleWorldCell(cell)
-				end,
-				extraSetup = function(dataFetcher)
-					requestWorlds(dataFetcher, { sortBy = "likes:desc" })
-				end,
-			},
+			-- {
+			-- 	title = loc("❤️ Top Rated"),
+			-- 	cellSize = CONFIG.WORLD_CELL_HEIGHT,
+			-- 	loadCell = function(index, dataFetcher)
+			-- 		if index <= dataFetcher.nbEntities then
+			-- 			local world = dataFetcher.entities[index]
+			-- 			return getOrCreateWorldCell(world, "top_rated")
+			-- 		end
+			-- 	end,
+			-- 	unloadCell = function(_, cell)
+			-- 		recycleWorldCell(cell)
+			-- 	end,
+			-- 	extraSetup = function(dataFetcher)
+			-- 		requestWorlds(dataFetcher, { sortBy = "likes:desc" })
+			-- 	end,
+			-- },
 			{
 				title = loc("⚔️ Popular Items"),
 				buttonLabel = loc("all items"),
