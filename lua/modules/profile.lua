@@ -151,6 +151,7 @@ profile.create = function(_, config)
 	end
 
 	local blockBtn
+	local deleteAccountBtn
 	if not isLocal then
 		blockBtn = ui:button({ 
 			content = "",
@@ -190,6 +191,32 @@ profile.create = function(_, config)
 			}, System)
 		end
 		blockBtn:setParent(cell)
+
+		if Player.Username == "aduermael" or Player.Username == "gaetan" then
+			deleteAccountBtn = ui:button({ 
+				content = "💀 Delete Account", 
+				textSize = "small", 
+				borders = false,
+				padding = false, 
+				textColor = theme.errorTextColor,
+				color = Color(0, 0, 0, 0),
+			})
+			deleteAccountBtn.onRelease = function()
+				Menu:ShowAlert({
+					message = "Are you sure you want to delete this account?",
+					positiveCallback = function() 
+						-- TODO: send request
+						print("content:", content)
+						local m = content:getModalIfContentIsActive()
+						if m ~= nil then
+							m:close()
+						end
+					end,
+					negativeCallback = function() end,
+				}, System)
+			end
+			deleteAccountBtn:setParent(cell)
+		end
 	end
 
 	-- functions to create each node
@@ -199,7 +226,6 @@ profile.create = function(_, config)
 	local acceptFriendBtn
 	local friendText
 	local doneBtn
-	local deleteAccountBtn -- can only be seen by admins
 
 	local createInfoNode = function()
 		local socialBtnsConfig = {
@@ -302,9 +328,6 @@ profile.create = function(_, config)
 		friendText:setParent(node)
 		friendText:hide()
 
-		local reputation = ui:createText("🏆 0", Color.White)
-		reputation:setParent(node)
-
 		local friends = ui:createText("👥 0", Color.White)
 		friends:setParent(node)
 
@@ -350,7 +373,7 @@ profile.create = function(_, config)
 
 			self.Width = parent.Width
 
-			local totalHeight = reputation.Height
+			local totalHeight = created.Height
 
 			if editAvatarBtn then
 				totalHeight = totalHeight + editAvatarBtn.Height + padding
@@ -391,15 +414,12 @@ profile.create = function(_, config)
 			end
 
 			-- stats
-			cursorY = cursorY - reputation.Height - padding
-			local bottomLineWidth = reputation.Width
-				+ theme.paddingBig
-				+ friends.Width
+			cursorY = cursorY - created.Height - padding
+			local bottomLineWidth = friends.Width
 				+ theme.paddingBig
 				+ created.Width
 
-			reputation.pos = { self.Width * 0.5 - bottomLineWidth * 0.5, cursorY }
-			friends.pos = { reputation.pos.X + reputation.Width + theme.paddingBig, cursorY }
+			friends.pos = { self.Width * 0.5 - bottomLineWidth * 0.5, cursorY }
 			created.pos = { friends.pos.X + friends.Width + theme.paddingBig, cursorY }
 
 			if bioText.Text ~= "" then
@@ -728,25 +748,6 @@ profile.create = function(_, config)
 		-- Menu:ShowAlert({ message = "Coming soon!" }, System)
 	end
 
-	if Player.Username == "aduermael" or Player.Username == "gaetan" then
-		deleteAccountBtn = ui:buttonNegative({ content = "💀", textSize = "small" })
-		deleteAccountBtn:setParent(nil)
-		deleteAccountBtn.onRelease = function()
-			Menu:ShowAlert({
-				message = "Are you sure you want to delete this account?",
-				positiveCallback = function() 
-					-- TODO: send request
-					print("content:", content)
-					local m = content:getModalIfContentIsActive()
-					if m ~= nil then
-						m:close()
-					end
-				end,
-				negativeCallback = function() end,
-			}, System)
-		end
-	end
-
 	local alreadyFriends = nil
 	local requestSent = nil
 	local requestReceived = nil
@@ -914,9 +915,6 @@ profile.create = function(_, config)
 		if doneBtn then
 			doneBtn:setParent(nil)
 		end
-		if deleteAccountBtn then
-			deleteAccountBtn:setParent(nil)
-		end
 
 		local h = 0
 
@@ -934,14 +932,6 @@ profile.create = function(_, config)
 				local w = doneBtn.Width
 				doneBtn.pos = { profileNode.Width * 0.5 - w * 0.5, h * 0.5 - doneBtn.Height * 0.5 }
 			end
-		end
-
-		if deleteAccountBtn then
-			deleteAccountBtn:setParent(profileNode)
-			deleteAccountBtn.pos = { 
-				profileNode.Width - deleteAccountBtn.Width - padding,
-				h * 0.5 - deleteAccountBtn.Height * 0.5 
-			}
 		end
 
 		scroll.Height = profileNode.Height - h
@@ -984,6 +974,12 @@ profile.create = function(_, config)
 				0, 
 				y - blockBtn.Height,
 			}
+			if deleteAccountBtn ~= nil then
+				deleteAccountBtn.pos = { 
+					blockBtn.pos.X + blockBtn.Width + padding * 2,
+					y - deleteAccountBtn.Height,
+				}
+			end
 		end
 
 		y = cellContentHeight

@@ -639,8 +639,10 @@ mod.createModalContent = function(_, config)
 
 	local secondaryTextColor = Color(150, 150, 150)
 
-	serverSize = ui:createText("👤 …", { color = secondaryTextColor, size = "small" })
-	serverSize:setParent(cell)
+	if config.mode ~= "create" then
+		serverSize = ui:createText("👤 …", { color = secondaryTextColor, size = "small" })
+		serverSize:setParent(cell)
+	end
 
 	creationDate = ui:createText("🌎 published … ago", secondaryTextColor, "small")
 	creationDate:setParent(cell)
@@ -808,7 +810,7 @@ mod.createModalContent = function(_, config)
 
 		views.Text = "👁 " .. (world.views and math.floor(world.views) or 0)
 
-		if world.maxPlayers then
+		if world.maxPlayers and serverSize then
 			if world.maxPlayers == 1 then
 				serverSize.Text = "👤 solo game (no server)"
 			else
@@ -1117,9 +1119,11 @@ mod.createModalContent = function(_, config)
 		end
 
 		-- info
-		y = y - theme.paddingBig - singleLineHeight * 0.5
-		serverSize.pos = { padding, y - serverSize.Height * 0.5 }
-		y = y - singleLineHeight * 0.5
+		if serverSize then
+			y = y - theme.paddingBig - singleLineHeight * 0.5
+			serverSize.pos = { padding, y - serverSize.Height * 0.5 }
+			y = y - singleLineHeight * 0.5
+		end
 
 		y = y - theme.paddingBig - singleLineHeight * 0.5
 		creationDate.pos = { padding, y - creationDate.Height * 0.5 }
