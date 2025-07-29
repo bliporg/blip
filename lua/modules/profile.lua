@@ -9,14 +9,17 @@ modal = require("modal")
 theme = require("uitheme").current
 uiAvatar = require("ui_avatar")
 str = require("str")
+badgeModal = require("badge_modal")
 
 -- CONSTANTS
 
 local AVATAR_MAX_SIZE = 300
 local AVATAR_MIN_SIZE = 200
 local ACTIVE_NODE_MARGIN = theme.paddingBig
-
 local AVATAR_NODE_RATIO = 1
+
+local SHOW_DELETE_ACCOUNT_BTN = false
+-- SHOW_DELETE_ACCOUNT_BTN = Player.Username == "aduermael" or Player.Username == "gaetan"
 
 --- Creates a profile modal content
 --- positionCallback(function): position of the popup
@@ -81,10 +84,7 @@ profile.create = function(_, config)
 	cell:setParent(nil)
 
 	local scroll = ui:scroll({
-		-- backgroundColor = Color(255, 0, 0),
 		backgroundColor = theme.buttonTextColor,
-		-- backgroundColor = Color(0, 255, 0, 0.3),
-		-- gradientColor = Color(37, 23, 59), -- Color(155, 97, 250),
 		padding = {
 			top = theme.padding,
 			bottom = theme.padding,
@@ -192,7 +192,7 @@ profile.create = function(_, config)
 		end
 		blockBtn:setParent(cell)
 
-		if Player.Username == "aduermael" or Player.Username == "gaetan" then
+		if SHOW_DELETE_ACCOUNT_BTN then
 			deleteAccountBtn = ui:button({
 				content = "💀 Delete Account",
 				textSize = "small",
@@ -371,6 +371,32 @@ profile.create = function(_, config)
 			socialBtns[config.key] = btn
 		end
 
+		local badgesScroll = require("badge"):createScroll({
+			worldID = nil,
+			userID = userID,
+			ui = ui,
+			loaded = function(self, nbBadges)
+				-- if badgesTitle:isVisible() == false and nbBadges > 0 then
+				-- 	badgesTitle:show()
+				-- 	self:show()
+				-- 	worldDetails:refresh()
+				-- end
+			end,
+			onOpen = function(badgeInfo)
+				badgeModalContent = badgeModal:createModalContent({
+					uikit = ui,
+					mode = "display",
+					badgeInfo = badgeInfo,
+					locked = not badgeInfo.unlocked,
+				})
+				local m = content:getModalIfContentIsActive()
+				if m ~= nil then
+					m:push(badgeModalContent)
+				end
+			end,
+		})
+		badgesScroll:setParent(node)
+
 		node.parentDidResize = function(self)
 			self:refresh()
 		end
@@ -410,6 +436,10 @@ profile.create = function(_, config)
 
 			if editLinksBtn then
 				totalHeight = totalHeight + editLinksBtn.Height + padding
+			end
+
+			if badgesScroll then
+				totalHeight = totalHeight + badgesScroll.Height + padding
 			end
 
 			self.Height = totalHeight
@@ -459,6 +489,12 @@ profile.create = function(_, config)
 			if editLinksBtn then
 				cursorY = cursorY - editLinksBtn.Height - padding
 				editLinksBtn.pos = { self.Width * 0.5 - editLinksBtn.Width * 0.5, cursorY }
+			end
+
+			if badgesScroll then
+				badgesScroll.Width = self.Width - padding * 2
+				cursorY = cursorY - badgesScroll.Height - padding
+				badgesScroll.pos = { self.Width * 0.5 - badgesScroll.Width * 0.5, cursorY }
 			end
 		end
 

@@ -1112,6 +1112,28 @@ mod.listBadgesForWorld = function(_, worldId, cb)
 	return req
 end
 
+mod.listBadgesForUser = function(_, userID, cb)
+	local url = mod.kApiAddr .. "/users/" .. userID .. "/badges"
+	local req = HTTP:Get(url, function(res)
+		if res.StatusCode ~= 200 then
+			return cb(mod:error(res.StatusCode, "status code: " .. res.StatusCode))
+		end
+		local badges = JSON:Decode(res.Body)
+		for _, badge in badges do
+			if badge.userDidUnlock ~= nil then
+				badge.unlocked = badge.userDidUnlock
+			else
+				badge.unlocked = false
+			end
+			if badge.rarity == nil then
+				badge.rarity = 0
+			end
+		end
+		cb(nil, badges)
+	end)
+	return req
+end
+
 -- Returns the URL for a badge's thumbnail
 -- @param badgeID string
 -- @param width number?

@@ -274,9 +274,9 @@ mod.createScroll = function(self, config)
 
 	local defaultConfig = {
 		-- badges unlocked in this world
-		-- when nil, shows all unlocked badges for playerID or local player
+		-- when nil, shows all unlocked badges for userID or local player
 		worldID = nil,
-		playerID = nil, -- badges unlocked by this player (local player if not provided)
+		userID = nil, -- badges unlocked by this user (local user if not provided)
 		backgroundColor = theme.buttonTextColor,
 		padding = {
 			top = theme.padding,
@@ -288,6 +288,7 @@ mod.createScroll = function(self, config)
 		direction = "right",
 		createBadgeButton = false,
 		showBadgesUnlocked = false,
+		centerContent = true,
 		ui = ui
 	}
 
@@ -295,7 +296,7 @@ mod.createScroll = function(self, config)
 		config = require("config"):merge(defaultConfig, config, {
 			acceptTypes = {
 				worldID = { "string" },
-				playerID = { "string" },
+				userID = { "string" },
 				padding = { "table", "number" },
 				loaded = { "function" }, -- callback(numberOfBadges)
 				onOpen = { "function" }, -- callback(badgeInfo)
@@ -560,21 +561,30 @@ mod.createScroll = function(self, config)
 		direction = config.direction,
 		loadCell = scrollLoadCell,
 		unloadCell = scrollUnloadCell,
+		centerContent = config.centerContent,
 	})
 
 	scroll.Height = cellHeight + config.padding.top + config.padding.bottom
 
 	local fetchRequest = nil
 	local function fetch()
-		if config.worldID == nil then
-			return -- only supports requests with worldID for now
+		if config.worldID ~= nil and config.userID ~= nil then
+			error("badge scroll can't load badges unlocked by user for a specific world yet")
 		end
 
 		if fetchRequest ~= nil then
 			fetchRequest:Cancel()
 		end
 
-		fetchRequest = api:listBadgesForWorld(config.worldID, function(err, badges)
+		local fetchFunc = function(callback)
+			if config.worldID ~= nil then
+				return api:listBadgesForWorld(config.worldID, callback)
+			end
+			local userID = config.userID or Player.UserID
+			return api:listBadgesForUser(userID, callback)
+		end
+
+		fetchRequest = fetchFunc(function(err, badges)
 			if err ~= nil or badges == nil then
 				return
 			end

@@ -212,6 +212,7 @@ mod.createModalContent = function(_, config)
 		playerID = nil,
 		showBadgesUnlocked = createMode,
 		createBadgeButton = createMode,
+		centerContent = not createMode,
 		ui = ui,
 		loaded = function(self, nbBadges)
 			if badgesTitle:isVisible() == false and nbBadges > 0 then
@@ -258,7 +259,6 @@ mod.createModalContent = function(_, config)
 			end
 		end,
 	})
-	badgesScroll.Width = 200
 	badgesScroll:setParent(cell)
 
 	if config.mode ~= "create" then
