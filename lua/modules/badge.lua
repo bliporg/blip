@@ -4,6 +4,7 @@
 
 local mod = {}
 
+local loc = require("localize")
 local conf = require("config")
 local system_api = require("system_api", System)
 local api = require("api", System)
@@ -258,6 +259,375 @@ mod.createBadgeObject = function(self, config)
 
 	table.insert(reqs, req)
 	return reqs
+end
+
+-- UIKIT SCROLL
+
+mod.createScroll = function(self, config)
+	local cellWidth = 90
+	local cellHeight = 140
+	local badgeHeight = cellWidth
+
+	local theme = require("uitheme").current
+	local padding = theme.padding
+	local ui = require("uikit")
+
+	local defaultConfig = {
+		-- badges unlocked in this world
+		-- when nil, shows all unlocked badges for playerID or local player
+		worldID = nil,
+		playerID = nil, -- badges unlocked by this player (local player if not provided)
+		backgroundColor = theme.buttonTextColor,
+		padding = {
+			top = theme.padding,
+			bottom = theme.padding,
+			left = theme.padding,
+			right = theme.padding,
+		},
+		cellPadding = theme.padding,
+		direction = "right",
+		createBadgeButton = false,
+		showBadgesUnlocked = false,
+		ui = ui
+	}
+
+	local ok, err = pcall(function()
+		config = require("config"):merge(defaultConfig, config, {
+			acceptTypes = {
+				worldID = { "string" },
+				playerID = { "string" },
+				padding = { "table", "number" },
+				loaded = { "function" }, -- callback(numberOfBadges)
+				onOpen = { "function" }, -- callback(badgeInfo)
+				onCreate = { "function" }, -- callback()
+			},
+		})
+	end)
+	if not ok then
+		error("badge:createScroll(config) - config error: " .. err)
+	end
+
+	local ui = config.ui
+
+	local createBadgeIndex = 0
+	if config.createBadgeButton then
+		createBadgeIndex = 1
+	end
+
+	local badgeObjectPools = {
+		locked = {},
+		unlocked = {},
+	}
+	local cellPool = {}
+
+	local activeCells = {}
+	local fetchedBadges = {}
+	local createBadgeCell = nil
+
+	local function scrollLoadCell(index)
+		if index == createBadgeIndex then
+			if createBadgeCell ~= nil then
+				return createBadgeCell
+			end
+
+			createBadgeCell = ui:frameScrollCellWithBevel()
+			createBadgeCell.Width = cellWidth
+			createBadgeCell.Height = cellHeight
+
+			local image = ui:frame({
+				image = {
+					data = Data:FromBundle("images/icon-plus.png"),
+					alpha = true,
+					filtering = true,
+				},
+			})
+			image.object.Color = Color(180, 180, 180)
+			image.Width = cellWidth * 0.6
+			image.Height = image.Width
+			image:setParent(createBadgeCell)
+
+			local label = ui:createText(loc("New\nBadge"), {
+				color = Color(180, 180, 180),
+				size = "small",
+				outline = 0.4,
+				outlineColor = Color(10, 10, 10),
+				alignment = "center",
+			})
+			label:setParent(createBadgeCell)
+
+			createBadgeCell.onPress = function(_)
+				Client:HapticFeedback()
+			end
+
+			createBadgeCell.onRelease = function(_)
+				if config.onCreate ~= nil then
+					config.onCreate()
+				end
+			end
+
+			label.pos = {
+				cellWidth * 0.5 - label.Width * 0.5,
+				cellHeight * 0.5 * 0.5 - label.Height * 0.5,
+			}
+
+			local vSpaceForImage = cellHeight - (label.pos.Y + label.Height)
+			image.pos = {
+				cellWidth * 0.5 - image.Width * 0.5,
+				cellHeight - vSpaceForImage * 0.5 - image.Height * 0.5,
+			}
+
+			return createBadgeCell
+		end
+
+		index = index - createBadgeIndex
+
+		local badgeInfo = fetchedBadges[index]
+		if badgeInfo == nil then
+			return nil
+		end
+
+		local cell = table.remove(cellPool)
+		if cell == nil then
+			cell = ui:frame({ color = Color(255, 255, 255, 0) })
+			cell.Width = cellWidth
+			cell.Height = cellHeight
+
+			local nameLabel = ui:createText("-", {
+				color = Color.White,
+				size = "small",
+				outline = 0.4,
+				outlineColor = Color(10, 10, 10),
+				alignment = "center",
+			})
+			cell.nameLabel = nameLabel
+			nameLabel:setParent(cell)
+
+			local rarity = badge.rarity
+			if rarity == nil then
+				rarity = 0
+			end
+			local rarityLabel = ui:createText(string.format("-", rarity * 100), {
+				color = Color.White,
+				size = "small",
+				alignment = "center",
+			})
+			cell.rarityLabel = rarityLabel
+			rarityLabel:setParent(cell)
+
+			cell.onRelease = function()
+				local badgeInfo
+				if cell.badgeIndex ~= nil then
+					badgeInfo = fetchedBadges[cell.badgeIndex]
+				end
+				if badgeInfo ~= nil and config.onOpen ~= nil then
+					config.onOpen(badgeInfo)
+				end
+			end
+		end
+
+		cell.badgeIndex = index
+		cell.requests = {}
+
+		local showBadgeUnlocked = config.showBadgesUnlocked or badgeInfo.unlocked
+		cell.showsUnlocked = showBadgeUnlocked
+
+		local badgeShape
+		if showBadgeUnlocked then
+			badgeShape = table.remove(badgeObjectPools.unlocked)
+		else
+			badgeShape = table.remove(badgeObjectPools.locked)
+		end
+
+		if badgeShape ~= nil and badgeShape.badgeObject ~= nil then
+			local req = badgeShape.badgeObject:setBadgeId(badgeInfo.badgeID)
+			table.insert(cell.requests, req)
+			cell.badgeShape = badgeShape
+			badgeShape:setParent(cell)
+		else
+			-- NOTE: add short timer to avoid sending requests when scrolling too fast
+			local reqs = mod:createBadgeObject({
+				badgeId = badgeInfo.badgeID,
+				locked = not showBadgeUnlocked,
+				frontOnly = true,
+				callback = function(badgeObject)
+					local badgeShape = ui:createShape(badgeObject, { spherized = false })
+					badgeShape.Width = cellWidth
+					badgeShape.Height = cellWidth
+					badgeShape:setParent(cell)
+					cell.badgeShape = badgeShape
+					badgeShape.badgeObject = badgeObject
+
+					badgeShape.pos = {
+						cellWidth * 0.5 - badgeShape.Width * 0.5,
+						cellHeight - badgeHeight,
+					}
+				end,
+			})
+			for _, r in reqs do
+				table.insert(cell.requests, r)
+			end
+		end
+
+		activeCells[cell] = true
+
+		local rarityLabel = cell.rarityLabel
+		local nameLabel = cell.nameLabel
+		local badgeShape = cell.badgeShape
+
+		nameLabel.Text = badgeInfo.name
+		if badgeInfo.unlocked == true then
+			nameLabel.Color = Color.Green
+		else
+			nameLabel.Color = Color.White
+		end
+		rarityLabel.Text = string.format("rarity: %.1f%%", badgeInfo.rarity * 100)
+
+		local y = cellHeight
+
+		nameLabel.object.Scale = 1
+		if nameLabel.Width > cell.Width then
+			nameLabel.object.Scale = cell.Width / nameLabel.Width
+		end
+
+		rarityLabel.object.Scale = 0.8
+		if rarityLabel.Width > cell.Width then
+			rarityLabel.object.Scale = cell.Width / rarityLabel.Width
+		end
+
+		local vSpace = y - badgeHeight - padding * 2
+		local textHeight = nameLabel.Height + rarityLabel.Height
+		if textHeight > vSpace then
+			local scale = vSpace / textHeight
+			nameLabel.object.Scale *= scale
+			rarityLabel.object.Scale *= scale
+		end
+
+		y = y - badgeHeight
+
+		if badgeShape ~= nil then
+			badgeShape.pos = {
+				cellWidth * 0.5 - badgeShape.Width * 0.5,
+				y,
+			}
+		end
+
+		y = y - padding - nameLabel.Height
+		nameLabel.pos = {
+			cellWidth * 0.5 - nameLabel.Width * 0.5,
+			y,
+		}
+
+		y = y - rarityLabel.Height
+		rarityLabel.pos = {
+			cellWidth * 0.5 - rarityLabel.Width * 0.5,
+			y,
+		}
+
+		return cell
+	end
+	
+	local function scrollUnloadCell(index, cell)
+		cell:setParent(nil)
+
+		activeCells[cell] = true
+
+		if cell.requests ~= nil then
+			for _, req in cell.requests do
+				req:Cancel()
+			end
+			cell.requests = {}
+		end
+
+		if index > createBadgeIndex then
+			local badgeShape = cell.badgeShape
+			if badgeShape ~= nil then
+				cell.badgeShape = nil
+				badgeShape:setParent(nil)
+				if cell.showsUnlocked then
+					table.insert(badgeObjectPools.unlocked, badgeShape)
+				else
+					table.insert(badgeObjectPools.locked, badgeShape)
+				end
+			end
+			table.insert(cellPool, cell)
+		end
+	end
+
+	local scroll = ui:scroll({
+		backgroundColor = config.backgroundColor,
+		padding = config.padding,
+		cellPadding = config.cellPadding,
+		direction = config.direction,
+		loadCell = scrollLoadCell,
+		unloadCell = scrollUnloadCell,
+	})
+
+	scroll.Height = cellHeight + config.padding.top + config.padding.bottom
+
+	local fetchRequest = nil
+	local function fetch()
+		if config.worldID == nil then
+			return -- only supports requests with worldID for now
+		end
+
+		if fetchRequest ~= nil then
+			fetchRequest:Cancel()
+		end
+
+		fetchRequest = api:listBadgesForWorld(config.worldID, function(err, badges)
+			if err ~= nil or badges == nil then
+				return
+			end
+
+			table.sort(badges, function(a, b)
+				-- unlocked first
+				if a.unlocked and not b.unlocked then
+					return true
+				elseif not a.unlocked and b.unlocked then
+					return false
+				end
+				-- both same unlock status, sort by rarity (most common first, i.e. higher rarity value first)
+				local ar = a.rarity or 0
+				local br = b.rarity or 0
+				return ar > br
+			end)
+			fetchedBadges = badges
+
+			scroll:flush()
+			scroll:refresh()
+
+			if config.loaded ~= nil then
+				config.loaded(scroll, #badges)
+			end
+		end)
+	end
+
+	local t = 0
+	local r = Rotation()
+	local tickListener = LocalEvent:Listen(LocalEvent.Name.Tick, function(dt)
+		t += dt * 1.5
+		r.Y = math.pi + math.sin(t) * 0.4
+		r.X = math.cos(t * 1.1) * 0.3
+		for cell, _ in activeCells do
+			if cell.badgeShape ~= nil then
+				cell.badgeShape.badgeObject.LocalRotation:Set(r)
+			end
+		end
+	end)
+
+	scroll.onRemove = function()
+		if fetchRequest ~= nil then
+			fetchRequest:Cancel()
+			fetchRequest = nil
+		end
+		tickListener:Remove()
+	end
+
+	fetch() -- fetch once on creation
+
+	scroll.fetch = fetch
+
+	return scroll
 end
 
 return mod

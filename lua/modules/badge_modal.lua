@@ -18,7 +18,7 @@ mod.createModalContent = function(_, config)
 		uikit = require("uikit"), -- allows to provide specific instance of uikit
 		onOpen = nil,
 		mode = nil, -- "display" or "create" or "edit"
-		badgeObj = nil, -- must be provided if mode is "edit"
+		badgeInfo = nil, -- must be provided if mode is "edit"
 		worldId = nil, -- must be provided if mode is "create"
 		locked = true,
 	}
@@ -29,7 +29,7 @@ mod.createModalContent = function(_, config)
 			acceptTypes = {
 				onOpen = { "function" },
 				mode = { "string" },
-				badgeObj = { "table" },
+				badgeInfo = { "table" },
 				worldId = { "string" },
 				locked = { "boolean" },
 			},
@@ -121,8 +121,8 @@ mod.createModalContent = function(_, config)
 			badgeShape:setParent(cell)
 
 			local badgeId = nil
-			if config.badgeObj ~= nil then
-				badgeId = config.badgeObj.badgeID
+			if config.badgeInfo ~= nil then
+				badgeId = config.badgeInfo.badgeID
 			end
 			local req = badge:createBadgeObject({
 				badgeId = badgeId,
@@ -171,8 +171,8 @@ mod.createModalContent = function(_, config)
 			if config.mode == "create" then
 				tagTextOrEdit = ui:createTextInput("", "identifier")
 			elseif config.mode == "edit" then
-				-- config.badgeObj.tag must exist in this case
-				tag = config.badgeObj.tag
+				-- config.badgeInfo.tag must exist in this case
+				tag = config.badgeInfo.tag
 				tagTextOrEdit = ui:createText("Badge Identifier: " .. tag, {
 					size = "small",
 					color = Color.White,
@@ -181,7 +181,7 @@ mod.createModalContent = function(_, config)
 				-- display the badge unlock status and date
 				-- local text = "not unlocked yet"
 				-- if not config.locked then
-				-- 	text = "unlocked on " .. config.badgeObj.userUnlockedAt -- this field doesn't exist yet
+				-- 	text = "unlocked on " .. config.badgeInfo.userUnlockedAt -- this field doesn't exist yet
 				-- end
 				-- tagTextOrEdit = ui:createText(text, {
 				-- 	size = "small",
@@ -195,9 +195,9 @@ mod.createModalContent = function(_, config)
 			-- Name
 			local nameTextOrEdit = nil
 			if config.mode == "create" or config.mode == "edit" then
-				nameTextOrEdit = ui:createTextInput(config.badgeObj.name or "", "Badge Name")
+				nameTextOrEdit = ui:createTextInput(config.badgeInfo.name or "", "Badge Name")
 			elseif config.mode == "display" then
-				name = config.badgeObj.name
+				name = config.badgeInfo.name
 				nameTextOrEdit = ui:createText(name, {
 					size = "default",
 					color = Color.White,
@@ -208,9 +208,9 @@ mod.createModalContent = function(_, config)
 			-- Description
 			local descriptionTextOrEdit = nil
 			if config.mode == "create" or config.mode == "edit" then
-				descriptionTextOrEdit = ui:createTextInput(config.badgeObj.description or "", "Description")
+				descriptionTextOrEdit = ui:createTextInput(config.badgeInfo.description or "", "Description")
 			elseif config.mode == "display" then
-				description = config.badgeObj.description
+				description = config.badgeInfo.description
 				descriptionTextOrEdit = ui:createText(description, {
 					size = "small",
 					color = Color.White,
@@ -423,7 +423,7 @@ mod.createModalContent = function(_, config)
 					end)
 				elseif config.mode == "edit" then
 					system_api:updateBadge({
-						badgeID = config.badgeObj.badgeID,
+						badgeID = config.badgeInfo.badgeID,
 						icon = badgeObject:getBadgeImageData(),
 						name = name,
 						description = description,
