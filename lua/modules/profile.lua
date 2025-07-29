@@ -153,7 +153,7 @@ profile.create = function(_, config)
 	local blockBtn
 	local deleteAccountBtn
 	if not isLocal then
-		blockBtn = ui:button({ 
+		blockBtn = ui:button({
 			content = "",
 			textSize = "small",
 			borders = false,
@@ -170,7 +170,7 @@ profile.create = function(_, config)
 			end
 			Menu:ShowAlert({
 				message = msg,
-				positiveCallback = function() 
+				positiveCallback = function()
 					userInfo.blocked = not userInfo.blocked
 					if userInfo.blocked then
 						systemApi:blockUser(userID, function(success, blockedUsers)
@@ -193,18 +193,18 @@ profile.create = function(_, config)
 		blockBtn:setParent(cell)
 
 		if Player.Username == "aduermael" or Player.Username == "gaetan" then
-			deleteAccountBtn = ui:button({ 
-				content = "💀 Delete Account", 
-				textSize = "small", 
+			deleteAccountBtn = ui:button({
+				content = "💀 Delete Account",
+				textSize = "small",
 				borders = false,
-				padding = false, 
+				padding = false,
 				textColor = theme.errorTextColor,
 				color = Color(0, 0, 0, 0),
 			})
 			deleteAccountBtn.onRelease = function()
 				Menu:ShowAlert({
 					message = "Are you sure you want to delete this account?",
-					positiveCallback = function() 
+					positiveCallback = function()
 						-- TODO: send request
 						print("content:", content)
 						local m = content:getModalIfContentIsActive()
@@ -357,7 +357,7 @@ profile.create = function(_, config)
 
 			btn.label = label
 			btn.icon = icon
-			
+
 			btn:setParent(node)
 			btn:hide()
 			socialBtns[config.key] = btn
@@ -415,9 +415,7 @@ profile.create = function(_, config)
 
 			-- stats
 			cursorY = cursorY - created.Height - padding
-			local bottomLineWidth = friends.Width
-				+ theme.paddingBig
-				+ created.Width
+			local bottomLineWidth = friends.Width + theme.paddingBig + created.Width
 
 			friends.pos = { self.Width * 0.5 - bottomLineWidth * 0.5, cursorY }
 			created.pos = { friends.pos.X + friends.Width + theme.paddingBig, cursorY }
@@ -506,9 +504,7 @@ profile.create = function(_, config)
 				if value ~= nil and value ~= "" then
 					if string.len(value) > nbMaxChars then
 						-- config.icon
-						displayStr = config.prefix
-							.. string.sub(value, 1, nbMaxChars - 1)
-							.. "…"
+						displayStr = config.prefix .. string.sub(value, 1, nbMaxChars - 1) .. "…"
 					else
 						displayStr = config.prefix .. value
 					end
@@ -806,7 +802,7 @@ profile.create = function(_, config)
 						end
 					end)
 				end
-			end			
+			end
 		end
 
 		functions.refreshBottomButtons()
@@ -866,7 +862,6 @@ profile.create = function(_, config)
 	end
 
 	functions.checkFriendRelationShip()
-	
 
 	functions.refresh = function()
 		if activeNode == nil then
@@ -970,12 +965,12 @@ profile.create = function(_, config)
 
 		local y = cell.Height
 		if blockBtn ~= nil then
-			blockBtn.pos = { 
-				0, 
+			blockBtn.pos = {
+				0,
 				y - blockBtn.Height,
 			}
 			if deleteAccountBtn ~= nil then
-				deleteAccountBtn.pos = { 
+				deleteAccountBtn.pos = {
 					blockBtn.pos.X + blockBtn.Width + padding * 2,
 					y - deleteAccountBtn.Height,
 				}
