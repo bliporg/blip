@@ -205,12 +205,20 @@ profile.create = function(_, config)
 				Menu:ShowAlert({
 					message = "Are you sure you want to delete this account?",
 					positiveCallback = function()
-						-- TODO: send request
-						print("content:", content)
-						local m = content:getModalIfContentIsActive()
-						if m ~= nil then
-							m:close()
-						end
+						systemApi:moderationDeleteAccount(config.userID, function(err)
+							if err == nil then
+								Menu:ShowAlert({ message = "Account deleted successfully!" }, System)
+							else
+								Menu:ShowAlert({ message = "Failed to delete account." }, System)
+								print("❌", err)
+							end
+
+							print("content:", content)
+							local m = content:getModalIfContentIsActive()
+							if m ~= nil then
+								m:close()
+							end
+						end)
 					end,
 					negativeCallback = function() end,
 				}, System)

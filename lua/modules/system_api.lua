@@ -1253,4 +1253,22 @@ mod.unlockBadge = function(self, worldId, badgeTag, callback)
 	return req
 end
 
+-- callback(err)
+mod.moderationDeleteAccount = function(self, userID, callback)
+	if self ~= mod then
+		error("api:moderationDeleteAccount(callback): use `:`", 2)
+	end
+
+	local u = url:parse(mod.kApiAddr .. "/admin/banuseraccount/" .. userID)
+	local req = System:HttpDelete(u:toString(), {}, function(res)
+		if res.StatusCode ~= 200 then
+			callback(api:error(res.StatusCode, res.Body))
+			return
+		end
+
+		callback(nil) -- success
+	end)
+	return req
+end
+
 return mod
