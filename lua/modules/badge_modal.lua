@@ -5,13 +5,18 @@
 local mod = {}
 
 local ICON_SIZE = 100
+local SECONDARY_TEXT_COLOR = Color(200, 200, 200)
 
 mod.createModalContent = function(_, config)
 	local modal = require("modal")
 	local badge = require("badge")
 	local theme = require("uitheme")
 	local loc = require("localize")
+	local time = require("time")
 	local system_api = require("system_api", System)
+	local api = require("api")
+
+	local getWorldInfoReq = nil
 
 	-- default config
 	local defaultConfig = {
@@ -21,6 +26,7 @@ mod.createModalContent = function(_, config)
 		badgeInfo = nil, -- must be provided if mode is "edit"
 		worldId = nil, -- must be provided if mode is "create"
 		locked = true,
+		worldLink = false,
 	}
 
 	-- merge provided config with default config
@@ -86,6 +92,8 @@ mod.createModalContent = function(_, config)
 			local tag
 			local name
 			local description
+			local unlockTime
+			local worldLink
 
 			-- unique cell of the scroll
 			local cell = ui:frame()
@@ -93,10 +101,7 @@ mod.createModalContent = function(_, config)
 
 			-- scroll (root element of the modal content)
 			local scroll = ui:scroll({
-				-- backgroundColor = Color(255, 0, 0),
 				backgroundColor = theme.buttonTextColor,
-				-- backgroundColor = Color(0, 255, 0, 0.3),
-				-- gradientColor = Color(37, 23, 59), -- Color(155, 97, 250),
 				padding = {
 					top = theme.padding,
 					bottom = theme.padding,
@@ -218,6 +223,70 @@ mod.createModalContent = function(_, config)
 			end
 			descriptionTextOrEdit:setParent(cell)
 
+			-- unlock time
+			-- TODO: `createdAt` is when the badge itself was created, not when it was unlocked
+			-- we need the API to return the date when the badge was unlocked
+			if config.badgeInfo.createdAt ~= nil and false then
+				local osTime = time.iso8601_to_os_time(config.badgeInfo.createdAt)
+				local t, units = time.ago(osTime, {
+					years = false,
+					months = false,
+					seconds_label = "s",
+					minutes_label = "m",
+					hours_label = "h",
+					days_label = "d",
+				})
+
+				local format
+
+				if units == "s" then
+					format = loc("%ds ago", "time elapsed in days, where %d is the number of days")
+				elseif units == "m" then
+					format = loc("%dm ago", "time elapsed in minutes, where %d is the number of minutes")
+				elseif units == "h" then
+					format = loc("%dh ago", "time elapsed in hours, where %d is the number of hours")
+				else
+					format = loc("%dd ago", "time elapsed in days, where %d is the number of days")
+				end
+
+				local creationTime = string.format(format, t)
+				
+				unlockTime = ui:createText("🔓 " .. creationTime, {
+					size = "small",
+					color = SECONDARY_TEXT_COLOR,
+				})
+				unlockTime:setParent(cell)
+			end
+
+			if config.badgeInfo.worldID ~= nil and config.worldLink then
+				worldLink = ui:buttonLink({
+					content = "🌎 …",
+					textSize = "small",
+				})
+				worldLink:setParent(cell)
+
+				getWorldInfoReq = api:getWorld(config.badgeInfo.worldID, {
+					"title",
+				}, function(worldInfo, err)
+					if err ~= nil then
+						return
+					end
+					worldLink.Text = "🌎 " .. worldInfo.title
+					node:refresh()
+
+					worldLink.onRelease = function()
+						local m = content:getModalIfContentIsActive()
+						if m ~= nil then
+							local content = require("world_details"):createModalContent({
+								uikit = ui,
+								world = worldInfo,
+							})
+							m:push(content)
+						end
+					end
+				end)
+			end
+
 			-- Create Badge Button
 			local submitBtnText = nil
 			if config.mode == "create" then
@@ -330,6 +399,27 @@ mod.createModalContent = function(_, config)
 				descriptionTextOrEdit.Width = formFieldWidth
 
 				local y = contentHeight
+
+				if unlockTime ~= nil then
+					unlockTime.pos = { 
+						contentWidth - unlockTime.Width - theme.padding,
+						y - unlockTime.Height - theme.padding
+					}
+				end
+
+				if worldLink ~= nil then
+					if unlockTime ~= nil then
+						worldLink.pos = { 
+							contentWidth - worldLink.Width - theme.padding,
+							unlockTime.pos.Y - worldLink.Height - theme.padding
+						}
+					else
+						worldLink.pos = { 
+							contentWidth - worldLink.Width - theme.padding,
+							y - worldLink.Height - theme.padding
+						}
+					end
+				end
 
 				-- badge preview
 				y = y - theme.padding - badgeShape.Height
@@ -471,6 +561,10 @@ mod.createModalContent = function(_, config)
 	end
 
 	content.willResignActive = function()
+		if getWorldInfoReq ~= nil then
+			getWorldInfoReq:Cancel()
+			getWorldInfoReq = nil
+		end
 		removeBadgeAnimation()
 	end
 

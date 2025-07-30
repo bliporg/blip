@@ -387,6 +387,7 @@ profile.create = function(_, config)
 					mode = "display",
 					badgeInfo = badgeInfo,
 					locked = not badgeInfo.unlocked,
+					worldLink = true,
 				})
 				local m = content:getModalIfContentIsActive()
 				if m ~= nil then
