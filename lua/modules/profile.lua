@@ -112,6 +112,7 @@ profile.create = function(_, config)
 	end
 
 	local avatarNode = uiAvatar:get({ usernameOrId = userID, ui = ui })
+	-- avatarNode.color = Color(255, 0, 0, 0.7) -- debug
 	avatarNode:setParent(cell)
 
 	local avatarRot = Number3(0, math.pi, 0)
@@ -212,8 +213,6 @@ profile.create = function(_, config)
 								Menu:ShowAlert({ message = "Failed to delete account." }, System)
 								print("❌", err)
 							end
-
-							print("content:", content)
 							local m = content:getModalIfContentIsActive()
 							if m ~= nil then
 								m:close()
@@ -376,11 +375,11 @@ profile.create = function(_, config)
 			userID = userID,
 			ui = ui,
 			loaded = function(self, nbBadges)
-				-- if badgesTitle:isVisible() == false and nbBadges > 0 then
-				-- 	badgesTitle:show()
-				-- 	self:show()
-				-- 	worldDetails:refresh()
-				-- end
+				if self:isVisible() == false and nbBadges > 0 then
+					self:show()
+					node:refresh()
+					scroll:parentDidResize()
+				end
 			end,
 			onOpen = function(badgeInfo)
 				badgeModalContent = badgeModal:createModalContent({
@@ -396,6 +395,7 @@ profile.create = function(_, config)
 			end,
 		})
 		badgesScroll:setParent(node)
+		badgesScroll:hide()
 
 		node.parentDidResize = function(self)
 			self:refresh()
@@ -407,7 +407,7 @@ profile.create = function(_, config)
 
 			self.Width = parent.Width
 
-			local totalHeight = created.Height
+			local totalHeight = created.Height + padding * 2
 
 			if editAvatarBtn then
 				totalHeight = totalHeight + editAvatarBtn.Height + padding
@@ -438,7 +438,7 @@ profile.create = function(_, config)
 				totalHeight = totalHeight + editLinksBtn.Height + padding
 			end
 
-			if badgesScroll then
+			if badgesScroll ~= nil and badgesScroll:isVisible() then
 				totalHeight = totalHeight + badgesScroll.Height + padding
 			end
 
@@ -492,7 +492,7 @@ profile.create = function(_, config)
 			end
 
 			if badgesScroll then
-				badgesScroll.Width = self.Width - padding * 2
+				badgesScroll.Width = self.Width
 				cursorY = cursorY - badgesScroll.Height - padding
 				badgesScroll.pos = { self.Width * 0.5 - badgesScroll.Width * 0.5, cursorY }
 			end
@@ -999,10 +999,10 @@ profile.create = function(_, config)
 		avatarNode.Height = avatarNodeHeight
 
 		local cellContentHeight = avatarNodeHeight
-		local availableHeight = self.Height
+		local availableHeight = self.Height - theme.padding * 2
 
 		if activeNode.parent ~= nil then
-			cellContentHeight = cellContentHeight + activeNode.Height + padding
+			cellContentHeight = cellContentHeight + activeNode.Height
 		end
 
 		cell.Height = math.max(availableHeight, cellContentHeight)
@@ -1023,7 +1023,7 @@ profile.create = function(_, config)
 
 		y = cellContentHeight
 		if availableHeight > cellContentHeight then
-			y += (availableHeight - cellContentHeight) * 0.7
+			y += (availableHeight - cellContentHeight) * 0.5
 		end
 
 		y = y - avatarNode.Height
@@ -1033,7 +1033,7 @@ profile.create = function(_, config)
 		}
 
 		if infoNode.parent ~= nil then
-			y = y - infoNode.Height - padding
+			y = y - infoNode.Height
 			infoNode.pos = { 0, y }
 		end
 
