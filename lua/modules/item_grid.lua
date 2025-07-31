@@ -321,6 +321,7 @@ itemGrid.create = function(_, config)
 										name = cell.name,
 										likes = cell.likes,
 										liked = cell.liked,
+                                        maxPlayers = cell.maxPlayers,
 									}
 								end
 								grid.onOpen(entity)
@@ -394,6 +395,7 @@ itemGrid.create = function(_, config)
 							self.updated = entry.updated
 							self.likes = entry.likes
 							self.liked = entry.liked
+                            self.maxPlayers = entry.maxPlayers
 
 							if self.item then
 								self.item:remove()
@@ -643,7 +645,7 @@ itemGrid.create = function(_, config)
 				perPage = config.perPage,
 				search = search,
 				sortBy = sortBy,
-				fields = { "title", "created", "updated", "views", "likes" },
+				fields = { "title", "created", "updated", "views", "likes", "maxPlayers" },
 			}, function(worlds, err)
 				if err then
 					-- silent error
