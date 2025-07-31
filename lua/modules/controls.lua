@@ -1594,7 +1594,7 @@ index.setButtonIcon = function(self, buttonName, shapeOrString)
 		icon.BackgroundColor = Color(0, 0, 0, 0)
 		icon.IsUnlit = true
 		icon.Layers = btn.shape.Layers
-		icon.Scale = 5
+		icon.FontSize = 20
 		btn.shape:AddChild(icon)
 		icon.LocalPosition = { btn.shape.Width * 0.5, btn.shape.Height * 0.5, -50 }
 		icon.MaxDistance = 9999
