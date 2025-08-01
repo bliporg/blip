@@ -2,10 +2,48 @@
 -- Modal content for badge creation and editing
 --
 
-local mod = {}
-
 local ICON_SIZE = 100
 local SECONDARY_TEXT_COLOR = Color(200, 200, 200)
+
+-- ----------------------------
+-- Types
+-- ----------------------------
+
+-- define Luau type for onOpen callback
+-- TODO: decide what arguments to pass to the callback
+type OnOpenFunc = () -> ()
+
+-- define Luau type BadgeInfo
+type BadgeInfo = {
+	badgeID: string,
+	worldID: string,
+	tag: string,
+	name: string,
+	description: string,
+	rarity: number,
+	createdAt: string,
+	updatedAt: string,
+	userDidUnlock: boolean,
+	userUnlockedAt: string,
+	unlocked: boolean, -- [gaetan] maybe a duplicate of userDidUnlock
+}
+
+-- define Luau type BadgeModalConfig
+type BadgeModalConfig = {
+	uikit: any,
+	onOpen: OnOpenFunc,
+	mode: string,
+	badgeInfo: BadgeInfo?,
+	worldId: string?,
+	locked: boolean,
+	worldLink: boolean,
+}
+
+-- ----------------------------
+-- Module
+-- ----------------------------
+
+local mod = {}
 
 mod.createModalContent = function(_, config)
 	local modal = require("modal")
@@ -19,10 +57,10 @@ mod.createModalContent = function(_, config)
 	local getWorldInfoReq = nil
 
 	-- default config
-	local defaultConfig = {
+	local defaultConfig: BadgeModalConfig = {
 		uikit = require("uikit"), -- allows to provide specific instance of uikit
-		onOpen = nil,
-		mode = nil, -- "display" or "create" or "edit"
+		onOpen = nil, -- TODO: call this somewhere in the code
+		mode = "display", -- "display" or "create" or "edit"
 		badgeInfo = nil, -- must be provided if mode is "edit"
 		worldId = nil, -- must be provided if mode is "create"
 		locked = true,
@@ -44,6 +82,9 @@ mod.createModalContent = function(_, config)
 	if not ok then
 		error("badge_modal:createModalContent(config) - config error: " .. err, 2)
 	end
+
+	-- check that config.badgeInfo is a valid BadgeInfo
+	local _: BadgeInfo = config.badgeInfo
 
 	local badgeAnimationListener = nil
 	local badgeObject = nil
@@ -184,14 +225,17 @@ mod.createModalContent = function(_, config)
 				})
 			elseif config.mode == "display" then
 				-- display the badge unlock status and date
-				-- local text = "not unlocked yet"
-				-- if not config.locked then
-				-- 	text = "unlocked on " .. config.badgeInfo.userUnlockedAt -- this field doesn't exist yet
-				-- end
-				-- tagTextOrEdit = ui:createText(text, {
-				-- 	size = "small",
-				-- 	color = Color.White,
-				-- })
+				local text = "not unlocked yet"
+				if not config.locked then
+					-- Convert ISO8601 string to Unix timestamp first
+					local osTime = time.iso8601_to_os_time(config.badgeInfo.userUnlockedAt)
+					local readableDate = os.date("%B %d, %Y at %I:%M %p", osTime)
+					text = "unlocked on " .. readableDate
+				end
+				tagTextOrEdit = ui:createText(text, {
+					size = "small",
+					color = Color.White,
+				})
 			end
 			if tagTextOrEdit ~= nil then
 				tagTextOrEdit:setParent(cell)
@@ -250,7 +294,7 @@ mod.createModalContent = function(_, config)
 				end
 
 				local creationTime = string.format(format, t)
-				
+
 				unlockTime = ui:createText("🔓 " .. creationTime, {
 					size = "small",
 					color = SECONDARY_TEXT_COLOR,
@@ -401,22 +445,22 @@ mod.createModalContent = function(_, config)
 				local y = contentHeight
 
 				if unlockTime ~= nil then
-					unlockTime.pos = { 
+					unlockTime.pos = {
 						contentWidth - unlockTime.Width - theme.padding,
-						y - unlockTime.Height - theme.padding
+						y - unlockTime.Height - theme.padding,
 					}
 				end
 
 				if worldLink ~= nil then
 					if unlockTime ~= nil then
-						worldLink.pos = { 
+						worldLink.pos = {
 							contentWidth - worldLink.Width - theme.padding,
-							unlockTime.pos.Y - worldLink.Height - theme.padding
+							unlockTime.pos.Y - worldLink.Height - theme.padding,
 						}
 					else
-						worldLink.pos = { 
+						worldLink.pos = {
 							contentWidth - worldLink.Width - theme.padding,
-							y - worldLink.Height - theme.padding
+							y - worldLink.Height - theme.padding,
 						}
 					end
 				end
