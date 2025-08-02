@@ -73,7 +73,7 @@ focusedComboBoxSelector = nil
 
 function focus(node)
 	if focused ~= nil then
-		if _focused == node then
+		if focused == node then
 			return false -- already focused
 		end
 		local _focused = focused
