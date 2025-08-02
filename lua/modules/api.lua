@@ -1089,6 +1089,22 @@ end
 
 -- Badges
 
+local function badgeFixFields(badge)
+	if badge.userDidUnlock ~= nil then
+		badge.unlocked = badge.userDidUnlock
+		badge.userDidUnlock = nil
+	else
+		badge.unlocked = false
+	end
+	if badge.userUnlockedAt ~= nil then
+		badge.unlockedAt = badge.userUnlockedAt
+		badge.userUnlockedAt = nil
+	end
+	if badge.rarity == nil then
+		badge.rarity = 0
+	end
+end
+
 -- Callback signature: cb(error, badges)
 mod.listBadgesForWorld = function(_, worldId, cb)
 	local url = mod.kApiAddr .. "/worlds/" .. worldId .. "/badges"
@@ -1098,14 +1114,7 @@ mod.listBadgesForWorld = function(_, worldId, cb)
 		end
 		local badges = JSON:Decode(res.Body)
 		for _, badge in badges do
-			if badge.userDidUnlock ~= nil then
-				badge.unlocked = badge.userDidUnlock
-			else
-				badge.unlocked = false
-			end
-			if badge.rarity == nil then
-				badge.rarity = 0
-			end
+			badgeFixFields(badge)
 		end
 		cb(nil, badges)
 	end)
@@ -1120,14 +1129,7 @@ mod.listBadgesForUser = function(_, userID, cb)
 		end
 		local badges = JSON:Decode(res.Body)
 		for _, badge in badges do
-			if badge.userDidUnlock ~= nil then
-				badge.unlocked = badge.userDidUnlock
-			else
-				badge.unlocked = false
-			end
-			if badge.rarity == nil then
-				badge.rarity = 0
-			end
+			badgeFixFields(badge)
 		end
 		cb(nil, badges)
 	end)

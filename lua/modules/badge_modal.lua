@@ -23,9 +23,8 @@ type BadgeInfo = {
 	rarity: number,
 	createdAt: string,
 	updatedAt: string,
-	userDidUnlock: boolean,
-	userUnlockedAt: string,
-	unlocked: boolean, -- [gaetan] maybe a duplicate of userDidUnlock
+	unlocked: boolean,
+	unlockedAt: string,
 }
 
 -- define Luau type BadgeModalConfig
@@ -223,19 +222,6 @@ mod.createModalContent = function(_, config)
 					size = "small",
 					color = Color.White,
 				})
-			elseif config.mode == "display" then
-				-- display the badge unlock status and date
-				local text = "not unlocked yet"
-				if not config.locked then
-					-- Convert ISO8601 string to Unix timestamp first
-					local osTime = time.iso8601_to_os_time(config.badgeInfo.userUnlockedAt)
-					local readableDate = os.date("%B %d, %Y at %I:%M %p", osTime)
-					text = "unlocked on " .. readableDate
-				end
-				tagTextOrEdit = ui:createText(text, {
-					size = "small",
-					color = Color.White,
-				})
 			end
 			if tagTextOrEdit ~= nil then
 				tagTextOrEdit:setParent(cell)
@@ -268,10 +254,8 @@ mod.createModalContent = function(_, config)
 			descriptionTextOrEdit:setParent(cell)
 
 			-- unlock time
-			-- TODO: `createdAt` is when the badge itself was created, not when it was unlocked
-			-- we need the API to return the date when the badge was unlocked
-			if config.badgeInfo.createdAt ~= nil and false then
-				local osTime = time.iso8601_to_os_time(config.badgeInfo.createdAt)
+			if config.mode == "display" and config.badgeInfo.unlockedAt ~= nil then
+				local osTime = time.iso8601_to_os_time(config.badgeInfo.unlockedAt)
 				local t, units = time.ago(osTime, {
 					years = false,
 					months = false,
