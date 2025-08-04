@@ -274,6 +274,125 @@ mod.createModalContent = function(_, config)
 		badgesScroll:fetch()
 	end
 
+	-- refreshes UI with what's in local config.world / world
+	local function refreshWorld()
+		if world.thumbnail ~= nil then
+			iconArea:setImage(world.thumbnail)
+		end
+
+		if config.mode == "create" then
+			if world.description == nil or world.description == "" then
+				description.empty = true
+				description.Text = "Worlds are easier to find with a description!"
+				description.Color = theme.textColorSecondary
+			else
+				description.empty = false
+				description.Text = world.description
+				description.Color = TEXT_COLOR
+			end
+
+			if world.maxPlayers then
+				serverSizeText.Text = "Server Size: " .. world.maxPlayers
+				serverSizeSlider:setValue(world.maxPlayers)
+			end
+		else
+			description.Text = world.description or ""
+			description.Color = TEXT_COLOR
+		end
+
+		if likeBtn then
+			likeBtn.Text = (world.liked == true and "❤️ " or "🤍 ")
+				.. (world.likes and math.floor(world.likes) or 0)
+
+			likeBtn.onRelease = function()
+				world.liked = not world.liked
+
+				if world.liked == true then
+					world.likes = world.likes ~= nil and world.likes + 1 or 1
+				else
+					world.likes = world.likes ~= nil and world.likes - 1 or 0
+				end
+
+				if likeRequest then
+					likeRequest:Cancel()
+				end
+				likeRequest = systemApi:likeWorld(world.id, world.liked, function(_)
+					-- TODO: this request should return the refreshed number of likes
+				end)
+				table.insert(requests, likeRequest)
+
+				local nbLikes = (world.likes and math.floor(world.likes) or 0)
+				likeBtn.Text = (world.liked == true and "❤️ " or "🤍 ") .. nbLikes
+
+				privateFields.alignViewsAndLikes()
+			end
+		end
+
+		views.Text = "👁 " .. (world.views and math.floor(world.views) or 0)
+
+		if world.maxPlayers and serverSize then
+			if world.maxPlayers == 1 then
+				serverSize.Text = "👤 solo game (no server)"
+			else
+				serverSize.Text = "👥 " .. world.maxPlayers .. " players per server"
+			end
+		end
+
+		if world.created then
+			local n, unitType = time.ago(world.created)
+			if n == 1 then
+				unitType = unitType:sub(1, #unitType - 1)
+			end
+			if math.floor(n) == n then
+				creationDate.Text = string.format("🌎 published %d %s ago", math.floor(n), unitType)
+			else
+				creationDate.Text = string.format("🌎 published %.1f %s ago", n, unitType)
+			end
+		end
+
+		if world.updated then
+			local n, unitType = time.ago(world.updated)
+			if n == 1 then
+				unitType = unitType:sub(1, #unitType - 1)
+			end
+			if math.floor(n) == n then
+				updateDate.Text = string.format("✨ updated %d %s ago", math.floor(n), unitType)
+			else
+				updateDate.Text = string.format("✨ updated %.1f %s ago", n, unitType)
+			end
+		end
+
+		-- update author text/button
+		if author then
+			author.Text = " @" .. (world.authorName or "…")
+		elseif authorBtn and world.authorName then
+			authorBtn.Text = "@" .. world.authorName
+			authorBtn.onRelease = function(_)
+				local profileConfig = {
+					username = world.authorName,
+					userID = world.authorId,
+					uikit = ui,
+				}
+				local profileContent = require("profile"):create(profileConfig)
+				content:push(profileContent)
+			end
+		end
+
+		content.title = ""
+
+		-- update description text
+		if description ~= nil then
+			description.Text = world.description or ""
+		end
+
+		local modal = content:getModalIfContentIsActive()
+		if modal ~= nil then
+			modal:refreshContent()
+		end
+
+		worldDetails:refresh()
+	end
+
 	if createMode then
 		editIconBtn = ui:buttonSecondary({ content = "✏️ Edit icon", textSize = "small" })
 		editIconBtn:setParent(cell)
@@ -450,125 +569,6 @@ mod.createModalContent = function(_, config)
 		unloadCell = function(_, _) end,
 	})
 	scroll:setParent(worldDetails)
-
-	-- refreshes UI with what's in local config.world / world
-	local function refreshWorld()
-		if world.thumbnail ~= nil then
-			iconArea:setImage(world.thumbnail)
-		end
-
-		if config.mode == "create" then
-			if world.description == nil or world.description == "" then
-				description.empty = true
-				description.Text = "Worlds are easier to find with a description!"
-				description.Color = theme.textColorSecondary
-			else
-				description.empty = false
-				description.Text = world.description
-				description.Color = TEXT_COLOR
-			end
-
-			if world.maxPlayers then
-				serverSizeText.Text = "Server Size: " .. world.maxPlayers
-				serverSizeSlider:setValue(world.maxPlayers)
-			end
-		else
-			description.Text = world.description or ""
-			description.Color = TEXT_COLOR
-		end
-
-		if likeBtn then
-			likeBtn.Text = (world.liked == true and "❤️ " or "🤍 ")
-				.. (world.likes and math.floor(world.likes) or 0)
-
-			likeBtn.onRelease = function()
-				world.liked = not world.liked
-
-				if world.liked == true then
-					world.likes = world.likes ~= nil and world.likes + 1 or 1
-				else
-					world.likes = world.likes ~= nil and world.likes - 1 or 0
-				end
-
-				if likeRequest then
-					likeRequest:Cancel()
-				end
-				likeRequest = systemApi:likeWorld(world.id, world.liked, function(_)
-					-- TODO: this request should return the refreshed number of likes
-				end)
-				table.insert(requests, likeRequest)
-
-				local nbLikes = (world.likes and math.floor(world.likes) or 0)
-				likeBtn.Text = (world.liked == true and "❤️ " or "🤍 ") .. nbLikes
-
-				privateFields.alignViewsAndLikes()
-			end
-		end
-
-		views.Text = "👁 " .. (world.views and math.floor(world.views) or 0)
-
-		if world.maxPlayers and serverSize then
-			if world.maxPlayers == 1 then
-				serverSize.Text = "👤 solo game (no server)"
-			else
-				serverSize.Text = "👥 " .. world.maxPlayers .. " players per server"
-			end
-		end
-
-		if world.created then
-			local n, unitType = time.ago(world.created)
-			if n == 1 then
-				unitType = unitType:sub(1, #unitType - 1)
-			end
-			if math.floor(n) == n then
-				creationDate.Text = string.format("🌎 published %d %s ago", math.floor(n), unitType)
-			else
-				creationDate.Text = string.format("🌎 published %.1f %s ago", n, unitType)
-			end
-		end
-
-		if world.updated then
-			local n, unitType = time.ago(world.updated)
-			if n == 1 then
-				unitType = unitType:sub(1, #unitType - 1)
-			end
-			if math.floor(n) == n then
-				updateDate.Text = string.format("✨ updated %d %s ago", math.floor(n), unitType)
-			else
-				updateDate.Text = string.format("✨ updated %.1f %s ago", n, unitType)
-			end
-		end
-
-		-- update author text/button
-		if author then
-			author.Text = " @" .. (world.authorName or "…")
-		elseif authorBtn and world.authorName then
-			authorBtn.Text = "@" .. world.authorName
-			authorBtn.onRelease = function(_)
-				local profileConfig = {
-					username = world.authorName,
-					userID = world.authorId,
-					uikit = ui,
-				}
-				local profileContent = require("profile"):create(profileConfig)
-				content:push(profileContent)
-			end
-		end
-
-		content.title = ""
-
-		-- update description text
-		if description ~= nil then
-			description.Text = world.description or ""
-		end
-
-		local modal = content:getModalIfContentIsActive()
-		if modal ~= nil then
-			modal:refreshContent()
-		end
-
-		worldDetails:refresh()
-	end
 
 	-- send request to gather world information
 	local function loadWorld()
