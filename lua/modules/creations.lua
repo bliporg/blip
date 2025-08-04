@@ -566,14 +566,19 @@ creations.createModalContent = function(_, config)
 		modelCubeContainer.Pivot:Set(0.5, 0.5, 0.5)
 		modelCubeContainer.IsHidden = true
 
+		-- not all Objects have a pivot
+		-- using a container to offset the model to make it work in all cases
+		local modelContainer = Object()
+
 		avatarObject:SetParent(modelAndAvatar)
 		modelCubeContainer:SetParent(modelAndAvatar)
+		modelContainer:SetParent(modelAndAvatar)
 		
 		local modelOffsetRotation = Rotation(0, 0, 0)
-		local modelScale = 10
+		local modelScale = 10 -- default scale
 
 		callbacks.setupModel = function()
-			model:SetParent(modelAndAvatar)
+			model:SetParent(modelContainer)
 			model.LocalPosition:Set(0, 0, 0)
 			model.LocalRotation:Set(0, 0, 0)
 			if model.Pivot ~= nil then
@@ -582,10 +587,8 @@ creations.createModalContent = function(_, config)
 			model.Scale = 1
 			local box = Box()
 			box:Fit(model, { recurse = true, localBox = true })
-			if model.Pivot ~= nil then
-				model.Pivot = Number3(box.Center.X, box.Center.Y, box.Center.Z)
-			end
-			model.Scale = modelScale
+			model.LocalPosition:Set(-box.Center)
+			modelContainer.Scale = modelScale
 		end
 		callbacks.setupModel()
 
@@ -594,7 +597,7 @@ creations.createModalContent = function(_, config)
 
 		callbacks.updatePositions = function()
 			local box = Box()
-			box:Fit(model, { recurse = true, localBox = true })
+			box:Fit(modelContainer, { recurse = true, localBox = true })
 			local modelDiameter = math.sqrt(box.Size.X * box.Size.X + box.Size.Z * box.Size.Z)
 			local modelRadius = modelDiameter * 0.5
 			local modelHeight = box.Size.Y
@@ -612,17 +615,17 @@ creations.createModalContent = function(_, config)
 			local totalWidth = modelDiameter + avatarDiameter
 			
 			avatarObject.LocalPosition:Set(totalWidth * 0.5 - avatarRadius, 0, 0)
-			model.LocalPosition:Set(-totalWidth * 0.5 + modelRadius, modelHeight * 0.5, 0)
-			modelCubeContainer.LocalPosition:Set(model.LocalPosition)
+			modelContainer.LocalPosition:Set(-totalWidth * 0.5 + modelRadius, modelHeight * 0.5, 0)
+			modelCubeContainer.LocalPosition:Set(modelContainer.LocalPosition)
 		end
 		callbacks.updatePositions()
 
 		callbacks.refreshPreview = function()
-			local r = model.LocalRotation:Copy()
-			model.LocalRotation:Set(modelOffsetRotation)
+			local r = modelContainer.LocalRotation:Copy()
+			modelContainer.LocalRotation:Set(modelOffsetRotation)
 			callbacks.updatePositions()
 			preview:refresh()
-			model.LocalRotation = r
+			modelContainer.LocalRotation = r
 			node:refresh()
 		end
 
@@ -651,7 +654,7 @@ creations.createModalContent = function(_, config)
 			button = ui:buttonNeutral({ content = "  ", padding = theme.padding }),
 			onValueChange = function(v)
 				modelScale = v
-				model.Scale = modelScale
+				modelContainer.Scale = modelScale
 				scaleInput.Text = string.format("%.1f", v)
 				callbacks.refreshPreview()
 			end,
@@ -668,7 +671,7 @@ creations.createModalContent = function(_, config)
 				newScale = math.max(0, newScale)
 				scaleSlider:setValue(math.min(scaleMax, math.max(scaleMin, newScale)))
 				modelScale = newScale
-				model.Scale = modelScale
+				modelContainer.Scale = modelScale
 				self.Text = string.format("%.1f", modelScale)
 			else
 				self.Text = string.format("%.1f", oldScale)
@@ -773,15 +776,15 @@ creations.createModalContent = function(_, config)
 			callbacks.refreshPreview()
 
 			local r = Rotation(0, 0, 0)
-			model.Tick = function(self, dt)
+			modelContainer.Tick = function(self, dt)
 				r = r * Rotation(0, dt, 0)
-				model.LocalRotation =  r * modelOffsetRotation
+				modelContainer.LocalRotation =  r * modelOffsetRotation
 				avatarObject.LocalRotation = r
 			end
 		end
 
 		content.willResignActive = function(self)
-			model.Tick = nil
+			modelContainer.Tick = nil
 		end
 
 		btnNext.onRelease = function()
