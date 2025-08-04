@@ -425,6 +425,7 @@ mt.__index.create = function(_, maxWidth, maxHeight, position, uikit)
 						if not ok then
 							return
 						end
+						LocalEvent:Send(LocalEvent.Name.NotificationCountDidChange)
 						retrieveFriendsLists(nil, true)
 					end)
 					table.insert(requests, req)
@@ -436,6 +437,7 @@ mt.__index.create = function(_, maxWidth, maxHeight, position, uikit)
 						if not ok then
 							return
 						end
+						LocalEvent:Send(LocalEvent.Name.NotificationCountDidChange)
 						retrieveFriendsLists(nil, true)
 					end)
 					table.insert(requests, req)
