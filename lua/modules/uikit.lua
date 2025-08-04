@@ -1047,7 +1047,7 @@ function createUI(system)
 	-- 	end
 
 	-- 	local lines = object.debugBoxLines
-	
+
 	-- 	if #lines == 0 then
 	-- 		local oneBlock = MutableShape()
 	-- 		oneBlock:AddBlock(Color.White, 0, 0, 0)
@@ -1063,30 +1063,30 @@ function createUI(system)
 	-- 		lines[i]:SetParent(object)
 	-- 		lines[i + 1]:SetParent(object)
 	-- 		lines[i + 2]:SetParent(object)
-	
+
 	-- 		lines[i].LocalScale.X = box.Max.X - box.Min.X
 	-- 		lines[i + 1].LocalScale.Y = box.Max.Y - box.Min.Y
 	-- 		lines[i + 2].LocalScale.Z = box.Max.Z - box.Min.Z
-	
+
 	-- 		if color ~= nil then
 	-- 			lines[i].Palette[1].Color = color
 	-- 			lines[i + 1].Palette[1].Color = color
 	-- 			lines[i + 2].Palette[1].Color = color
 	-- 		end
 	-- 	end
-		
+
 	-- 	lines[1].LocalPosition = box.Min
 	-- 	lines[2].LocalPosition = box.Min
 	-- 	lines[3].LocalPosition = box.Min
-	
+
 	-- 	lines[4].LocalPosition = { box.Min.X, box.Max.Y, box.Min.Z }
 	-- 	lines[5].LocalPosition = { box.Max.X, box.Min.Y, box.Min.Z }
 	-- 	lines[6].LocalPosition = { box.Max.X, box.Min.Y, box.Min.Z }
-	
+
 	-- 	lines[7].LocalPosition = { box.Min.X, box.Min.Y, box.Max.Z }
 	-- 	lines[8].LocalPosition = { box.Min.X, box.Min.Y, box.Max.Z }
 	-- 	lines[9].LocalPosition = { box.Min.X, box.Max.Y, box.Min.Z }
-	
+
 	-- 	lines[10].LocalPosition = { box.Min.X, box.Max.Y, box.Max.Z }
 	-- 	lines[11].LocalPosition = { box.Max.X, box.Min.Y, box.Max.Z }
 	-- 	lines[12].LocalPosition = { box.Max.X, box.Max.Y, box.Min.Z }
@@ -1104,7 +1104,7 @@ function createUI(system)
 		node.pivot.Scale = 1
 
 		if node.shape.Pivot ~= nil then
-			node.shape.Pivot:Set(0,0,0)
+			node.shape.Pivot:Set(0, 0, 0)
 		end
 		node.shape.LocalRotation:Set(zero)
 		node.shape.LocalPosition:Set(zero)
@@ -1138,7 +1138,7 @@ function createUI(system)
 		else
 			node.pivot.LocalPosition:Set(node._aabbWidth * 0.5, node._aabbHeight * 0.5, node._aabbDepth * 0.5)
 		end
-		
+
 		node.shape.LocalPosition:Set(-aabb.Center + node._config.offset)
 		if node.pivot.debugObject ~= nil then
 			node.pivot.debugObject.LocalPosition:Set(-aabb.Center)
@@ -2816,12 +2816,15 @@ function createUI(system)
 			setLocalX(x)
 		end
 
-		node.onRelease = function()
+		node.onReleaseSystem = function(_)
 			btn:_setState(State.Idle)
 		end
 
-		node.onCancel = function()
+		node.onCancelSystem = function(self)
 			btn:_setState(State.Idle)
+			if self.onRelease then
+				self:onRelease()
+			end
 		end
 
 		return node
@@ -3542,9 +3545,7 @@ function createUI(system)
 			self:setScrollPosition(newPos)
 
 			if pressed ~= self and math.abs(diff) >= SCROLL_DRAG_EPSILON then
-				if pressed._onCancel then
-					pressed:_onCancel()
-				end
+				_onCancelWrapper(pressed)
 				pressed = self
 			end
 		end
@@ -4605,7 +4606,7 @@ function createUI(system)
 				end
 
 				if skip == false and hitObject._node == pressed and hitObject._node._onRelease then
-					pressed:_onRelease(hitObject, impact.Block, pointerEvent)
+					_onReleaseWrapper(pressed, hitObject, impact.Block, pointerEvent)
 					pressed = nil
 					-- pressed element captures event onRelease event
 					-- even if onRelease and onCancel are nil
@@ -4616,9 +4617,7 @@ function createUI(system)
 
 		-- no matter what, pressed is now nil
 		-- but not capturing event
-		if pressed._onCancel then
-			pressed:_onCancel()
-		end
+		_onCancelWrapper(pressed)
 		pressed = nil
 	end, { system = system == true and System or nil, topPriority = true })
 
@@ -4897,6 +4896,30 @@ function _onRemoveWrapper(node)
 	end
 	if node.onRemove ~= nil then
 		node:onRemove()
+	end
+end
+
+function _onReleaseWrapper(node, object, block, pointerEvent)
+	if node == nil then
+		return
+	end
+	if node.onReleaseSystem ~= nil then
+		node:onReleaseSystem(object, block, pointerEvent)
+	end
+	if node._onRelease ~= nil then
+		node:_onRelease(object, block, pointerEvent)
+	end
+end
+
+function _onCancelWrapper(node)
+	if node == nil then
+		return
+	end
+	if node.onCancelSystem ~= nil then
+		node:onCancelSystem()
+	end
+	if node._onCancel ~= nil then
+		node:_onCancel()
 	end
 end
 
