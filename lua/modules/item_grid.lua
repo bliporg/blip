@@ -321,7 +321,7 @@ itemGrid.create = function(_, config)
 										name = cell.name,
 										likes = cell.likes,
 										liked = cell.liked,
-                                        maxPlayers = cell.maxPlayers,
+										maxPlayers = cell.maxPlayers,
 									}
 								end
 								grid.onOpen(entity)
@@ -395,7 +395,7 @@ itemGrid.create = function(_, config)
 							self.updated = entry.updated
 							self.likes = entry.likes
 							self.liked = entry.liked
-                            self.maxPlayers = entry.maxPlayers
+							self.maxPlayers = entry.maxPlayers
 
 							if self.item then
 								self.item:remove()
@@ -588,7 +588,7 @@ itemGrid.create = function(_, config)
 	end
 
 	-- triggers request to obtain items
-	grid.getItems = function(self)
+	grid.getItems = function(_)
 		cancelRequestsAndTimers()
 		setGridEntries({})
 
@@ -638,23 +638,21 @@ itemGrid.create = function(_, config)
 			end)
 			addSentRequest(req)
 		elseif type == "worlds" then
-			local req = api:getWorlds({
+			local req = api:getCreations({
+				type = "worlds", -- we only want worlds creations
 				authorId = config.authorId,
 				category = categories[1], -- TODO: review this
 				page = 1,
 				perPage = config.perPage,
 				search = search,
 				sortBy = sortBy,
-				fields = { "title", "created", "updated", "views", "likes", "maxPlayers" },
-			}, function(worlds, err)
+				fields = { "id", "type", "name", "created", "updated", "views", "likes" }, -- "maxPlayers" is not available in creations
+			}, function(creations, err)
 				if err then
 					-- silent error
 					return
 				end
-				for _, entry in worlds do
-					entry.type = "world" -- force type to `world`
-				end
-				setGridEntries(worlds)
+				setGridEntries(creations)
 			end)
 			addSentRequest(req)
 		end

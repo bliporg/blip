@@ -438,7 +438,7 @@ mod.getCreations = function(self, config, callback)
 
 	local u = url:parse(mod.kApiAddr .. "/creations")
 
-	-- u:addQueryParameter("type", config.type)
+	u:addQueryParameter("type", config.type)
 	u:addQueryParameter("authorId", config.authorId)
 	u:addQueryParameter("category", config.category)
 	u:addQueryParameter("search", config.search)
