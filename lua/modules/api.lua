@@ -1027,6 +1027,18 @@ mod.aiChatCompletions = function(messages, temperatureOrCb, cb)
 	local headers = {}
 	headers["Content-Type"] = "application/json"
 
+	-- AI can insert annotations which can be empty arrays.
+	-- The JSON encoder encodes those empty arrays as `{}` instead of `[]`
+	-- and that is not valid for the API.
+	-- Ommiting them is ok though so setting them to nil fixes the issue.
+	for _, m in messages do
+		if m.annotations then
+			if #m.annotations == 0 then
+				m.annotations = nil
+			end
+		end
+	end
+
 	local body = {}
 	body.model = "gpt-4o-mini"
 	body.messages = messages
