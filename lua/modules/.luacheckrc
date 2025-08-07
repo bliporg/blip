@@ -27,7 +27,7 @@ return {
 		"CollisionGroups",
 		"Data",
 		"AI",
-		"Server"
+		"Server",
 	},
 
 	read_globals = {
@@ -71,6 +71,7 @@ return {
 		"Type",
 		"URL",
 		"World",
-		"math.clamp"
-	}
+		"math.clamp",
+		"typeof",
+	},
 }
