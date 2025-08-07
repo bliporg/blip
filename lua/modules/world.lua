@@ -601,7 +601,9 @@ local function loadObject(obj, objInfo)
 
 	local k = Box()
 	k:Fit(obj, true)
-	obj.Pivot = Number3(obj.Width * 0.5, k.Min.Y + obj.Pivot.Y, obj.Depth * 0.5)
+	if obj.Pivot then
+		obj.Pivot = Number3(obj.Width * 0.5, k.Min.Y + obj.Pivot.Y, obj.Depth * 0.5)
+	end
 
 	obj.Position = objInfo.Position or Number3(0, 0, 0)
 	obj.Rotation = objInfo.Rotation or Rotation(0, 0, 0)
@@ -623,7 +625,7 @@ local function loadObject(obj, objInfo)
 
 	local physics = objInfo.Physics or PhysicsMode.StaticPerBlock
 	obj:Recurse(function(o)
-		if o.Physics == nil then
+		if o.Physics == nil or typeof(o) == "Object" then
 			return
 		end
 		o.Physics = physics

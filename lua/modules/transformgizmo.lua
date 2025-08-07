@@ -120,7 +120,7 @@ end
 
 function getCenter(target)
 	local box = Box()
-	box:Fit(target, { recurse = true })
+	box:Fit(target, { recurse = true, localBox = true })
 	return box.Center
 end
 
@@ -345,7 +345,7 @@ gizmo.create = function(self, config)
 		config = conf:merge(
 			defaultConfig,
 			config,
-			{ acceptTypes = { target = { "Object", "Shape", "MutableShape", "Player" } } }
+			{ acceptTypes = { target = { "Object", "Shape", "MutableShape", "Player", "Quad", "Mesh" } } }
 		)
 	end)
 

@@ -174,6 +174,10 @@ local newObjectCancelBtn
 local newObjectBeingPlaced
 local objectNameInput
 
+selectedObjectContainer = Object() -- Object containing the object being edited
+selectedObjectContainer.Physics = PhysicsMode.Disabled
+selectedObjectContainer:SetParent(World)
+
 local trail
 
 local function hideAllPanels()
@@ -296,6 +300,19 @@ local function copyObjectInfo(obj)
 	return newObjectInfo
 end
 
+local possiblePhysicsModes = function(obj)
+	if typeof(obj) == "Object" or typeof(obj) == "Mesh" or typeof(obj) == "Quad" then
+		return { PhysicsMode.Static, PhysicsMode.Dynamic, PhysicsMode.Trigger, PhysicsMode.Disabled }
+	elseif typeof(obj) == "Shape" or typeof(obj) == "MutableShape" then
+		return { PhysicsMode.StaticPerBlock, PhysicsMode.Static, PhysicsMode.Dynamic, PhysicsMode.Trigger, PhysicsMode.Disabled }
+	end
+	return {}
+end
+
+local defaultPhysicsMode = function(obj)
+	return possiblePhysicsModes(obj)[1]
+end
+
 -- STATE
 
 local pressedObject
@@ -323,7 +340,7 @@ local function setObjectPhysicsMode(obj, physicsMode)
 	end
 	obj.realPhysicsMode = physicsMode
 	obj:Recurse(function(o)
-		if o.Physics == nil then
+		if o.Physics == nil or typeof(o) == "Object" then
 			return
 		end
 		-- If disabled, keep trigger to allow raycast
@@ -416,7 +433,7 @@ local spawnObject = function(objectInfo, onDone)
 	if objectInfo.obj then -- Loaded with loadWorld, already created, no need to place it
 		local obj = objectInfo.obj
 		obj.isEditable = true
-		local physicsMode = objectInfo.Physics or PhysicsMode.StaticPerBlock
+		local physicsMode = objectInfo.Physics or defaultPhysicsMode(obj)
 		setObjectPhysicsMode(obj, physicsMode)
 		obj:Recurse(function(o)
 			if typeof(o) == "Object" then
@@ -442,10 +459,12 @@ local spawnObject = function(objectInfo, onDone)
 
 		-- Handle multishape (world space, change position after)
 		local box = Box()
-		box:Fit(obj, true)
-		obj.Pivot = Number3(obj.Width / 2, box.Min.Y + obj.Pivot.Y, obj.Depth / 2)
+		box:Fit(obj, { recurse = true, localBox = true })
+		if obj.Pivot then
+			obj.Pivot = Number3(obj.Width / 2, box.Min.Y + obj.Pivot.Y, obj.Depth / 2)
+		end
 
-		setObjectPhysicsMode(obj, objectInfo.Physics or PhysicsMode.StaticPerBlock)
+		setObjectPhysicsMode(obj, objectInfo.Physics or defaultPhysicsMode(obj))
 
 		obj.Position = objectInfo.Position or Number3(0, 0, 0)
 		obj.Rotation = objectInfo.Rotation or Rotation(0, 0, 0)
@@ -618,15 +637,24 @@ local statesSettings = {
 		onStateBegin = function(obj)
 			selectedObject = obj
 
+			selectedObjectContainer.Scale = 1
+			selectedObjectContainer.Rotation:Set(0, 0, 0)
+
+			local box = Box()
+			box:Fit(obj, { recurse = true, localBox = true })
+			selectedObjectContainer.Position = box.Center
+
+			obj:SetParent(selectedObjectContainer, true)
+
 			local objectsWithColliders = {}
 			obj:Recurse(function(o)
-				if o.Physics ~= nil then
-					table.insert(objectsWithColliders, o)
+				if o.Physics == nil or typeof(o) == "Object" then
+					return
 				end
+				table.insert(objectsWithColliders, o)
 			end, { includeRoot = true })
 			Dev.DisplayColliders = objectsWithColliders
 
-			require("box_gizmo"):toggle(obj, Color.White)
 			objectNameInput.Text = obj.Name
 			objectNameInput.onTextChange = function(o)
 				selectedObject.Name = o.Text
@@ -638,15 +666,14 @@ local statesSettings = {
 			objectInfoFrame:bump()
 
 			physicsBtn:setPhysicsMode(obj.realPhysicsMode)
-			Timer(0.1, function()
-				freezeObject(selectedObject)
-			end)
+			freezeObject(selectedObject)
 
 			local currentScale = obj.Scale:Copy()
-			ease:inOutQuad(obj, 0.15).Scale = currentScale * 1.1
-			Timer(0.15, function()
-				ease:inOutQuad(obj, 0.15).Scale = currentScale
-			end)
+			ease:inOutQuad(obj, 0.15, {
+				onDone = function()
+					ease:inOutQuad(obj, 0.15).Scale = currentScale
+				end,
+			}).Scale = currentScale * 1.1
 			sfx("waterdrop_3", { Spatialized = false, Pitch = 1 + math.random() * 0.1 })
 
 			if trail ~= nil then
@@ -659,16 +686,17 @@ local statesSettings = {
 			end
 
 			transformGizmo = require("transformgizmo"):create({
-				target = selectedObject,
+				target = selectedObjectContainer,
 				onChange = function(target) end,
 				onDone = function(target)
+					if selectedObject == nil then return end
 					world.updateObject({
-						uuid = target.uuid,
-						Position = target.Position,
-						Rotation = target.Rotation,
-						Scale = target.Scale,
+						uuid = selectedObject.uuid,
+						Position = selectedObject.Position,
+						Rotation = selectedObject.Rotation,
+						Scale = selectedObject.Scale,
 					})
-					world.updateShadow(target)
+					world.updateShadow(selectedObject)
 				end,
 			})
 		end,
@@ -690,6 +718,11 @@ local statesSettings = {
 			end
 
 			if selectedObject then
+				if selectedObject.Parent == selectedObjectContainer then
+					selectedObject:SetParent(World, true)
+					selectedObject.Scale = selectedObjectContainer.Scale * selectedObject.Scale
+				end
+				
 				unfreezeObject(selectedObject)
 			end
 
@@ -698,7 +731,6 @@ local statesSettings = {
 				trail = nil
 			end
 
-			require("box_gizmo"):toggle(nil)
 			objectInfoFrame:hide()
 			saveWorld()
 			selectedObject = nil
