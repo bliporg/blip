@@ -53,7 +53,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>..\..\..\..\deps\freetype\include;..\..\..\..\deps\harfbuzz\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\..\..\deps\freetype\include;..\..\..\..\..\deps\harfbuzz\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -70,7 +70,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>..\..\..\..\deps\freetype\include;..\..\..\..\deps\harfbuzz\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\..\..\deps\freetype\include;..\..\..\..\..\deps\harfbuzz\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -80,81 +80,81 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\deps\harfbuzz\src\hb-ft.cc" />
-    <ClCompile Include="..\..\..\..\deps\harfbuzz\src\graph\gsubgpos-context.cc" />
-    <ClCompile Include="..\..\..\..\deps\harfbuzz\src\harfbuzz.cc" />
-    <ClCompile Include="..\..\..\..\deps\harfbuzz\src\hb-number.cc" />
-    <ClCompile Include="..\..\..\..\deps\harfbuzz\src\hb-ot-cff1-table.cc" />
-    <ClCompile Include="..\..\..\..\deps\harfbuzz\src\hb-ot-cff2-table.cc" />
-    <ClCompile Include="..\..\..\..\deps\harfbuzz\src\hb-static.cc" />
-    <ClCompile Include="..\..\..\..\deps\harfbuzz\src\hb-subset-cff-common.cc" />
-    <ClCompile Include="..\..\..\..\deps\harfbuzz\src\hb-subset-cff1.cc" />
-    <ClCompile Include="..\..\..\..\deps\harfbuzz\src\hb-subset-cff2.cc" />
-    <ClCompile Include="..\..\..\..\deps\harfbuzz\src\hb-subset-input.cc" />
-    <ClCompile Include="..\..\..\..\deps\harfbuzz\src\hb-subset-instancer-iup.cc" />
-    <ClCompile Include="..\..\..\..\deps\harfbuzz\src\hb-subset-instancer-solver.cc" />
-    <ClCompile Include="..\..\..\..\deps\harfbuzz\src\hb-subset-plan-layout.cc" />
-    <ClCompile Include="..\..\..\..\deps\harfbuzz\src\hb-subset-plan-var.cc" />
-    <ClCompile Include="..\..\..\..\deps\harfbuzz\src\hb-subset-plan.cc" />
-    <ClCompile Include="..\..\..\..\deps\harfbuzz\src\hb-subset-serialize.cc" />
-    <ClCompile Include="..\..\..\..\deps\harfbuzz\src\hb-subset.cc" />
+    <ClCompile Include="..\..\..\..\..\deps\harfbuzz\src\hb-ft.cc" />
+    <ClCompile Include="..\..\..\..\..\deps\harfbuzz\src\graph\gsubgpos-context.cc" />
+    <ClCompile Include="..\..\..\..\..\deps\harfbuzz\src\harfbuzz.cc" />
+    <ClCompile Include="..\..\..\..\..\deps\harfbuzz\src\hb-number.cc" />
+    <ClCompile Include="..\..\..\..\..\deps\harfbuzz\src\hb-ot-cff1-table.cc" />
+    <ClCompile Include="..\..\..\..\..\deps\harfbuzz\src\hb-ot-cff2-table.cc" />
+    <ClCompile Include="..\..\..\..\..\deps\harfbuzz\src\hb-static.cc" />
+    <ClCompile Include="..\..\..\..\..\deps\harfbuzz\src\hb-subset-cff-common.cc" />
+    <ClCompile Include="..\..\..\..\..\deps\harfbuzz\src\hb-subset-cff1.cc" />
+    <ClCompile Include="..\..\..\..\..\deps\harfbuzz\src\hb-subset-cff2.cc" />
+    <ClCompile Include="..\..\..\..\..\deps\harfbuzz\src\hb-subset-input.cc" />
+    <ClCompile Include="..\..\..\..\..\deps\harfbuzz\src\hb-subset-instancer-iup.cc" />
+    <ClCompile Include="..\..\..\..\..\deps\harfbuzz\src\hb-subset-instancer-solver.cc" />
+    <ClCompile Include="..\..\..\..\..\deps\harfbuzz\src\hb-subset-plan-layout.cc" />
+    <ClCompile Include="..\..\..\..\..\deps\harfbuzz\src\hb-subset-plan-var.cc" />
+    <ClCompile Include="..\..\..\..\..\deps\harfbuzz\src\hb-subset-plan.cc" />
+    <ClCompile Include="..\..\..\..\..\deps\harfbuzz\src\hb-subset-serialize.cc" />
+    <ClCompile Include="..\..\..\..\..\deps\harfbuzz\src\hb-subset.cc" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\deps\harfbuzz\src\hb-ft.h" />
-    <ClInclude Include="..\..\..\..\deps\harfbuzz\src\graph\classdef-graph.hh" />
-    <ClInclude Include="..\..\..\..\deps\harfbuzz\src\graph\coverage-graph.hh" />
-    <ClInclude Include="..\..\..\..\deps\harfbuzz\src\graph\graph.hh" />
-    <ClInclude Include="..\..\..\..\deps\harfbuzz\src\graph\gsubgpos-context.hh" />
-    <ClInclude Include="..\..\..\..\deps\harfbuzz\src\graph\gsubgpos-graph.hh" />
-    <ClInclude Include="..\..\..\..\deps\harfbuzz\src\graph\markbasepos-graph.hh" />
-    <ClInclude Include="..\..\..\..\deps\harfbuzz\src\graph\pairpos-graph.hh" />
-    <ClInclude Include="..\..\..\..\deps\harfbuzz\src\graph\serialize.hh" />
-    <ClInclude Include="..\..\..\..\deps\harfbuzz\src\graph\split-helpers.hh" />
-    <ClInclude Include="..\..\..\..\deps\harfbuzz\src\hb-aat-layout.h" />
-    <ClInclude Include="..\..\..\..\deps\harfbuzz\src\hb-aat.h" />
-    <ClInclude Include="..\..\..\..\deps\harfbuzz\src\hb-blob.h" />
-    <ClInclude Include="..\..\..\..\deps\harfbuzz\src\hb-buffer.h" />
-    <ClInclude Include="..\..\..\..\deps\harfbuzz\src\hb-common.h" />
-    <ClInclude Include="..\..\..\..\deps\harfbuzz\src\hb-cplusplus.hh" />
-    <ClInclude Include="..\..\..\..\deps\harfbuzz\src\hb-deprecated.h" />
-    <ClInclude Include="..\..\..\..\deps\harfbuzz\src\hb-draw.h" />
-    <ClInclude Include="..\..\..\..\deps\harfbuzz\src\hb-face.h" />
-    <ClInclude Include="..\..\..\..\deps\harfbuzz\src\hb-font.h" />
-    <ClInclude Include="..\..\..\..\deps\harfbuzz\src\hb-map.h" />
-    <ClInclude Include="..\..\..\..\deps\harfbuzz\src\hb-number.hh" />
-    <ClInclude Include="..\..\..\..\deps\harfbuzz\src\hb-ot-color.h" />
-    <ClInclude Include="..\..\..\..\deps\harfbuzz\src\hb-ot-deprecated.h" />
-    <ClInclude Include="..\..\..\..\deps\harfbuzz\src\hb-ot-font.h" />
-    <ClInclude Include="..\..\..\..\deps\harfbuzz\src\hb-ot-layout.h" />
-    <ClInclude Include="..\..\..\..\deps\harfbuzz\src\hb-ot-math.h" />
-    <ClInclude Include="..\..\..\..\deps\harfbuzz\src\hb-ot-meta.h" />
-    <ClInclude Include="..\..\..\..\deps\harfbuzz\src\hb-ot-metrics.h" />
-    <ClInclude Include="..\..\..\..\deps\harfbuzz\src\hb-ot-name.h" />
-    <ClInclude Include="..\..\..\..\deps\harfbuzz\src\hb-ot-post-table-v2subset.hh" />
-    <ClInclude Include="..\..\..\..\deps\harfbuzz\src\hb-ot-shape.h" />
-    <ClInclude Include="..\..\..\..\deps\harfbuzz\src\hb-ot-var.h" />
-    <ClInclude Include="..\..\..\..\deps\harfbuzz\src\hb-ot.h" />
-    <ClInclude Include="..\..\..\..\deps\harfbuzz\src\hb-paint.h" />
-    <ClInclude Include="..\..\..\..\deps\harfbuzz\src\hb-repacker.hh" />
-    <ClInclude Include="..\..\..\..\deps\harfbuzz\src\hb-script-list.h" />
-    <ClInclude Include="..\..\..\..\deps\harfbuzz\src\hb-set.h" />
-    <ClInclude Include="..\..\..\..\deps\harfbuzz\src\hb-shape-plan.h" />
-    <ClInclude Include="..\..\..\..\deps\harfbuzz\src\hb-shape.h" />
-    <ClInclude Include="..\..\..\..\deps\harfbuzz\src\hb-style.h" />
-    <ClInclude Include="..\..\..\..\deps\harfbuzz\src\hb-subset-accelerator.hh" />
-    <ClInclude Include="..\..\..\..\deps\harfbuzz\src\hb-subset-cff-common.hh" />
-    <ClInclude Include="..\..\..\..\deps\harfbuzz\src\hb-subset-input.hh" />
-    <ClInclude Include="..\..\..\..\deps\harfbuzz\src\hb-subset-instancer-iup.hh" />
-    <ClInclude Include="..\..\..\..\deps\harfbuzz\src\hb-subset-instancer-solver.hh" />
-    <ClInclude Include="..\..\..\..\deps\harfbuzz\src\hb-subset-plan-member-list.hh" />
-    <ClInclude Include="..\..\..\..\deps\harfbuzz\src\hb-subset-plan.hh" />
-    <ClInclude Include="..\..\..\..\deps\harfbuzz\src\hb-subset-serialize.h" />
-    <ClInclude Include="..\..\..\..\deps\harfbuzz\src\hb-subset.h" />
-    <ClInclude Include="..\..\..\..\deps\harfbuzz\src\hb-subset.hh" />
-    <ClInclude Include="..\..\..\..\deps\harfbuzz\src\hb-unicode.h" />
-    <ClInclude Include="..\..\..\..\deps\harfbuzz\src\hb-version.h" />
-    <ClInclude Include="..\..\..\..\deps\harfbuzz\src\hb.h" />
-    <ClInclude Include="..\..\..\..\deps\harfbuzz\src\OT\Color\COLR\colrv1-closure.hh" />
+    <ClInclude Include="..\..\..\..\..\deps\harfbuzz\src\hb-ft.h" />
+    <ClInclude Include="..\..\..\..\..\deps\harfbuzz\src\graph\classdef-graph.hh" />
+    <ClInclude Include="..\..\..\..\..\deps\harfbuzz\src\graph\coverage-graph.hh" />
+    <ClInclude Include="..\..\..\..\..\deps\harfbuzz\src\graph\graph.hh" />
+    <ClInclude Include="..\..\..\..\..\deps\harfbuzz\src\graph\gsubgpos-context.hh" />
+    <ClInclude Include="..\..\..\..\..\deps\harfbuzz\src\graph\gsubgpos-graph.hh" />
+    <ClInclude Include="..\..\..\..\..\deps\harfbuzz\src\graph\markbasepos-graph.hh" />
+    <ClInclude Include="..\..\..\..\..\deps\harfbuzz\src\graph\pairpos-graph.hh" />
+    <ClInclude Include="..\..\..\..\..\deps\harfbuzz\src\graph\serialize.hh" />
+    <ClInclude Include="..\..\..\..\..\deps\harfbuzz\src\graph\split-helpers.hh" />
+    <ClInclude Include="..\..\..\..\..\deps\harfbuzz\src\hb-aat-layout.h" />
+    <ClInclude Include="..\..\..\..\..\deps\harfbuzz\src\hb-aat.h" />
+    <ClInclude Include="..\..\..\..\..\deps\harfbuzz\src\hb-blob.h" />
+    <ClInclude Include="..\..\..\..\..\deps\harfbuzz\src\hb-buffer.h" />
+    <ClInclude Include="..\..\..\..\..\deps\harfbuzz\src\hb-common.h" />
+    <ClInclude Include="..\..\..\..\..\deps\harfbuzz\src\hb-cplusplus.hh" />
+    <ClInclude Include="..\..\..\..\..\deps\harfbuzz\src\hb-deprecated.h" />
+    <ClInclude Include="..\..\..\..\..\deps\harfbuzz\src\hb-draw.h" />
+    <ClInclude Include="..\..\..\..\..\deps\harfbuzz\src\hb-face.h" />
+    <ClInclude Include="..\..\..\..\..\deps\harfbuzz\src\hb-font.h" />
+    <ClInclude Include="..\..\..\..\..\deps\harfbuzz\src\hb-map.h" />
+    <ClInclude Include="..\..\..\..\..\deps\harfbuzz\src\hb-number.hh" />
+    <ClInclude Include="..\..\..\..\..\deps\harfbuzz\src\hb-ot-color.h" />
+    <ClInclude Include="..\..\..\..\..\deps\harfbuzz\src\hb-ot-deprecated.h" />
+    <ClInclude Include="..\..\..\..\..\deps\harfbuzz\src\hb-ot-font.h" />
+    <ClInclude Include="..\..\..\..\..\deps\harfbuzz\src\hb-ot-layout.h" />
+    <ClInclude Include="..\..\..\..\..\deps\harfbuzz\src\hb-ot-math.h" />
+    <ClInclude Include="..\..\..\..\..\deps\harfbuzz\src\hb-ot-meta.h" />
+    <ClInclude Include="..\..\..\..\..\deps\harfbuzz\src\hb-ot-metrics.h" />
+    <ClInclude Include="..\..\..\..\..\deps\harfbuzz\src\hb-ot-name.h" />
+    <ClInclude Include="..\..\..\..\..\deps\harfbuzz\src\hb-ot-post-table-v2subset.hh" />
+    <ClInclude Include="..\..\..\..\..\deps\harfbuzz\src\hb-ot-shape.h" />
+    <ClInclude Include="..\..\..\..\..\deps\harfbuzz\src\hb-ot-var.h" />
+    <ClInclude Include="..\..\..\..\..\deps\harfbuzz\src\hb-ot.h" />
+    <ClInclude Include="..\..\..\..\..\deps\harfbuzz\src\hb-paint.h" />
+    <ClInclude Include="..\..\..\..\..\deps\harfbuzz\src\hb-repacker.hh" />
+    <ClInclude Include="..\..\..\..\..\deps\harfbuzz\src\hb-script-list.h" />
+    <ClInclude Include="..\..\..\..\..\deps\harfbuzz\src\hb-set.h" />
+    <ClInclude Include="..\..\..\..\..\deps\harfbuzz\src\hb-shape-plan.h" />
+    <ClInclude Include="..\..\..\..\..\deps\harfbuzz\src\hb-shape.h" />
+    <ClInclude Include="..\..\..\..\..\deps\harfbuzz\src\hb-style.h" />
+    <ClInclude Include="..\..\..\..\..\deps\harfbuzz\src\hb-subset-accelerator.hh" />
+    <ClInclude Include="..\..\..\..\..\deps\harfbuzz\src\hb-subset-cff-common.hh" />
+    <ClInclude Include="..\..\..\..\..\deps\harfbuzz\src\hb-subset-input.hh" />
+    <ClInclude Include="..\..\..\..\..\deps\harfbuzz\src\hb-subset-instancer-iup.hh" />
+    <ClInclude Include="..\..\..\..\..\deps\harfbuzz\src\hb-subset-instancer-solver.hh" />
+    <ClInclude Include="..\..\..\..\..\deps\harfbuzz\src\hb-subset-plan-member-list.hh" />
+    <ClInclude Include="..\..\..\..\..\deps\harfbuzz\src\hb-subset-plan.hh" />
+    <ClInclude Include="..\..\..\..\..\deps\harfbuzz\src\hb-subset-serialize.h" />
+    <ClInclude Include="..\..\..\..\..\deps\harfbuzz\src\hb-subset.h" />
+    <ClInclude Include="..\..\..\..\..\deps\harfbuzz\src\hb-subset.hh" />
+    <ClInclude Include="..\..\..\..\..\deps\harfbuzz\src\hb-unicode.h" />
+    <ClInclude Include="..\..\..\..\..\deps\harfbuzz\src\hb-version.h" />
+    <ClInclude Include="..\..\..\..\..\deps\harfbuzz\src\hb.h" />
+    <ClInclude Include="..\..\..\..\..\deps\harfbuzz\src\OT\Color\COLR\colrv1-closure.hh" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\..\..\freetype-VER-2-13-3\builds\windows\vc2010\freetype.vcxproj">

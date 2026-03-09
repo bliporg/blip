@@ -99,7 +99,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(UserOptionDirectory);..\..\..\include;$(UserIncludeDirectories);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(UserOptionDirectory);..\..\..\..\..\deps\freetype\include;$(UserIncludeDirectories);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;FT_DEBUG_LEVEL_ERROR;FT_DEBUG_LEVEL_TRACE;FT2_BUILD_LIBRARY;DLL_EXPORT;$(UserDefines);%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -126,7 +126,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\..\..\..\deps\freetype\include;$(UserOptionDirectory);$(UserIncludeDirectories);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\..\..\deps\freetype\include;$(UserOptionDirectory);$(UserIncludeDirectories);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;FT_DEBUG_LEVEL_ERROR;FT_DEBUG_LEVEL_TRACE;FT2_BUILD_LIBRARY;DLL_EXPORT;$(UserDefines);%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -153,7 +153,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug Static|ARM64'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(UserOptionDirectory);..\..\..\include;$(UserIncludeDirectories);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(UserOptionDirectory);..\..\..\..\..\deps\freetype\include;$(UserIncludeDirectories);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;FT_DEBUG_LEVEL_ERROR;FT_DEBUG_LEVEL_TRACE;FT2_BUILD_LIBRARY;$(UserDefines);%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -179,7 +179,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug Static|x64'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\..\..\..\deps\freetype\include;$(UserOptionDirectory);$(UserIncludeDirectories);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\..\..\deps\freetype\include;$(UserOptionDirectory);$(UserIncludeDirectories);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;FT_DEBUG_LEVEL_ERROR;FT_DEBUG_LEVEL_TRACE;FT2_BUILD_LIBRARY;$(UserDefines);%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -206,7 +206,7 @@
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
-      <AdditionalIncludeDirectories>$(UserOptionDirectory);..\..\..\include;$(UserIncludeDirectories);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(UserOptionDirectory);..\..\..\..\..\deps\freetype\include;$(UserIncludeDirectories);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;FT2_BUILD_LIBRARY;DLL_EXPORT;$(UserDefines);%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -234,7 +234,7 @@
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
-      <AdditionalIncludeDirectories>..\..\..\..\deps\freetype\include;$(UserOptionDirectory);$(UserIncludeDirectories);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\..\..\deps\freetype\include;$(UserOptionDirectory);$(UserIncludeDirectories);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;FT2_BUILD_LIBRARY;DLL_EXPORT;$(UserDefines);%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -261,7 +261,7 @@
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
-      <AdditionalIncludeDirectories>$(UserOptionDirectory);..\..\..\include;$(UserIncludeDirectories);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(UserOptionDirectory);..\..\..\..\..\deps\freetype\include;$(UserIncludeDirectories);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;FT2_BUILD_LIBRARY;$(UserDefines);%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -287,7 +287,7 @@
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
-      <AdditionalIncludeDirectories>..\..\..\..\deps\freetype\include;$(UserOptionDirectory);$(UserIncludeDirectories);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\..\..\deps\freetype\include;$(UserOptionDirectory);$(UserIncludeDirectories);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;FT2_BUILD_LIBRARY;$(UserDefines);%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -309,69 +309,69 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\deps\freetype\src\autofit\autofit.c" />
-    <ClCompile Include="..\..\..\..\deps\freetype\src\base\ftbase.c" />
-    <ClCompile Include="..\..\..\..\deps\freetype\src\base\ftbbox.c" />
-    <ClCompile Include="..\..\..\..\deps\freetype\src\base\ftbdf.c" />
-    <ClCompile Include="..\..\..\..\deps\freetype\src\base\ftbitmap.c" />
-    <ClCompile Include="..\..\..\..\deps\freetype\src\base\ftcid.c" />
-    <ClCompile Include="..\..\..\..\deps\freetype\src\base\ftfstype.c" />
-    <ClCompile Include="..\..\..\..\deps\freetype\src\base\ftgasp.c" />
-    <ClCompile Include="..\..\..\..\deps\freetype\src\base\ftglyph.c" />
-    <ClCompile Include="..\..\..\..\deps\freetype\src\base\ftgxval.c" />
-    <ClCompile Include="..\..\..\..\deps\freetype\src\base\ftinit.c" />
-    <ClCompile Include="..\..\..\..\deps\freetype\src\base\ftmm.c" />
-    <ClCompile Include="..\..\..\..\deps\freetype\src\base\ftotval.c" />
-    <ClCompile Include="..\..\..\..\deps\freetype\src\base\ftpatent.c" />
-    <ClCompile Include="..\..\..\..\deps\freetype\src\base\ftpfr.c" />
-    <ClCompile Include="..\..\..\..\deps\freetype\src\base\ftstroke.c" />
-    <ClCompile Include="..\..\..\..\deps\freetype\src\base\ftsynth.c" />
-    <ClCompile Include="..\..\..\..\deps\freetype\src\base\fttype1.c" />
-    <ClCompile Include="..\..\..\..\deps\freetype\src\base\ftwinfnt.c" />
-    <ClCompile Include="..\..\..\..\deps\freetype\src\bdf\bdf.c" />
-    <ClCompile Include="..\..\..\..\deps\freetype\src\cache\ftcache.c" />
-    <ClCompile Include="..\..\..\..\deps\freetype\src\cff\cff.c" />
-    <ClCompile Include="..\..\..\..\deps\freetype\src\cid\type1cid.c" />
-    <ClCompile Include="..\..\..\..\deps\freetype\src\dlg\dlgwrap.c" />
-    <ClCompile Include="..\..\..\..\deps\freetype\src\gzip\ftgzip.c" />
-    <ClCompile Include="..\..\..\..\deps\freetype\src\lzw\ftlzw.c" />
-    <ClCompile Include="..\..\..\..\deps\freetype\src\pcf\pcf.c" />
-    <ClCompile Include="..\..\..\..\deps\freetype\src\pfr\pfr.c" />
-    <ClCompile Include="..\..\..\..\deps\freetype\src\psaux\psaux.c" />
-    <ClCompile Include="..\..\..\..\deps\freetype\src\pshinter\pshinter.c" />
-    <ClCompile Include="..\..\..\..\deps\freetype\src\psnames\psmodule.c" />
-    <ClCompile Include="..\..\..\..\deps\freetype\src\raster\raster.c" />
-    <ClCompile Include="..\..\..\..\deps\freetype\src\sfnt\sfnt.c" />
-    <ClCompile Include="..\..\..\..\deps\freetype\src\smooth\smooth.c" />
-    <ClCompile Include="..\..\..\..\deps\freetype\src\sdf\sdf.c" />
-    <ClCompile Include="..\..\..\..\deps\freetype\src\svg\svg.c" />
-    <ClCompile Include="..\..\..\..\deps\freetype\src\truetype\truetype.c" />
-    <ClCompile Include="..\..\..\..\deps\freetype\src\type1\type1.c" />
-    <ClCompile Include="..\..\..\..\deps\freetype\src\type42\type42.c" />
-    <ClCompile Include="..\..\..\..\deps\freetype\src\winfonts\winfnt.c" />
-    <ClCompile Include="..\..\..\..\deps\freetype\src\base\ftdebug.c">
+    <ClCompile Include="..\..\..\..\..\deps\freetype\src\autofit\autofit.c" />
+    <ClCompile Include="..\..\..\..\..\deps\freetype\src\base\ftbase.c" />
+    <ClCompile Include="..\..\..\..\..\deps\freetype\src\base\ftbbox.c" />
+    <ClCompile Include="..\..\..\..\..\deps\freetype\src\base\ftbdf.c" />
+    <ClCompile Include="..\..\..\..\..\deps\freetype\src\base\ftbitmap.c" />
+    <ClCompile Include="..\..\..\..\..\deps\freetype\src\base\ftcid.c" />
+    <ClCompile Include="..\..\..\..\..\deps\freetype\src\base\ftfstype.c" />
+    <ClCompile Include="..\..\..\..\..\deps\freetype\src\base\ftgasp.c" />
+    <ClCompile Include="..\..\..\..\..\deps\freetype\src\base\ftglyph.c" />
+    <ClCompile Include="..\..\..\..\..\deps\freetype\src\base\ftgxval.c" />
+    <ClCompile Include="..\..\..\..\..\deps\freetype\src\base\ftinit.c" />
+    <ClCompile Include="..\..\..\..\..\deps\freetype\src\base\ftmm.c" />
+    <ClCompile Include="..\..\..\..\..\deps\freetype\src\base\ftotval.c" />
+    <ClCompile Include="..\..\..\..\..\deps\freetype\src\base\ftpatent.c" />
+    <ClCompile Include="..\..\..\..\..\deps\freetype\src\base\ftpfr.c" />
+    <ClCompile Include="..\..\..\..\..\deps\freetype\src\base\ftstroke.c" />
+    <ClCompile Include="..\..\..\..\..\deps\freetype\src\base\ftsynth.c" />
+    <ClCompile Include="..\..\..\..\..\deps\freetype\src\base\fttype1.c" />
+    <ClCompile Include="..\..\..\..\..\deps\freetype\src\base\ftwinfnt.c" />
+    <ClCompile Include="..\..\..\..\..\deps\freetype\src\bdf\bdf.c" />
+    <ClCompile Include="..\..\..\..\..\deps\freetype\src\cache\ftcache.c" />
+    <ClCompile Include="..\..\..\..\..\deps\freetype\src\cff\cff.c" />
+    <ClCompile Include="..\..\..\..\..\deps\freetype\src\cid\type1cid.c" />
+    <ClCompile Include="..\..\..\..\..\deps\freetype\src\dlg\dlgwrap.c" />
+    <ClCompile Include="..\..\..\..\..\deps\freetype\src\gzip\ftgzip.c" />
+    <ClCompile Include="..\..\..\..\..\deps\freetype\src\lzw\ftlzw.c" />
+    <ClCompile Include="..\..\..\..\..\deps\freetype\src\pcf\pcf.c" />
+    <ClCompile Include="..\..\..\..\..\deps\freetype\src\pfr\pfr.c" />
+    <ClCompile Include="..\..\..\..\..\deps\freetype\src\psaux\psaux.c" />
+    <ClCompile Include="..\..\..\..\..\deps\freetype\src\pshinter\pshinter.c" />
+    <ClCompile Include="..\..\..\..\..\deps\freetype\src\psnames\psmodule.c" />
+    <ClCompile Include="..\..\..\..\..\deps\freetype\src\raster\raster.c" />
+    <ClCompile Include="..\..\..\..\..\deps\freetype\src\sfnt\sfnt.c" />
+    <ClCompile Include="..\..\..\..\..\deps\freetype\src\smooth\smooth.c" />
+    <ClCompile Include="..\..\..\..\..\deps\freetype\src\sdf\sdf.c" />
+    <ClCompile Include="..\..\..\..\..\deps\freetype\src\svg\svg.c" />
+    <ClCompile Include="..\..\..\..\..\deps\freetype\src\truetype\truetype.c" />
+    <ClCompile Include="..\..\..\..\..\deps\freetype\src\type1\type1.c" />
+    <ClCompile Include="..\..\..\..\..\deps\freetype\src\type42\type42.c" />
+    <ClCompile Include="..\..\..\..\..\deps\freetype\src\winfonts\winfnt.c" />
+    <ClCompile Include="..\..\..\..\..\deps\freetype\src\base\ftdebug.c">
       <DisableLanguageExtensions>false</DisableLanguageExtensions>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\deps\freetype\src\base\ftsystem.c">
+    <ClCompile Include="..\..\..\..\..\deps\freetype\src\base\ftsystem.c">
       <DisableLanguageExtensions>false</DisableLanguageExtensions>
     </ClCompile>
-    <ResourceCompile Include="..\..\..\..\deps\freetype\src\base\ftver.rc" />
+    <ResourceCompile Include="..\..\..\..\..\deps\freetype\src\base\ftver.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
-  <ItemGroup Condition="Exists('..\..\..\subprojects\dlg\.git')">
-    <DlgSrc Include="..\..\..\subprojects\dlg\include\dlg\output.h">
-      <DlgDst>..\..\..\include\dlg\output.h</DlgDst>
+  <ItemGroup Condition="Exists('..\..\..\..\..\deps\freetype\subprojects\dlg\.git')">
+    <DlgSrc Include="..\..\..\..\..\deps\freetype\subprojects\dlg\include\dlg\output.h">
+      <DlgDst>..\..\..\..\..\deps\freetype\include\dlg\output.h</DlgDst>
     </DlgSrc>
-    <DlgSrc Include="..\..\..\subprojects\dlg\include\dlg\dlg.h">
-      <DlgDst>..\..\..\include\dlg\dlg.h</DlgDst>
+    <DlgSrc Include="..\..\..\..\..\deps\freetype\subprojects\dlg\include\dlg\dlg.h">
+      <DlgDst>..\..\..\..\..\deps\freetype\include\dlg\dlg.h</DlgDst>
     </DlgSrc>
-    <DlgSrc Include="..\..\..\subprojects\dlg\src\dlg\dlg.c">
-      <DlgDst>..\..\..\src\dlg\dlg.c</DlgDst>
+    <DlgSrc Include="..\..\..\..\..\deps\freetype\subprojects\dlg\src\dlg\dlg.c">
+      <DlgDst>..\..\..\..\..\deps\freetype\src\dlg\dlg.c</DlgDst>
     </DlgSrc>
   </ItemGroup>
-  <Target Name="DlgCopy" Inputs="@(DlgSrc)" Outputs="@(DlgSrc->'%(DlgDst)')" Condition="Exists('..\..\..\subprojects\dlg\.git')">
+  <Target Name="DlgCopy" Inputs="@(DlgSrc)" Outputs="@(DlgSrc->'%(DlgDst)')" Condition="Exists('..\..\..\..\..\deps\freetype\subprojects\dlg\.git')">
     <Copy SourceFiles="@(DlgSrc)" DestinationFiles="@(DlgSrc->'%(DlgDst)')" />
   </Target>
   <Target Name="AfterBuild">

@@ -65,7 +65,7 @@
     <Link>
       <TreatLinkerWarningAsErrors>
       </TreatLinkerWarningAsErrors>
-      <AdditionalLibraryDirectories>$(ProjectDir)..\..\..\..\..\deps\libluau\_active_\prebuilt\windows\x86_64\lib-Debug;$(ProjectDir)..\..\..\..\..\deps\libssl\windows\lib\x64\debug;$(ProjectDir)..\..\..\..\..\deps\libwebsockets\windows\lib;$(ProjectDir)..\..\..\..\deps\pthread\windows\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\..\..\..\deps\libluau\_active_\prebuilt\windows\x86_64\lib-Debug;$(ProjectDir)..\..\..\..\..\deps\libssl\windows\lib\x64\debug;$(ProjectDir)..\..\..\..\..\deps\libwebsockets\windows\lib;$(ProjectDir)..\..\..\..\..\deps\pthread\windows\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>crypt32.lib;Comctl32.lib;Propsys.lib;zlibstatic.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;WS2_32.lib;Version.lib;websockets_static_debug.lib;libcrypto.lib;libssl.lib;libpthreadGC2.a;libluau.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalOptions>/VERBOSE %(AdditionalOptions)</AdditionalOptions>
       <SubSystem>Windows</SubSystem>
@@ -95,7 +95,7 @@ cd ..\..\..\..\..\deps\deptool\cmd &amp;&amp; deptool_windows_x86_64.exe autocon
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)..\..\..\..\..\deps\libluau\_active_\prebuilt\windows\x86_64\lib-Release;$(ProjectDir)..\..\..\..\..\deps\libssl\windows\lib\x64\release;$(ProjectDir)..\..\..\..\..\deps\libwebsockets\windows\lib;$(ProjectDir)..\..\..\..\deps\pthread\windows\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\..\..\..\deps\libluau\_active_\prebuilt\windows\x86_64\lib-Release;$(ProjectDir)..\..\..\..\..\deps\libssl\windows\lib\x64\release;$(ProjectDir)..\..\..\..\..\deps\libwebsockets\windows\lib;$(ProjectDir)..\..\..\..\..\deps\pthread\windows\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>crypt32.lib;Comctl32.lib;Propsys.lib;zlibstatic.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;WS2_32.lib;Version.lib;websockets_static_debug.lib;libcrypto.lib;libssl.lib;libpthreadGC2.a;libluau.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Windows</SubSystem>
     </Link>

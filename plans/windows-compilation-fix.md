@@ -63,21 +63,17 @@ Same replacements as Phase 1, applied to the corresponding `.filters` files. 480
 
 ---
 
-## Phase 3: Fix non-cubzh broken paths
+## Phase 3: Fix non-cubzh broken paths ✅
 
-### 3a. `harfbuzz/harfbuzz.vcxproj` — wrong depth (no cubzh prefix)
-- Current: `..\..\..\..\deps\` (4 levels → `clients/deps/`)
-- Correct: `..\..\..\..\..\deps\` (5 levels → repo root `deps/`)
+### 3a. `harfbuzz/harfbuzz.vcxproj` — wrong depth (no cubzh prefix) ✅
+- Fixed 77 occurrences in vcxproj + 73 in filters. Added one `..\ ` level.
 
-### 3b. `freetype/freetype.vcxproj` — mixed paths
-- Some configs use `..\..\..\include` (3 levels, old internal freetype path)
-  - Should be: `..\..\..\..\..\deps\freetype\include`
-- Some configs already use `..\..\..\..\deps\freetype\include` (4 levels → `clients/deps/`)
-  - Should be: `..\..\..\..\..\deps\freetype\include`
+### 3b. `freetype/freetype.vcxproj` — mixed paths ✅
+- Fixed `..\..\..\..\deps\` (47), `..\..\..\include` (6), `..\..\..\subprojects\` (5), and DlgDst src path.
+- Also fixed 43 occurrences in filters file.
 
-### 3c. `ParticubesWin/ParticubesWin.vcxproj` — pthread path without cubzh
-- Current: `$(ProjectDir)..\..\..\..\deps\pthread\` (4 levels → `clients/deps/`)
-- Correct: `$(ProjectDir)..\..\..\..\..\deps\pthread\` (5 levels → repo root)
+### 3c. `ParticubesWin/ParticubesWin.vcxproj` — pthread path without cubzh ✅
+- Fixed 2 pthread path occurrences (Debug + Release).
 
 ---
 
