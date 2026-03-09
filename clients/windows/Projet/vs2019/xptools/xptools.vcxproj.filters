@@ -15,277 +15,277 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\windows\internal_windows.hpp">
+    <ClInclude Include="..\..\..\..\..\deps\xptools\windows\internal_windows.hpp">
       <Filter>windows</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\windows\bundle_tar_gz.hpp">
+    <ClInclude Include="..\..\..\..\..\deps\xptools\windows\bundle_tar_gz.hpp">
       <Filter>windows</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\windows\icon_16.hpp">
+    <ClInclude Include="..\..\..\..\..\deps\xptools\windows\icon_16.hpp">
       <Filter>windows</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\windows\icon_32.hpp">
+    <ClInclude Include="..\..\..\..\..\deps\xptools\windows\icon_32.hpp">
       <Filter>windows</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\windows\icon_48.hpp">
+    <ClInclude Include="..\..\..\..\..\deps\xptools\windows\icon_48.hpp">
       <Filter>windows</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\Channel.hpp">
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\Channel.hpp">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\compat_android.hpp">
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\compat_android.hpp">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\Connection.hpp">
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\Connection.hpp">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\crypto.hpp">
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\crypto.hpp">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\device.h">
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\device.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\device.hpp">
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\device.hpp">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\filesystem.h">
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\filesystem.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\filesystem.hpp">
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\filesystem.hpp">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\HttpClient.hpp">
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\HttpClient.hpp">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\HttpCookie.hpp">
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\HttpCookie.hpp">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\HttpRequest.hpp">
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\HttpRequest.hpp">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\HttpRequestOpts.hpp">
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\HttpRequestOpts.hpp">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\HttpResponse.hpp">
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\HttpResponse.hpp">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\JNIUtils.hpp">
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\JNIUtils.hpp">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\json.hpp">
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\json.hpp">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\LocalConnection.hpp">
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\LocalConnection.hpp">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\Macros.h">
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\Macros.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\mixpanel.h">
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\mixpanel.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\notifications.hpp">
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\notifications.hpp">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\OperationQueue.hpp">
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\OperationQueue.hpp">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\preferences.hpp">
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\preferences.hpp">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\process.hpp">
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\process.hpp">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\strings.h">
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\strings.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\strings.hpp">
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\strings.hpp">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\textinput.h">
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\textinput.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\textinput.hpp">
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\textinput.hpp">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\ThreadManager.hpp">
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\ThreadManager.hpp">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\tracking.hpp">
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\tracking.hpp">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\URL.hpp">
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\URL.hpp">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\vxlog.h">
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\vxlog.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\vxtime.h">
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\vxtime.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\web.hpp">
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\web.hpp">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\WSBackend.hpp">
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\WSBackend.hpp">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\WSConnection.hpp">
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\WSConnection.hpp">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\WSServer.hpp">
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\WSServer.hpp">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\WSServerConnection.hpp">
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\WSServerConnection.hpp">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\WSService.hpp">
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\WSService.hpp">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\WSTypes.hpp">
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\WSTypes.hpp">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\xptools.h">
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\xptools.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\audio.hpp">
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\audio.hpp">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\deps\BZMD5.hpp">
+    <ClInclude Include="..\..\..\..\..\deps\xptools\deps\BZMD5.hpp">
       <Filter>deps</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\deps\cJSON.h">
+    <ClInclude Include="..\..\..\..\..\deps\xptools\deps\cJSON.h">
       <Filter>deps</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\iap.hpp">
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\iap.hpp">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\passkey.hpp">
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\passkey.hpp">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\encoding_base64.hpp">
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\encoding_base64.hpp">
       <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\cubzh\deps\xptools\windows\internal_windows.cpp">
+    <ClCompile Include="..\..\..\..\..\deps\xptools\windows\internal_windows.cpp">
       <Filter>windows</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\deps\xptools\windows\log_windows.cpp">
+    <ClCompile Include="..\..\..\..\..\deps\xptools\windows\log_windows.cpp">
       <Filter>windows</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\deps\xptools\windows\miniaudio_impl.cpp">
+    <ClCompile Include="..\..\..\..\..\deps\xptools\windows\miniaudio_impl.cpp">
       <Filter>windows</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\deps\xptools\windows\notifications_windows.cpp">
+    <ClCompile Include="..\..\..\..\..\deps\xptools\windows\notifications_windows.cpp">
       <Filter>windows</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\deps\xptools\windows\process_windows.cpp">
+    <ClCompile Include="..\..\..\..\..\deps\xptools\windows\process_windows.cpp">
       <Filter>windows</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\deps\xptools\windows\web_windows.cpp">
+    <ClCompile Include="..\..\..\..\..\deps\xptools\windows\web_windows.cpp">
       <Filter>windows</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\deps\xptools\windows\device_windows.cpp">
+    <ClCompile Include="..\..\..\..\..\deps\xptools\windows\device_windows.cpp">
       <Filter>windows</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\deps\xptools\windows\filesystem_windows.cpp">
+    <ClCompile Include="..\..\..\..\..\deps\xptools\windows\filesystem_windows.cpp">
       <Filter>windows</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\deps\xptools\deps\cJSON.c">
+    <ClCompile Include="..\..\..\..\..\deps\xptools\deps\cJSON.c">
       <Filter>deps</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\deps\xptools\deps\BZMD5.cpp">
+    <ClCompile Include="..\..\..\..\..\deps\xptools\deps\BZMD5.cpp">
       <Filter>deps</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\deps\xptools\common\Connection.cpp">
+    <ClCompile Include="..\..\..\..\..\deps\xptools\common\Connection.cpp">
       <Filter>common</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\deps\xptools\common\crypto.cpp">
+    <ClCompile Include="..\..\..\..\..\deps\xptools\common\crypto.cpp">
       <Filter>common</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\deps\xptools\common\device.cpp">
+    <ClCompile Include="..\..\..\..\..\deps\xptools\common\device.cpp">
       <Filter>common</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\deps\xptools\common\device_c.cpp">
+    <ClCompile Include="..\..\..\..\..\deps\xptools\common\device_c.cpp">
       <Filter>common</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\deps\xptools\common\filesystem.cpp">
+    <ClCompile Include="..\..\..\..\..\deps\xptools\common\filesystem.cpp">
       <Filter>common</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\deps\xptools\common\HttpClient.cpp">
+    <ClCompile Include="..\..\..\..\..\deps\xptools\common\HttpClient.cpp">
       <Filter>common</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\deps\xptools\common\HttpCookie.cpp">
+    <ClCompile Include="..\..\..\..\..\deps\xptools\common\HttpCookie.cpp">
       <Filter>common</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\deps\xptools\common\HttpRequest.cpp">
+    <ClCompile Include="..\..\..\..\..\deps\xptools\common\HttpRequest.cpp">
       <Filter>common</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\deps\xptools\common\HttpRequestOpts.cpp">
+    <ClCompile Include="..\..\..\..\..\deps\xptools\common\HttpRequestOpts.cpp">
       <Filter>common</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\deps\xptools\common\HttpResponse.cpp">
+    <ClCompile Include="..\..\..\..\..\deps\xptools\common\HttpResponse.cpp">
       <Filter>common</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\deps\xptools\common\json.cpp">
+    <ClCompile Include="..\..\..\..\..\deps\xptools\common\json.cpp">
       <Filter>common</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\deps\xptools\common\LocalConnection.cpp">
+    <ClCompile Include="..\..\..\..\..\deps\xptools\common\LocalConnection.cpp">
       <Filter>common</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\deps\xptools\common\OperationQueue.cpp">
+    <ClCompile Include="..\..\..\..\..\deps\xptools\common\OperationQueue.cpp">
       <Filter>common</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\deps\xptools\common\process.cpp">
+    <ClCompile Include="..\..\..\..\..\deps\xptools\common\process.cpp">
       <Filter>common</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\deps\xptools\common\strings.cpp">
+    <ClCompile Include="..\..\..\..\..\deps\xptools\common\strings.cpp">
       <Filter>common</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\deps\xptools\common\textinput.cpp">
+    <ClCompile Include="..\..\..\..\..\deps\xptools\common\textinput.cpp">
       <Filter>common</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\deps\xptools\common\ThreadManager.cpp">
+    <ClCompile Include="..\..\..\..\..\deps\xptools\common\ThreadManager.cpp">
       <Filter>common</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\deps\xptools\common\tracking.cpp">
+    <ClCompile Include="..\..\..\..\..\deps\xptools\common\tracking.cpp">
       <Filter>common</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\deps\xptools\common\URL.cpp">
+    <ClCompile Include="..\..\..\..\..\deps\xptools\common\URL.cpp">
       <Filter>common</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\deps\xptools\common\WSConnection.cpp">
+    <ClCompile Include="..\..\..\..\..\deps\xptools\common\WSConnection.cpp">
       <Filter>common</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\deps\xptools\common\WSServer.cpp">
+    <ClCompile Include="..\..\..\..\..\deps\xptools\common\WSServer.cpp">
       <Filter>common</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\deps\xptools\common\WSServerConnection.cpp">
+    <ClCompile Include="..\..\..\..\..\deps\xptools\common\WSServerConnection.cpp">
       <Filter>common</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\deps\xptools\common\WSService.cpp">
+    <ClCompile Include="..\..\..\..\..\deps\xptools\common\WSService.cpp">
       <Filter>common</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\deps\xptools\common\audio.cpp">
+    <ClCompile Include="..\..\..\..\..\deps\xptools\common\audio.cpp">
       <Filter>common</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\deps\xptools\common\notifications.cpp">
+    <ClCompile Include="..\..\..\..\..\deps\xptools\common\notifications.cpp">
       <Filter>common</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\deps\xptools\windows\HttpRequest_windows.cpp">
+    <ClCompile Include="..\..\..\..\..\deps\xptools\windows\HttpRequest_windows.cpp">
       <Filter>windows</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\deps\xptools\windows\iap_windows.cpp">
+    <ClCompile Include="..\..\..\..\..\deps\xptools\windows\iap_windows.cpp">
       <Filter>windows</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\deps\xptools\windows\passkey_windows.cpp">
+    <ClCompile Include="..\..\..\..\..\deps\xptools\windows\passkey_windows.cpp">
       <Filter>windows</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\deps\xptools\common\passkey.cpp" />
-    <ClCompile Include="..\..\..\..\cubzh\deps\xptools\common\encoding_base64.cpp">
+    <ClCompile Include="..\..\..\..\..\deps\xptools\common\passkey.cpp" />
+    <ClCompile Include="..\..\..\..\..\deps\xptools\common\encoding_base64.cpp">
       <Filter>common</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\deps\xptools\common\xp_http.cpp">
+    <ClCompile Include="..\..\..\..\..\deps\xptools\common\xp_http.cpp">
       <Filter>common</Filter>
     </ClCompile>
   </ItemGroup>

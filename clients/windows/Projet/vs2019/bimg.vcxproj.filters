@@ -24,156 +24,156 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\cubzh\deps\bgfx\bimg\3rdparty\astc-encoder\source\astcenc_diagnostic_trace.h">
+    <ClInclude Include="..\..\..\..\deps\bgfx\bimg\3rdparty\astc-encoder\source\astcenc_diagnostic_trace.h">
       <Filter>3rdparty\astc-encoder</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\cubzh\deps\bgfx\bimg\3rdparty\astc-encoder\source\astcenc_internal.h">
+    <ClInclude Include="..\..\..\..\deps\bgfx\bimg\3rdparty\astc-encoder\source\astcenc_internal.h">
       <Filter>3rdparty\astc-encoder</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\cubzh\deps\bgfx\bimg\3rdparty\astc-encoder\source\astcenc_internal_entry.h">
+    <ClInclude Include="..\..\..\..\deps\bgfx\bimg\3rdparty\astc-encoder\source\astcenc_internal_entry.h">
       <Filter>3rdparty\astc-encoder</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\cubzh\deps\bgfx\bimg\3rdparty\astc-encoder\source\astcenc_mathlib.h">
+    <ClInclude Include="..\..\..\..\deps\bgfx\bimg\3rdparty\astc-encoder\source\astcenc_mathlib.h">
       <Filter>3rdparty\astc-encoder</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\cubzh\deps\bgfx\bimg\3rdparty\astc-encoder\source\astcenc_vecmathlib.h">
+    <ClInclude Include="..\..\..\..\deps\bgfx\bimg\3rdparty\astc-encoder\source\astcenc_vecmathlib.h">
       <Filter>3rdparty\astc-encoder</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\cubzh\deps\bgfx\bimg\3rdparty\astc-encoder\source\astcenc_vecmathlib_avx2_8.h">
+    <ClInclude Include="..\..\..\..\deps\bgfx\bimg\3rdparty\astc-encoder\source\astcenc_vecmathlib_avx2_8.h">
       <Filter>3rdparty\astc-encoder</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\cubzh\deps\bgfx\bimg\3rdparty\astc-encoder\source\astcenc_vecmathlib_common_4.h">
+    <ClInclude Include="..\..\..\..\deps\bgfx\bimg\3rdparty\astc-encoder\source\astcenc_vecmathlib_common_4.h">
       <Filter>3rdparty\astc-encoder</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\cubzh\deps\bgfx\bimg\3rdparty\astc-encoder\source\astcenc_vecmathlib_neon_4.h">
+    <ClInclude Include="..\..\..\..\deps\bgfx\bimg\3rdparty\astc-encoder\source\astcenc_vecmathlib_neon_4.h">
       <Filter>3rdparty\astc-encoder</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\cubzh\deps\bgfx\bimg\3rdparty\astc-encoder\source\astcenc_vecmathlib_none_4.h">
+    <ClInclude Include="..\..\..\..\deps\bgfx\bimg\3rdparty\astc-encoder\source\astcenc_vecmathlib_none_4.h">
       <Filter>3rdparty\astc-encoder</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\cubzh\deps\bgfx\bimg\3rdparty\astc-encoder\source\astcenc_vecmathlib_sse_4.h">
+    <ClInclude Include="..\..\..\..\deps\bgfx\bimg\3rdparty\astc-encoder\source\astcenc_vecmathlib_sse_4.h">
       <Filter>3rdparty\astc-encoder</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\cubzh\deps\bgfx\bimg\include\bimg\bimg.h">
+    <ClInclude Include="..\..\..\..\deps\bgfx\bimg\include\bimg\bimg.h">
       <Filter>include\bimg</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\cubzh\deps\bgfx\bimg\include\bimg\decode.h">
+    <ClInclude Include="..\..\..\..\deps\bgfx\bimg\include\bimg\decode.h">
       <Filter>include\bimg</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\cubzh\deps\bgfx\bimg\include\bimg\encode.h">
+    <ClInclude Include="..\..\..\..\deps\bgfx\bimg\include\bimg\encode.h">
       <Filter>include\bimg</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\cubzh\deps\bgfx\bimg\src\bimg_p.h">
+    <ClInclude Include="..\..\..\..\deps\bgfx\bimg\src\bimg_p.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\cubzh\deps\bgfx\bimg\src\config.h">
+    <ClInclude Include="..\..\..\..\deps\bgfx\bimg\src\config.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\bimg\3rdparty\astc-encoder\source\astcenc_color_quantize.cpp">
+    <ClCompile Include="..\..\..\..\deps\bgfx\bimg\3rdparty\astc-encoder\source\astcenc_color_quantize.cpp">
       <Filter>3rdparty\astc-encoder</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\bimg\3rdparty\astc-encoder\source\astcenc_color_unquantize.cpp">
+    <ClCompile Include="..\..\..\..\deps\bgfx\bimg\3rdparty\astc-encoder\source\astcenc_color_unquantize.cpp">
       <Filter>3rdparty\astc-encoder</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\bimg\3rdparty\astc-encoder\source\astcenc_compress_symbolic.cpp">
+    <ClCompile Include="..\..\..\..\deps\bgfx\bimg\3rdparty\astc-encoder\source\astcenc_compress_symbolic.cpp">
       <Filter>3rdparty\astc-encoder</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\bimg\3rdparty\astc-encoder\source\astcenc_compute_variance.cpp">
+    <ClCompile Include="..\..\..\..\deps\bgfx\bimg\3rdparty\astc-encoder\source\astcenc_compute_variance.cpp">
       <Filter>3rdparty\astc-encoder</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\bimg\3rdparty\astc-encoder\source\astcenc_decompress_symbolic.cpp">
+    <ClCompile Include="..\..\..\..\deps\bgfx\bimg\3rdparty\astc-encoder\source\astcenc_decompress_symbolic.cpp">
       <Filter>3rdparty\astc-encoder</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\bimg\3rdparty\astc-encoder\source\astcenc_diagnostic_trace.cpp">
+    <ClCompile Include="..\..\..\..\deps\bgfx\bimg\3rdparty\astc-encoder\source\astcenc_diagnostic_trace.cpp">
       <Filter>3rdparty\astc-encoder</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\bimg\3rdparty\astc-encoder\source\astcenc_entry.cpp">
+    <ClCompile Include="..\..\..\..\deps\bgfx\bimg\3rdparty\astc-encoder\source\astcenc_entry.cpp">
       <Filter>3rdparty\astc-encoder</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\bimg\3rdparty\astc-encoder\source\astcenc_find_best_partitioning.cpp">
+    <ClCompile Include="..\..\..\..\deps\bgfx\bimg\3rdparty\astc-encoder\source\astcenc_find_best_partitioning.cpp">
       <Filter>3rdparty\astc-encoder</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\bimg\3rdparty\astc-encoder\source\astcenc_ideal_endpoints_and_weights.cpp">
+    <ClCompile Include="..\..\..\..\deps\bgfx\bimg\3rdparty\astc-encoder\source\astcenc_ideal_endpoints_and_weights.cpp">
       <Filter>3rdparty\astc-encoder</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\bimg\3rdparty\astc-encoder\source\astcenc_image.cpp">
+    <ClCompile Include="..\..\..\..\deps\bgfx\bimg\3rdparty\astc-encoder\source\astcenc_image.cpp">
       <Filter>3rdparty\astc-encoder</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\bimg\3rdparty\astc-encoder\source\astcenc_integer_sequence.cpp">
+    <ClCompile Include="..\..\..\..\deps\bgfx\bimg\3rdparty\astc-encoder\source\astcenc_integer_sequence.cpp">
       <Filter>3rdparty\astc-encoder</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\bimg\3rdparty\astc-encoder\source\astcenc_mathlib.cpp">
+    <ClCompile Include="..\..\..\..\deps\bgfx\bimg\3rdparty\astc-encoder\source\astcenc_mathlib.cpp">
       <Filter>3rdparty\astc-encoder</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\bimg\3rdparty\astc-encoder\source\astcenc_mathlib_softfloat.cpp">
+    <ClCompile Include="..\..\..\..\deps\bgfx\bimg\3rdparty\astc-encoder\source\astcenc_mathlib_softfloat.cpp">
       <Filter>3rdparty\astc-encoder</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\bimg\3rdparty\astc-encoder\source\astcenc_partition_tables.cpp">
+    <ClCompile Include="..\..\..\..\deps\bgfx\bimg\3rdparty\astc-encoder\source\astcenc_partition_tables.cpp">
       <Filter>3rdparty\astc-encoder</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\bimg\3rdparty\astc-encoder\source\astcenc_percentile_tables.cpp">
+    <ClCompile Include="..\..\..\..\deps\bgfx\bimg\3rdparty\astc-encoder\source\astcenc_percentile_tables.cpp">
       <Filter>3rdparty\astc-encoder</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\bimg\3rdparty\astc-encoder\source\astcenc_pick_best_endpoint_format.cpp">
+    <ClCompile Include="..\..\..\..\deps\bgfx\bimg\3rdparty\astc-encoder\source\astcenc_pick_best_endpoint_format.cpp">
       <Filter>3rdparty\astc-encoder</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\bimg\3rdparty\astc-encoder\source\astcenc_quantization.cpp">
+    <ClCompile Include="..\..\..\..\deps\bgfx\bimg\3rdparty\astc-encoder\source\astcenc_quantization.cpp">
       <Filter>3rdparty\astc-encoder</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\bimg\3rdparty\astc-encoder\source\astcenc_symbolic_physical.cpp">
+    <ClCompile Include="..\..\..\..\deps\bgfx\bimg\3rdparty\astc-encoder\source\astcenc_symbolic_physical.cpp">
       <Filter>3rdparty\astc-encoder</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\bimg\3rdparty\astc-encoder\source\astcenc_weight_align.cpp">
+    <ClCompile Include="..\..\..\..\deps\bgfx\bimg\3rdparty\astc-encoder\source\astcenc_weight_align.cpp">
       <Filter>3rdparty\astc-encoder</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\bimg\3rdparty\astc-encoder\source\astcenc_weight_quant_xfer_tables.cpp">
+    <ClCompile Include="..\..\..\..\deps\bgfx\bimg\3rdparty\astc-encoder\source\astcenc_weight_quant_xfer_tables.cpp">
       <Filter>3rdparty\astc-encoder</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\bimg\3rdparty\astc-encoder\source\astcenc_averages_and_directions.cpp">
+    <ClCompile Include="..\..\..\..\deps\bgfx\bimg\3rdparty\astc-encoder\source\astcenc_averages_and_directions.cpp">
       <Filter>3rdparty\astc-encoder</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\bimg\3rdparty\astc-encoder\source\astcenc_block_sizes.cpp">
+    <ClCompile Include="..\..\..\..\deps\bgfx\bimg\3rdparty\astc-encoder\source\astcenc_block_sizes.cpp">
       <Filter>3rdparty\astc-encoder</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\bimg\3rdparty\tinyexr\deps\miniz\miniz.c">
+    <ClCompile Include="..\..\..\..\deps\bgfx\bimg\3rdparty\tinyexr\deps\miniz\miniz.c">
       <Filter>3rdparty\tinyexr</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\bimg\src\image.cpp">
+    <ClCompile Include="..\..\..\..\deps\bgfx\bimg\src\image.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\bimg\src\image_cubemap_filter.cpp">
+    <ClCompile Include="..\..\..\..\deps\bgfx\bimg\src\image_cubemap_filter.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\bimg\src\image_decode.cpp">
+    <ClCompile Include="..\..\..\..\deps\bgfx\bimg\src\image_decode.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\bimg\src\image_encode.cpp">
+    <ClCompile Include="..\..\..\..\deps\bgfx\bimg\src\image_encode.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\bimg\src\image_gnf.cpp">
+    <ClCompile Include="..\..\..\..\deps\bgfx\bimg\src\image_gnf.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\bimg\3rdparty\iqa\source\convolve.c">
+    <ClCompile Include="..\..\..\..\deps\bgfx\bimg\3rdparty\iqa\source\convolve.c">
       <Filter>3rdparty\iqa</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\bimg\3rdparty\iqa\source\decimate.c">
+    <ClCompile Include="..\..\..\..\deps\bgfx\bimg\3rdparty\iqa\source\decimate.c">
       <Filter>3rdparty\iqa</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\bimg\3rdparty\iqa\source\math_utils.c">
+    <ClCompile Include="..\..\..\..\deps\bgfx\bimg\3rdparty\iqa\source\math_utils.c">
       <Filter>3rdparty\iqa</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\bimg\3rdparty\iqa\source\ms_ssim.c">
+    <ClCompile Include="..\..\..\..\deps\bgfx\bimg\3rdparty\iqa\source\ms_ssim.c">
       <Filter>3rdparty\iqa</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\bimg\3rdparty\iqa\source\mse.c">
+    <ClCompile Include="..\..\..\..\deps\bgfx\bimg\3rdparty\iqa\source\mse.c">
       <Filter>3rdparty\iqa</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\bimg\3rdparty\iqa\source\psnr.c">
+    <ClCompile Include="..\..\..\..\deps\bgfx\bimg\3rdparty\iqa\source\psnr.c">
       <Filter>3rdparty\iqa</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\bimg\3rdparty\iqa\source\ssim.c">
+    <ClCompile Include="..\..\..\..\deps\bgfx\bimg\3rdparty\iqa\source\ssim.c">
       <Filter>3rdparty\iqa</Filter>
     </ClCompile>
   </ItemGroup>

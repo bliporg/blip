@@ -47,9 +47,9 @@ These use `..\..\..\..\cubzh\` which should become `..\..\..\..\..\`:
 
 ---
 
-## Phase 2: Fix `.vcxproj.filters` files (481 occurrences, 7 files)
+## Phase 2: Fix `.vcxproj.filters` files (481 occurrences, 7 files) ✅
 
-Same replacements as Phase 1, applied to the corresponding `.filters` files:
+Same replacements as Phase 1, applied to the corresponding `.filters` files. 480 occurrences replaced across 7 files:
 
 | File | Occurrences |
 |------|-------------|

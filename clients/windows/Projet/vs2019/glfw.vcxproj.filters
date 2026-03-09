@@ -12,75 +12,75 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\cubzh\deps\bgfx\glfw\include\GLFW\glfw3.h">
+    <ClInclude Include="..\..\..\..\deps\bgfx\glfw\include\GLFW\glfw3.h">
       <Filter>include\GLFW</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\cubzh\deps\bgfx\glfw\include\GLFW\glfw3native.h">
+    <ClInclude Include="..\..\..\..\deps\bgfx\glfw\include\GLFW\glfw3native.h">
       <Filter>include\GLFW</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\cubzh\deps\bgfx\glfw\src\osmesa_context.h">
+    <ClInclude Include="..\..\..\..\deps\bgfx\glfw\src\osmesa_context.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\cubzh\deps\bgfx\glfw\src\wgl_context.h">
+    <ClInclude Include="..\..\..\..\deps\bgfx\glfw\src\wgl_context.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\cubzh\deps\bgfx\glfw\src\win32_joystick.h">
+    <ClInclude Include="..\..\..\..\deps\bgfx\glfw\src\win32_joystick.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\cubzh\deps\bgfx\glfw\src\win32_platform.h">
+    <ClInclude Include="..\..\..\..\deps\bgfx\glfw\src\win32_platform.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\cubzh\deps\bgfx\glfw\src\egl_context.h">
+    <ClInclude Include="..\..\..\..\deps\bgfx\glfw\src\egl_context.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\cubzh\deps\bgfx\glfw\src\internal.h">
+    <ClInclude Include="..\..\..\..\deps\bgfx\glfw\src\internal.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\glfw\src\osmesa_context.c">
+    <ClCompile Include="..\..\..\..\deps\bgfx\glfw\src\osmesa_context.c">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\glfw\src\vulkan.c">
+    <ClCompile Include="..\..\..\..\deps\bgfx\glfw\src\vulkan.c">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\glfw\src\wgl_context.c">
+    <ClCompile Include="..\..\..\..\deps\bgfx\glfw\src\wgl_context.c">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\glfw\src\win32_init.c">
+    <ClCompile Include="..\..\..\..\deps\bgfx\glfw\src\win32_init.c">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\glfw\src\win32_joystick.c">
+    <ClCompile Include="..\..\..\..\deps\bgfx\glfw\src\win32_joystick.c">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\glfw\src\win32_monitor.c">
+    <ClCompile Include="..\..\..\..\deps\bgfx\glfw\src\win32_monitor.c">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\glfw\src\win32_thread.c">
+    <ClCompile Include="..\..\..\..\deps\bgfx\glfw\src\win32_thread.c">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\glfw\src\win32_time.c">
+    <ClCompile Include="..\..\..\..\deps\bgfx\glfw\src\win32_time.c">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\glfw\src\win32_window.c">
+    <ClCompile Include="..\..\..\..\deps\bgfx\glfw\src\win32_window.c">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\glfw\src\window.c">
+    <ClCompile Include="..\..\..\..\deps\bgfx\glfw\src\window.c">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\glfw\src\context.c">
+    <ClCompile Include="..\..\..\..\deps\bgfx\glfw\src\context.c">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\glfw\src\egl_context.c">
+    <ClCompile Include="..\..\..\..\deps\bgfx\glfw\src\egl_context.c">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\glfw\src\init.c">
+    <ClCompile Include="..\..\..\..\deps\bgfx\glfw\src\init.c">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\glfw\src\input.c">
+    <ClCompile Include="..\..\..\..\deps\bgfx\glfw\src\input.c">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\glfw\src\monitor.c">
+    <ClCompile Include="..\..\..\..\deps\bgfx\glfw\src\monitor.c">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>

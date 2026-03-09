@@ -350,136 +350,136 @@
     <ClCompile Include="..\..\..\..\common\VXLuaSandbox\lua_textType.cpp">
       <Filter>VXLuaSandbox</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\core\block.c">
+    <ClCompile Include="..\..\..\..\..\core\block.c">
       <Filter>Cubzh Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\core\blockChange.c">
+    <ClCompile Include="..\..\..\..\..\core\blockChange.c">
       <Filter>Cubzh Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\core\box.c">
+    <ClCompile Include="..\..\..\..\..\core\box.c">
       <Filter>Cubzh Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\core\cclog.c">
+    <ClCompile Include="..\..\..\..\..\core\cclog.c">
       <Filter>Cubzh Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\core\chunk.c">
+    <ClCompile Include="..\..\..\..\..\core\chunk.c">
       <Filter>Cubzh Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\core\color_atlas.c">
+    <ClCompile Include="..\..\..\..\..\core\color_atlas.c">
       <Filter>Cubzh Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\core\color_palette.c">
+    <ClCompile Include="..\..\..\..\..\core\color_palette.c">
       <Filter>Cubzh Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\core\colors.c">
+    <ClCompile Include="..\..\..\..\..\core\colors.c">
       <Filter>Cubzh Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\core\config.c">
+    <ClCompile Include="..\..\..\..\..\core\config.c">
       <Filter>Cubzh Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\core\doubly_linked_list.c">
+    <ClCompile Include="..\..\..\..\..\core\doubly_linked_list.c">
       <Filter>Cubzh Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\core\doubly_linked_list_uint8.c">
+    <ClCompile Include="..\..\..\..\..\core\doubly_linked_list_uint8.c">
       <Filter>Cubzh Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\core\easings.c">
+    <ClCompile Include="..\..\..\..\..\core\easings.c">
       <Filter>Cubzh Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\core\fifo_list.c">
+    <ClCompile Include="..\..\..\..\..\core\fifo_list.c">
       <Filter>Cubzh Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\core\filo_list.c">
+    <ClCompile Include="..\..\..\..\..\core\filo_list.c">
       <Filter>Cubzh Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\core\filo_list_float3.c">
+    <ClCompile Include="..\..\..\..\..\core\filo_list_float3.c">
       <Filter>Cubzh Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\core\filo_list_int3.c">
+    <ClCompile Include="..\..\..\..\..\core\filo_list_int3.c">
       <Filter>Cubzh Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\core\filo_list_uint16.c">
+    <ClCompile Include="..\..\..\..\..\core\filo_list_uint16.c">
       <Filter>Cubzh Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\core\filo_list_uint32.c">
+    <ClCompile Include="..\..\..\..\..\core\filo_list_uint32.c">
       <Filter>Cubzh Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\core\float3.c">
+    <ClCompile Include="..\..\..\..\..\core\float3.c">
       <Filter>Cubzh Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\core\float4.c">
+    <ClCompile Include="..\..\..\..\..\core\float4.c">
       <Filter>Cubzh Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\core\flood_fill_lighting.c">
+    <ClCompile Include="..\..\..\..\..\core\flood_fill_lighting.c">
       <Filter>Cubzh Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\core\hash_uint32_int.c">
+    <ClCompile Include="..\..\..\..\..\core\hash_uint32_int.c">
       <Filter>Cubzh Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\core\history.c">
+    <ClCompile Include="..\..\..\..\..\core\history.c">
       <Filter>Cubzh Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\core\index3d.c">
+    <ClCompile Include="..\..\..\..\..\core\index3d.c">
       <Filter>Cubzh Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\core\inputs.c">
+    <ClCompile Include="..\..\..\..\..\core\inputs.c">
       <Filter>Cubzh Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\core\int3.c">
+    <ClCompile Include="..\..\..\..\..\core\int3.c">
       <Filter>Cubzh Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\core\map_string_float3.c">
+    <ClCompile Include="..\..\..\..\..\core\map_string_float3.c">
       <Filter>Cubzh Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\core\matrix4x4.c">
+    <ClCompile Include="..\..\..\..\..\core\matrix4x4.c">
       <Filter>Cubzh Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\core\octree.c">
+    <ClCompile Include="..\..\..\..\..\core\octree.c">
       <Filter>Cubzh Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\core\quaternion.c">
+    <ClCompile Include="..\..\..\..\..\core\quaternion.c">
       <Filter>Cubzh Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\core\ray.c">
+    <ClCompile Include="..\..\..\..\..\core\ray.c">
       <Filter>Cubzh Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\core\rigidBody.c">
+    <ClCompile Include="..\..\..\..\..\core\rigidBody.c">
       <Filter>Cubzh Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\core\rtree.c">
+    <ClCompile Include="..\..\..\..\..\core\rtree.c">
       <Filter>Cubzh Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\core\scene.c">
+    <ClCompile Include="..\..\..\..\..\core\scene.c">
       <Filter>Cubzh Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\core\serialization.c">
+    <ClCompile Include="..\..\..\..\..\core\serialization.c">
       <Filter>Cubzh Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\core\serialization_v5.c">
+    <ClCompile Include="..\..\..\..\..\core\serialization_v5.c">
       <Filter>Cubzh Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\core\serialization_v6.c">
+    <ClCompile Include="..\..\..\..\..\core\serialization_v6.c">
       <Filter>Cubzh Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\core\shape.c">
+    <ClCompile Include="..\..\..\..\..\core\shape.c">
       <Filter>Cubzh Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\core\stream.c">
+    <ClCompile Include="..\..\..\..\..\core\stream.c">
       <Filter>Cubzh Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\core\transaction.c">
+    <ClCompile Include="..\..\..\..\..\core\transaction.c">
       <Filter>Cubzh Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\core\transform.c">
+    <ClCompile Include="..\..\..\..\..\core\transform.c">
       <Filter>Cubzh Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\core\utils.c">
+    <ClCompile Include="..\..\..\..\..\core\utils.c">
       <Filter>Cubzh Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\core\vertextbuffer.c">
+    <ClCompile Include="..\..\..\..\..\core\vertextbuffer.c">
       <Filter>Cubzh Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\core\weakptr.c">
+    <ClCompile Include="..\..\..\..\..\core\weakptr.c">
       <Filter>Cubzh Core</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\common\VXLuaSandbox\lua_number2.cpp">
@@ -503,16 +503,16 @@
     <ClCompile Include="..\..\..\..\common\VXFramework\cache_cpp.cpp">
       <Filter>VXFramework</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\core\mutex.c">
+    <ClCompile Include="..\..\..\..\..\core\mutex.c">
       <Filter>Cubzh Core</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\common\VXLuaSandbox\lua_ambient.cpp">
       <Filter>VXLuaSandbox</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\core\plane.c">
+    <ClCompile Include="..\..\..\..\..\core\plane.c">
       <Filter>Cubzh Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\core\quad.c">
+    <ClCompile Include="..\..\..\..\..\core\quad.c">
       <Filter>Cubzh Core</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\common\VXLuaSandbox\lua_quad.cpp">
@@ -566,19 +566,19 @@
     <ClCompile Include="..\..\..\..\common\VXFramework\State.cpp">
       <Filter>VXFramework</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\deps\bgfx\bgfx\examples\common\imgui\bgfx-imgui.cpp">
+    <ClCompile Include="..\..\..\..\..\deps\bgfx\bgfx\examples\common\imgui\bgfx-imgui.cpp">
       <Filter>dear-imgui\bgfx</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\deps\bgfx\bgfx\3rdparty\dear-imgui\imgui.cpp">
+    <ClCompile Include="..\..\..\..\..\deps\bgfx\bgfx\3rdparty\dear-imgui\imgui.cpp">
       <Filter>dear-imgui</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\deps\bgfx\bgfx\3rdparty\dear-imgui\imgui_draw.cpp">
+    <ClCompile Include="..\..\..\..\..\deps\bgfx\bgfx\3rdparty\dear-imgui\imgui_draw.cpp">
       <Filter>dear-imgui</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\deps\bgfx\bgfx\3rdparty\dear-imgui\imgui_tables.cpp">
+    <ClCompile Include="..\..\..\..\..\deps\bgfx\bgfx\3rdparty\dear-imgui\imgui_tables.cpp">
       <Filter>dear-imgui</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\deps\bgfx\bgfx\3rdparty\dear-imgui\imgui_widgets.cpp">
+    <ClCompile Include="..\..\..\..\..\deps\bgfx\bgfx\3rdparty\dear-imgui\imgui_widgets.cpp">
       <Filter>dear-imgui</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\common\VXFramework\VXLinter.cpp">
@@ -590,31 +590,31 @@
     <ClCompile Include="..\..\..\..\common\VXFramework\VXRDGif.cpp">
       <Filter>VXFramework</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\core\camera.c">
+    <ClCompile Include="..\..\..\..\..\core\camera.c">
       <Filter>Cubzh Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\core\light.c">
+    <ClCompile Include="..\..\..\..\..\core\light.c">
       <Filter>Cubzh Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\core\world_text.c">
+    <ClCompile Include="..\..\..\..\..\core\world_text.c">
       <Filter>Cubzh Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\core\serialization_gltf.c">
+    <ClCompile Include="..\..\..\..\..\core\serialization_gltf.c">
       <Filter>Cubzh Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\core\serialization_vox.c">
+    <ClCompile Include="..\..\..\..\..\core\serialization_vox.c">
       <Filter>Cubzh Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\core\mesh.c">
+    <ClCompile Include="..\..\..\..\..\core\mesh.c">
       <Filter>Cubzh Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\core\material.c">
+    <ClCompile Include="..\..\..\..\..\core\material.c">
       <Filter>Cubzh Core</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\common\VXLuaSandbox\lua_mesh.cpp">
       <Filter>VXLuaSandbox</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\cubzh\core\texture.c">
+    <ClCompile Include="..\..\..\..\..\core\texture.c">
       <Filter>Cubzh Core</Filter>
     </ClCompile>
   </ItemGroup>
@@ -971,139 +971,139 @@
     <ClInclude Include="..\..\..\..\common\VXLuaSandbox\lua_textType.hpp">
       <Filter>VXLuaSandbox</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\core\block.h">
+    <ClInclude Include="..\..\..\..\..\core\block.h">
       <Filter>Cubzh Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\core\blockChange.h">
+    <ClInclude Include="..\..\..\..\..\core\blockChange.h">
       <Filter>Cubzh Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\core\box.h">
+    <ClInclude Include="..\..\..\..\..\core\box.h">
       <Filter>Cubzh Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\core\cclog.h">
+    <ClInclude Include="..\..\..\..\..\core\cclog.h">
       <Filter>Cubzh Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\core\chunk.h">
+    <ClInclude Include="..\..\..\..\..\core\chunk.h">
       <Filter>Cubzh Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\core\color_atlas.h">
+    <ClInclude Include="..\..\..\..\..\core\color_atlas.h">
       <Filter>Cubzh Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\core\color_palette.h">
+    <ClInclude Include="..\..\..\..\..\core\color_palette.h">
       <Filter>Cubzh Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\core\colors.h">
+    <ClInclude Include="..\..\..\..\..\core\colors.h">
       <Filter>Cubzh Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\core\config.h">
+    <ClInclude Include="..\..\..\..\..\core\config.h">
       <Filter>Cubzh Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\core\doubly_linked_list.h">
+    <ClInclude Include="..\..\..\..\..\core\doubly_linked_list.h">
       <Filter>Cubzh Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\core\doubly_linked_list_uint8.h">
+    <ClInclude Include="..\..\..\..\..\core\doubly_linked_list_uint8.h">
       <Filter>Cubzh Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\core\easings.h">
+    <ClInclude Include="..\..\..\..\..\core\easings.h">
       <Filter>Cubzh Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\core\fifo_list.h">
+    <ClInclude Include="..\..\..\..\..\core\fifo_list.h">
       <Filter>Cubzh Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\core\filo_list.h">
+    <ClInclude Include="..\..\..\..\..\core\filo_list.h">
       <Filter>Cubzh Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\core\filo_list_float3.h">
+    <ClInclude Include="..\..\..\..\..\core\filo_list_float3.h">
       <Filter>Cubzh Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\core\filo_list_int3.h">
+    <ClInclude Include="..\..\..\..\..\core\filo_list_int3.h">
       <Filter>Cubzh Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\core\filo_list_uint16.h">
+    <ClInclude Include="..\..\..\..\..\core\filo_list_uint16.h">
       <Filter>Cubzh Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\core\filo_list_uint32.h">
+    <ClInclude Include="..\..\..\..\..\core\filo_list_uint32.h">
       <Filter>Cubzh Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\core\float3.h">
+    <ClInclude Include="..\..\..\..\..\core\float3.h">
       <Filter>Cubzh Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\core\float4.h">
+    <ClInclude Include="..\..\..\..\..\core\float4.h">
       <Filter>Cubzh Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\core\flood_fill_lighting.h">
+    <ClInclude Include="..\..\..\..\..\core\flood_fill_lighting.h">
       <Filter>Cubzh Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\core\function_pointers.h">
+    <ClInclude Include="..\..\..\..\..\core\function_pointers.h">
       <Filter>Cubzh Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\core\hash_uint32_int.h">
+    <ClInclude Include="..\..\..\..\..\core\hash_uint32_int.h">
       <Filter>Cubzh Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\core\history.h">
+    <ClInclude Include="..\..\..\..\..\core\history.h">
       <Filter>Cubzh Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\core\index3d.h">
+    <ClInclude Include="..\..\..\..\..\core\index3d.h">
       <Filter>Cubzh Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\core\inputs.h">
+    <ClInclude Include="..\..\..\..\..\core\inputs.h">
       <Filter>Cubzh Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\core\int3.h">
+    <ClInclude Include="..\..\..\..\..\core\int3.h">
       <Filter>Cubzh Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\core\map_string_float3.h">
+    <ClInclude Include="..\..\..\..\..\core\map_string_float3.h">
       <Filter>Cubzh Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\core\matrix4x4.h">
+    <ClInclude Include="..\..\..\..\..\core\matrix4x4.h">
       <Filter>Cubzh Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\core\octree.h">
+    <ClInclude Include="..\..\..\..\..\core\octree.h">
       <Filter>Cubzh Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\core\quaternion.h">
+    <ClInclude Include="..\..\..\..\..\core\quaternion.h">
       <Filter>Cubzh Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\core\ray.h">
+    <ClInclude Include="..\..\..\..\..\core\ray.h">
       <Filter>Cubzh Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\core\rigidBody.h">
+    <ClInclude Include="..\..\..\..\..\core\rigidBody.h">
       <Filter>Cubzh Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\core\rtree.h">
+    <ClInclude Include="..\..\..\..\..\core\rtree.h">
       <Filter>Cubzh Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\core\scene.h">
+    <ClInclude Include="..\..\..\..\..\core\scene.h">
       <Filter>Cubzh Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\core\serialization.h">
+    <ClInclude Include="..\..\..\..\..\core\serialization.h">
       <Filter>Cubzh Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\core\serialization_v5.h">
+    <ClInclude Include="..\..\..\..\..\core\serialization_v5.h">
       <Filter>Cubzh Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\core\serialization_v6.h">
+    <ClInclude Include="..\..\..\..\..\core\serialization_v6.h">
       <Filter>Cubzh Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\core\shape.h">
+    <ClInclude Include="..\..\..\..\..\core\shape.h">
       <Filter>Cubzh Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\core\stream.h">
+    <ClInclude Include="..\..\..\..\..\core\stream.h">
       <Filter>Cubzh Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\core\transaction.h">
+    <ClInclude Include="..\..\..\..\..\core\transaction.h">
       <Filter>Cubzh Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\core\transform.h">
+    <ClInclude Include="..\..\..\..\..\core\transform.h">
       <Filter>Cubzh Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\core\utils.h">
+    <ClInclude Include="..\..\..\..\..\core\utils.h">
       <Filter>Cubzh Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\core\vertextbuffer.h">
+    <ClInclude Include="..\..\..\..\..\core\vertextbuffer.h">
       <Filter>Cubzh Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\core\weakptr.h">
+    <ClInclude Include="..\..\..\..\..\core\weakptr.h">
       <Filter>Cubzh Core</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\common\VXLuaSandbox\lua_number2.hpp">
@@ -1127,16 +1127,16 @@
     <ClInclude Include="..\..\..\..\common\VXFramework\VXCodeEditor.hpp">
       <Filter>VXFramework</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\core\mutex.h">
+    <ClInclude Include="..\..\..\..\..\core\mutex.h">
       <Filter>Cubzh Core</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\common\VXLuaSandbox\lua_ambient.hpp">
       <Filter>VXLuaSandbox</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\core\plane.h">
+    <ClInclude Include="..\..\..\..\..\core\plane.h">
       <Filter>Cubzh Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\core\quad.h">
+    <ClInclude Include="..\..\..\..\..\core\quad.h">
       <Filter>Cubzh Core</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\common\VXLuaSandbox\lua_quad.hpp">
@@ -1184,7 +1184,7 @@
     <ClInclude Include="..\..\..\..\common\VXLuaSandbox\lua_point.hpp">
       <Filter>VXLuaSandbox</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\deps\bgfx\bgfx\examples\common\imgui\bgfx-imgui.h">
+    <ClInclude Include="..\..\..\..\..\deps\bgfx\bgfx\examples\common\imgui\bgfx-imgui.h">
       <Filter>dear-imgui\bgfx</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\common\bgfx\bgfx\3rdparty\dear-imgui\imconfig.h">
@@ -1220,31 +1220,31 @@
     <ClInclude Include="..\..\..\..\common\VXLuaSandbox\lua.hpp">
       <Filter>VXLuaSandbox</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\core\camera.h">
+    <ClInclude Include="..\..\..\..\..\core\camera.h">
       <Filter>Cubzh Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\core\light.h">
+    <ClInclude Include="..\..\..\..\..\core\light.h">
       <Filter>Cubzh Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\core\world_text.h">
+    <ClInclude Include="..\..\..\..\..\core\world_text.h">
       <Filter>Cubzh Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\core\serialization_gltf.h">
+    <ClInclude Include="..\..\..\..\..\core\serialization_gltf.h">
       <Filter>Cubzh Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\core\serialization_vox.h">
+    <ClInclude Include="..\..\..\..\..\core\serialization_vox.h">
       <Filter>Cubzh Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\core\mesh.h">
+    <ClInclude Include="..\..\..\..\..\core\mesh.h">
       <Filter>Cubzh Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\core\material.h">
+    <ClInclude Include="..\..\..\..\..\core\material.h">
       <Filter>Cubzh Core</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\common\VXLuaSandbox\lua_mesh.hpp">
       <Filter>VXLuaSandbox</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\cubzh\core\texture.h">
+    <ClInclude Include="..\..\..\..\..\core\texture.h">
       <Filter>Cubzh Core</Filter>
     </ClInclude>
     <ClInclude Include="resource.h" />
@@ -1292,6 +1292,6 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\..\..\graphic-assets\app-icon-v3\windows\cubzh.ico" />
-    <Image Include="..\..\..\..\cubzh\misc\icon_circle.ico" />
+    <Image Include="..\..\..\..\..\misc\icon_circle.ico" />
   </ItemGroup>
 </Project>
