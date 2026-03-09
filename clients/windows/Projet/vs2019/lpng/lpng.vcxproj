@@ -83,33 +83,33 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\cubzh\deps\libpng\_active_\prebuilt\source\src\intel\filter_sse2_intrinsics.c" />
-    <ClCompile Include="..\..\..\..\cubzh\deps\libpng\_active_\prebuilt\source\src\intel\intel_init.c" />
-    <ClCompile Include="..\..\..\..\cubzh\deps\libpng\_active_\prebuilt\source\src\png.c" />
-    <ClCompile Include="..\..\..\..\cubzh\deps\libpng\_active_\prebuilt\source\src\pngerror.c" />
-    <ClCompile Include="..\..\..\..\cubzh\deps\libpng\_active_\prebuilt\source\src\pngget.c" />
-    <ClCompile Include="..\..\..\..\cubzh\deps\libpng\_active_\prebuilt\source\src\pngmem.c" />
-    <ClCompile Include="..\..\..\..\cubzh\deps\libpng\_active_\prebuilt\source\src\pngpread.c" />
-    <ClCompile Include="..\..\..\..\cubzh\deps\libpng\_active_\prebuilt\source\src\pngread.c" />
-    <ClCompile Include="..\..\..\..\cubzh\deps\libpng\_active_\prebuilt\source\src\pngrio.c" />
-    <ClCompile Include="..\..\..\..\cubzh\deps\libpng\_active_\prebuilt\source\src\pngrtran.c" />
-    <ClCompile Include="..\..\..\..\cubzh\deps\libpng\_active_\prebuilt\source\src\pngrutil.c" />
-    <ClCompile Include="..\..\..\..\cubzh\deps\libpng\_active_\prebuilt\source\src\pngset.c" />
-    <ClCompile Include="..\..\..\..\cubzh\deps\libpng\_active_\prebuilt\source\src\pngtest.c" />
-    <ClCompile Include="..\..\..\..\cubzh\deps\libpng\_active_\prebuilt\source\src\pngtrans.c" />
-    <ClCompile Include="..\..\..\..\cubzh\deps\libpng\_active_\prebuilt\source\src\pngwio.c" />
-    <ClCompile Include="..\..\..\..\cubzh\deps\libpng\_active_\prebuilt\source\src\pngwrite.c" />
-    <ClCompile Include="..\..\..\..\cubzh\deps\libpng\_active_\prebuilt\source\src\pngwtran.c" />
-    <ClCompile Include="..\..\..\..\cubzh\deps\libpng\_active_\prebuilt\source\src\pngwutil.c" />
+    <ClCompile Include="..\..\..\..\..\deps\libpng\_active_\prebuilt\source\src\intel\filter_sse2_intrinsics.c" />
+    <ClCompile Include="..\..\..\..\..\deps\libpng\_active_\prebuilt\source\src\intel\intel_init.c" />
+    <ClCompile Include="..\..\..\..\..\deps\libpng\_active_\prebuilt\source\src\png.c" />
+    <ClCompile Include="..\..\..\..\..\deps\libpng\_active_\prebuilt\source\src\pngerror.c" />
+    <ClCompile Include="..\..\..\..\..\deps\libpng\_active_\prebuilt\source\src\pngget.c" />
+    <ClCompile Include="..\..\..\..\..\deps\libpng\_active_\prebuilt\source\src\pngmem.c" />
+    <ClCompile Include="..\..\..\..\..\deps\libpng\_active_\prebuilt\source\src\pngpread.c" />
+    <ClCompile Include="..\..\..\..\..\deps\libpng\_active_\prebuilt\source\src\pngread.c" />
+    <ClCompile Include="..\..\..\..\..\deps\libpng\_active_\prebuilt\source\src\pngrio.c" />
+    <ClCompile Include="..\..\..\..\..\deps\libpng\_active_\prebuilt\source\src\pngrtran.c" />
+    <ClCompile Include="..\..\..\..\..\deps\libpng\_active_\prebuilt\source\src\pngrutil.c" />
+    <ClCompile Include="..\..\..\..\..\deps\libpng\_active_\prebuilt\source\src\pngset.c" />
+    <ClCompile Include="..\..\..\..\..\deps\libpng\_active_\prebuilt\source\src\pngtest.c" />
+    <ClCompile Include="..\..\..\..\..\deps\libpng\_active_\prebuilt\source\src\pngtrans.c" />
+    <ClCompile Include="..\..\..\..\..\deps\libpng\_active_\prebuilt\source\src\pngwio.c" />
+    <ClCompile Include="..\..\..\..\..\deps\libpng\_active_\prebuilt\source\src\pngwrite.c" />
+    <ClCompile Include="..\..\..\..\..\deps\libpng\_active_\prebuilt\source\src\pngwtran.c" />
+    <ClCompile Include="..\..\..\..\..\deps\libpng\_active_\prebuilt\source\src\pngwutil.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\cubzh\deps\lpng\src\png.h" />
-    <ClInclude Include="..\..\..\..\cubzh\deps\lpng\src\pngconf.h" />
-    <ClInclude Include="..\..\..\..\cubzh\deps\lpng\src\pngdebug.h" />
-    <ClInclude Include="..\..\..\..\cubzh\deps\lpng\src\pnginfo.h" />
-    <ClInclude Include="..\..\..\..\cubzh\deps\lpng\src\pnglibconf.h" />
-    <ClInclude Include="..\..\..\..\cubzh\deps\lpng\src\pngpriv.h" />
-    <ClInclude Include="..\..\..\..\cubzh\deps\lpng\src\pngstruct.h" />
+    <ClInclude Include="..\..\..\..\..\deps\lpng\src\png.h" />
+    <ClInclude Include="..\..\..\..\..\deps\lpng\src\pngconf.h" />
+    <ClInclude Include="..\..\..\..\..\deps\lpng\src\pngdebug.h" />
+    <ClInclude Include="..\..\..\..\..\deps\lpng\src\pnginfo.h" />
+    <ClInclude Include="..\..\..\..\..\deps\lpng\src\pnglibconf.h" />
+    <ClInclude Include="..\..\..\..\..\deps\lpng\src\pngpriv.h" />
+    <ClInclude Include="..\..\..\..\..\deps\lpng\src\pngstruct.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

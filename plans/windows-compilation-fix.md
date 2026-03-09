@@ -18,9 +18,9 @@ Two issues:
 
 ---
 
-## Phase 1: Fix `.vcxproj` files with `cubzh\` prefix (499 occurrences, 7 files)
+## Phase 1: Fix `.vcxproj` files with `cubzh\` prefix (499 occurrences, 7 files) ✅
 
-### 1a. Files in `vs2019/` root (bgfx, bimg, bx, glfw)
+### 1a. Files in `vs2019/` root (bgfx, bimg, bx, glfw) ✅
 
 These use `..\..\..\cubzh\` which should become `..\..\..\..\`:
 
@@ -33,7 +33,7 @@ These use `..\..\..\cubzh\` which should become `..\..\..\..\`:
 
 **Replacement:** `..\..\..\cubzh\` → `..\..\..\..\`
 
-### 1b. Files in `vs2019/{subdir}/` (ParticubesWin, xptools, lpng)
+### 1b. Files in `vs2019/{subdir}/` (ParticubesWin, xptools, lpng) ✅
 
 These use `..\..\..\..\cubzh\` which should become `..\..\..\..\..\`:
 

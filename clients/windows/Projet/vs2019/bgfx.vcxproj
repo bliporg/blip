@@ -51,7 +51,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>TurnOffAllWarnings</WarningLevel>
       <PreprocessorDefinitions>NDEBUG;__STDC_FORMAT_MACROS;_CRT_SECURE_NO_WARNINGS;_HAS_EXCEPTIONS=0;BX_CONFIG_DEBUG=0;BGFX_CONFIG_DEBUG=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\..\cubzh\deps\bgfx\bgfx\3rdparty\directx-headers\include\directx;..\..\..\cubzh\deps\bgfx\bx\include;..\..\..\cubzh\deps\bgfx\bimg\include;..\..\..\cubzh\deps\bgfx\bgfx\include;..\..\..\cubzh\deps\bgfx\bgfx\3rdparty;..\..\..\cubzh\deps\bgfx\bgfx\3rdparty\khronos;..\..\..\cubzh\deps\bgfx\bx\include\compat\msvc;..\..\..\cubzh\deps\bgfx\bgfx\3rdparty\dxsdk\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\..\deps\bgfx\bgfx\3rdparty\directx-headers\include\directx;..\..\..\..\deps\bgfx\bx\include;..\..\..\..\deps\bgfx\bimg\include;..\..\..\..\deps\bgfx\bgfx\include;..\..\..\..\deps\bgfx\bgfx\3rdparty;..\..\..\..\deps\bgfx\bgfx\3rdparty\khronos;..\..\..\..\deps\bgfx\bx\include\compat\msvc;..\..\..\..\deps\bgfx\bgfx\3rdparty\dxsdk\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
@@ -70,7 +70,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>TurnOffAllWarnings</WarningLevel>
       <PreprocessorDefinitions>_DEBUG;__STDC_FORMAT_MACROS;BGFX_CONFIG_DEBUG=0;_CRT_SECURE_NO_WARNINGS;_HAS_EXCEPTIONS=0;BX_CONFIG_DEBUG=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\..\cubzh\deps\bgfx\bgfx\3rdparty\directx-headers\include\directx;..\..\..\cubzh\deps\bgfx\bx\include;..\..\..\cubzh\deps\bgfx\bimg\include;..\..\..\cubzh\deps\bgfx\bgfx\include;..\..\..\cubzh\deps\bgfx\bgfx\3rdparty;..\..\..\cubzh\deps\bgfx\bgfx\3rdparty\khronos;..\..\..\cubzh\deps\bgfx\bx\include\compat\msvc;..\..\..\cubzh\deps\bgfx\bgfx\3rdparty\dxsdk\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\..\deps\bgfx\bgfx\3rdparty\directx-headers\include\directx;..\..\..\..\deps\bgfx\bx\include;..\..\..\..\deps\bgfx\bimg\include;..\..\..\..\deps\bgfx\bgfx\include;..\..\..\..\deps\bgfx\bgfx\3rdparty;..\..\..\..\deps\bgfx\bgfx\3rdparty\khronos;..\..\..\..\deps\bgfx\bx\include\compat\msvc;..\..\..\..\deps\bgfx\bgfx\3rdparty\dxsdk\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ExceptionHandling>false</ExceptionHandling>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -84,91 +84,91 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\cubzh\deps\bgfx\bgfx\include\bgfx\bgfx.h" />
-    <ClInclude Include="..\..\..\cubzh\deps\bgfx\bgfx\include\bgfx\c99\bgfx.h" />
-    <ClInclude Include="..\..\..\cubzh\deps\bgfx\bgfx\include\bgfx\defines.h" />
-    <ClInclude Include="..\..\..\cubzh\deps\bgfx\bgfx\include\bgfx\embedded_shader.h" />
-    <ClInclude Include="..\..\..\cubzh\deps\bgfx\bgfx\include\bgfx\platform.h" />
-    <ClInclude Include="..\..\..\cubzh\deps\bgfx\bgfx\src\bgfx_p.h" />
-    <ClInclude Include="..\..\..\cubzh\deps\bgfx\bgfx\src\charset.h" />
-    <ClInclude Include="..\..\..\cubzh\deps\bgfx\bgfx\src\config.h" />
-    <ClInclude Include="..\..\..\cubzh\deps\bgfx\bgfx\src\debug_renderdoc.h" />
-    <ClInclude Include="..\..\..\cubzh\deps\bgfx\bgfx\src\dxgi.h" />
-    <ClInclude Include="..\..\..\cubzh\deps\bgfx\bgfx\src\emscripten.h" />
-    <ClInclude Include="..\..\..\cubzh\deps\bgfx\bgfx\src\fs_clear0.bin.h" />
-    <ClInclude Include="..\..\..\cubzh\deps\bgfx\bgfx\src\fs_clear1.bin.h" />
-    <ClInclude Include="..\..\..\cubzh\deps\bgfx\bgfx\src\fs_clear2.bin.h" />
-    <ClInclude Include="..\..\..\cubzh\deps\bgfx\bgfx\src\fs_clear3.bin.h" />
-    <ClInclude Include="..\..\..\cubzh\deps\bgfx\bgfx\src\fs_clear4.bin.h" />
-    <ClInclude Include="..\..\..\cubzh\deps\bgfx\bgfx\src\fs_clear5.bin.h" />
-    <ClInclude Include="..\..\..\cubzh\deps\bgfx\bgfx\src\fs_clear6.bin.h" />
-    <ClInclude Include="..\..\..\cubzh\deps\bgfx\bgfx\src\fs_clear7.bin.h" />
-    <ClInclude Include="..\..\..\cubzh\deps\bgfx\bgfx\src\fs_debugfont.bin.h" />
-    <ClInclude Include="..\..\..\cubzh\deps\bgfx\bgfx\src\glcontext_eagl.h" />
-    <ClInclude Include="..\..\..\cubzh\deps\bgfx\bgfx\src\glcontext_egl.h" />
-    <ClInclude Include="..\..\..\cubzh\deps\bgfx\bgfx\src\glcontext_html5.h" />
-    <ClInclude Include="..\..\..\cubzh\deps\bgfx\bgfx\src\glcontext_nsgl.h" />
-    <ClInclude Include="..\..\..\cubzh\deps\bgfx\bgfx\src\glcontext_wgl.h" />
-    <ClInclude Include="..\..\..\cubzh\deps\bgfx\bgfx\src\glimports.h" />
-    <ClInclude Include="..\..\..\cubzh\deps\bgfx\bgfx\src\nvapi.h" />
-    <ClInclude Include="..\..\..\cubzh\deps\bgfx\bgfx\src\renderer.h" />
-    <ClInclude Include="..\..\..\cubzh\deps\bgfx\bgfx\src\renderer_d3d.h" />
-    <ClInclude Include="..\..\..\cubzh\deps\bgfx\bgfx\src\renderer_d3d11.h" />
-    <ClInclude Include="..\..\..\cubzh\deps\bgfx\bgfx\src\renderer_d3d12.h" />
-    <ClInclude Include="..\..\..\cubzh\deps\bgfx\bgfx\src\renderer_gl.h" />
-    <ClInclude Include="..\..\..\cubzh\deps\bgfx\bgfx\src\renderer_mtl.h" />
-    <ClInclude Include="..\..\..\cubzh\deps\bgfx\bgfx\src\renderer_vk.h" />
-    <ClInclude Include="..\..\..\cubzh\deps\bgfx\bgfx\src\shader.h" />
-    <ClInclude Include="..\..\..\cubzh\deps\bgfx\bgfx\src\shader_dxbc.h" />
-    <ClInclude Include="..\..\..\cubzh\deps\bgfx\bgfx\src\shader_spirv.h" />
-    <ClInclude Include="..\..\..\cubzh\deps\bgfx\bgfx\src\topology.h" />
-    <ClInclude Include="..\..\..\cubzh\deps\bgfx\bgfx\src\version.h" />
-    <ClInclude Include="..\..\..\cubzh\deps\bgfx\bgfx\src\vertexlayout.h" />
-    <ClInclude Include="..\..\..\cubzh\deps\bgfx\bgfx\src\vs_clear.bin.h" />
-    <ClInclude Include="..\..\..\cubzh\deps\bgfx\bgfx\src\vs_debugfont.bin.h" />
+    <ClInclude Include="..\..\..\..\deps\bgfx\bgfx\include\bgfx\bgfx.h" />
+    <ClInclude Include="..\..\..\..\deps\bgfx\bgfx\include\bgfx\c99\bgfx.h" />
+    <ClInclude Include="..\..\..\..\deps\bgfx\bgfx\include\bgfx\defines.h" />
+    <ClInclude Include="..\..\..\..\deps\bgfx\bgfx\include\bgfx\embedded_shader.h" />
+    <ClInclude Include="..\..\..\..\deps\bgfx\bgfx\include\bgfx\platform.h" />
+    <ClInclude Include="..\..\..\..\deps\bgfx\bgfx\src\bgfx_p.h" />
+    <ClInclude Include="..\..\..\..\deps\bgfx\bgfx\src\charset.h" />
+    <ClInclude Include="..\..\..\..\deps\bgfx\bgfx\src\config.h" />
+    <ClInclude Include="..\..\..\..\deps\bgfx\bgfx\src\debug_renderdoc.h" />
+    <ClInclude Include="..\..\..\..\deps\bgfx\bgfx\src\dxgi.h" />
+    <ClInclude Include="..\..\..\..\deps\bgfx\bgfx\src\emscripten.h" />
+    <ClInclude Include="..\..\..\..\deps\bgfx\bgfx\src\fs_clear0.bin.h" />
+    <ClInclude Include="..\..\..\..\deps\bgfx\bgfx\src\fs_clear1.bin.h" />
+    <ClInclude Include="..\..\..\..\deps\bgfx\bgfx\src\fs_clear2.bin.h" />
+    <ClInclude Include="..\..\..\..\deps\bgfx\bgfx\src\fs_clear3.bin.h" />
+    <ClInclude Include="..\..\..\..\deps\bgfx\bgfx\src\fs_clear4.bin.h" />
+    <ClInclude Include="..\..\..\..\deps\bgfx\bgfx\src\fs_clear5.bin.h" />
+    <ClInclude Include="..\..\..\..\deps\bgfx\bgfx\src\fs_clear6.bin.h" />
+    <ClInclude Include="..\..\..\..\deps\bgfx\bgfx\src\fs_clear7.bin.h" />
+    <ClInclude Include="..\..\..\..\deps\bgfx\bgfx\src\fs_debugfont.bin.h" />
+    <ClInclude Include="..\..\..\..\deps\bgfx\bgfx\src\glcontext_eagl.h" />
+    <ClInclude Include="..\..\..\..\deps\bgfx\bgfx\src\glcontext_egl.h" />
+    <ClInclude Include="..\..\..\..\deps\bgfx\bgfx\src\glcontext_html5.h" />
+    <ClInclude Include="..\..\..\..\deps\bgfx\bgfx\src\glcontext_nsgl.h" />
+    <ClInclude Include="..\..\..\..\deps\bgfx\bgfx\src\glcontext_wgl.h" />
+    <ClInclude Include="..\..\..\..\deps\bgfx\bgfx\src\glimports.h" />
+    <ClInclude Include="..\..\..\..\deps\bgfx\bgfx\src\nvapi.h" />
+    <ClInclude Include="..\..\..\..\deps\bgfx\bgfx\src\renderer.h" />
+    <ClInclude Include="..\..\..\..\deps\bgfx\bgfx\src\renderer_d3d.h" />
+    <ClInclude Include="..\..\..\..\deps\bgfx\bgfx\src\renderer_d3d11.h" />
+    <ClInclude Include="..\..\..\..\deps\bgfx\bgfx\src\renderer_d3d12.h" />
+    <ClInclude Include="..\..\..\..\deps\bgfx\bgfx\src\renderer_gl.h" />
+    <ClInclude Include="..\..\..\..\deps\bgfx\bgfx\src\renderer_mtl.h" />
+    <ClInclude Include="..\..\..\..\deps\bgfx\bgfx\src\renderer_vk.h" />
+    <ClInclude Include="..\..\..\..\deps\bgfx\bgfx\src\shader.h" />
+    <ClInclude Include="..\..\..\..\deps\bgfx\bgfx\src\shader_dxbc.h" />
+    <ClInclude Include="..\..\..\..\deps\bgfx\bgfx\src\shader_spirv.h" />
+    <ClInclude Include="..\..\..\..\deps\bgfx\bgfx\src\topology.h" />
+    <ClInclude Include="..\..\..\..\deps\bgfx\bgfx\src\version.h" />
+    <ClInclude Include="..\..\..\..\deps\bgfx\bgfx\src\vertexlayout.h" />
+    <ClInclude Include="..\..\..\..\deps\bgfx\bgfx\src\vs_clear.bin.h" />
+    <ClInclude Include="..\..\..\..\deps\bgfx\bgfx\src\vs_debugfont.bin.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\bgfx\src\bgfx.cpp" />
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\bgfx\src\debug_renderdoc.cpp" />
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\bgfx\src\dxgi.cpp" />
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\bgfx\src\glcontext_egl.cpp" />
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\bgfx\src\glcontext_html5.cpp" />
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\bgfx\src\glcontext_wgl.cpp" />
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\bgfx\src\nvapi.cpp" />
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\bgfx\src\renderer_agc.cpp" />
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\bgfx\src\renderer_d3d11.cpp" />
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\bgfx\src\renderer_d3d12.cpp" />
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\bgfx\src\renderer_gl.cpp" />
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\bgfx\src\renderer_gnm.cpp" />
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\bgfx\src\renderer_noop.cpp" />
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\bgfx\src\renderer_nvn.cpp" />
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\bgfx\src\renderer_vk.cpp" />
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\bgfx\src\shader.cpp" />
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\bgfx\src\shader_dxbc.cpp" />
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\bgfx\src\shader_spirv.cpp" />
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\bgfx\src\topology.cpp" />
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\bgfx\src\vertexlayout.cpp" />
+    <ClCompile Include="..\..\..\..\deps\bgfx\bgfx\src\bgfx.cpp" />
+    <ClCompile Include="..\..\..\..\deps\bgfx\bgfx\src\debug_renderdoc.cpp" />
+    <ClCompile Include="..\..\..\..\deps\bgfx\bgfx\src\dxgi.cpp" />
+    <ClCompile Include="..\..\..\..\deps\bgfx\bgfx\src\glcontext_egl.cpp" />
+    <ClCompile Include="..\..\..\..\deps\bgfx\bgfx\src\glcontext_html5.cpp" />
+    <ClCompile Include="..\..\..\..\deps\bgfx\bgfx\src\glcontext_wgl.cpp" />
+    <ClCompile Include="..\..\..\..\deps\bgfx\bgfx\src\nvapi.cpp" />
+    <ClCompile Include="..\..\..\..\deps\bgfx\bgfx\src\renderer_agc.cpp" />
+    <ClCompile Include="..\..\..\..\deps\bgfx\bgfx\src\renderer_d3d11.cpp" />
+    <ClCompile Include="..\..\..\..\deps\bgfx\bgfx\src\renderer_d3d12.cpp" />
+    <ClCompile Include="..\..\..\..\deps\bgfx\bgfx\src\renderer_gl.cpp" />
+    <ClCompile Include="..\..\..\..\deps\bgfx\bgfx\src\renderer_gnm.cpp" />
+    <ClCompile Include="..\..\..\..\deps\bgfx\bgfx\src\renderer_noop.cpp" />
+    <ClCompile Include="..\..\..\..\deps\bgfx\bgfx\src\renderer_nvn.cpp" />
+    <ClCompile Include="..\..\..\..\deps\bgfx\bgfx\src\renderer_vk.cpp" />
+    <ClCompile Include="..\..\..\..\deps\bgfx\bgfx\src\shader.cpp" />
+    <ClCompile Include="..\..\..\..\deps\bgfx\bgfx\src\shader_dxbc.cpp" />
+    <ClCompile Include="..\..\..\..\deps\bgfx\bgfx\src\shader_spirv.cpp" />
+    <ClCompile Include="..\..\..\..\deps\bgfx\bgfx\src\topology.cpp" />
+    <ClCompile Include="..\..\..\..\deps\bgfx\bgfx\src\vertexlayout.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\..\cubzh\deps\bgfx\bgfx\src\bgfx.idl.inl" />
-    <None Include="..\..\..\cubzh\deps\bgfx\bgfx\src\bgfx_compute.sh" />
-    <None Include="..\..\..\cubzh\deps\bgfx\bgfx\src\bgfx_shader.sh" />
-    <None Include="..\..\..\cubzh\deps\bgfx\bgfx\src\fs_clear0.sc" />
-    <None Include="..\..\..\cubzh\deps\bgfx\bgfx\src\fs_clear1.sc" />
-    <None Include="..\..\..\cubzh\deps\bgfx\bgfx\src\fs_clear2.sc" />
-    <None Include="..\..\..\cubzh\deps\bgfx\bgfx\src\fs_clear3.sc" />
-    <None Include="..\..\..\cubzh\deps\bgfx\bgfx\src\fs_clear4.sc" />
-    <None Include="..\..\..\cubzh\deps\bgfx\bgfx\src\fs_clear5.sc" />
-    <None Include="..\..\..\cubzh\deps\bgfx\bgfx\src\fs_clear6.sc" />
-    <None Include="..\..\..\cubzh\deps\bgfx\bgfx\src\fs_clear7.sc" />
-    <None Include="..\..\..\cubzh\deps\bgfx\bgfx\src\fs_debugfont.sc" />
-    <None Include="..\..\..\cubzh\deps\bgfx\bgfx\src\glcontext_eagl.mm" />
-    <None Include="..\..\..\cubzh\deps\bgfx\bgfx\src\glcontext_nsgl.mm" />
-    <None Include="..\..\..\cubzh\deps\bgfx\bgfx\src\makefile" />
-    <None Include="..\..\..\cubzh\deps\bgfx\bgfx\src\renderer_mtl.mm" />
-    <None Include="..\..\..\cubzh\deps\bgfx\bgfx\src\varying.def.sc" />
-    <None Include="..\..\..\cubzh\deps\bgfx\bgfx\src\vs_clear.sc" />
-    <None Include="..\..\..\cubzh\deps\bgfx\bgfx\src\vs_debugfont.sc" />
+    <None Include="..\..\..\..\deps\bgfx\bgfx\src\bgfx.idl.inl" />
+    <None Include="..\..\..\..\deps\bgfx\bgfx\src\bgfx_compute.sh" />
+    <None Include="..\..\..\..\deps\bgfx\bgfx\src\bgfx_shader.sh" />
+    <None Include="..\..\..\..\deps\bgfx\bgfx\src\fs_clear0.sc" />
+    <None Include="..\..\..\..\deps\bgfx\bgfx\src\fs_clear1.sc" />
+    <None Include="..\..\..\..\deps\bgfx\bgfx\src\fs_clear2.sc" />
+    <None Include="..\..\..\..\deps\bgfx\bgfx\src\fs_clear3.sc" />
+    <None Include="..\..\..\..\deps\bgfx\bgfx\src\fs_clear4.sc" />
+    <None Include="..\..\..\..\deps\bgfx\bgfx\src\fs_clear5.sc" />
+    <None Include="..\..\..\..\deps\bgfx\bgfx\src\fs_clear6.sc" />
+    <None Include="..\..\..\..\deps\bgfx\bgfx\src\fs_clear7.sc" />
+    <None Include="..\..\..\..\deps\bgfx\bgfx\src\fs_debugfont.sc" />
+    <None Include="..\..\..\..\deps\bgfx\bgfx\src\glcontext_eagl.mm" />
+    <None Include="..\..\..\..\deps\bgfx\bgfx\src\glcontext_nsgl.mm" />
+    <None Include="..\..\..\..\deps\bgfx\bgfx\src\makefile" />
+    <None Include="..\..\..\..\deps\bgfx\bgfx\src\renderer_mtl.mm" />
+    <None Include="..\..\..\..\deps\bgfx\bgfx\src\varying.def.sc" />
+    <None Include="..\..\..\..\deps\bgfx\bgfx\src\vs_clear.sc" />
+    <None Include="..\..\..\..\deps\bgfx\bgfx\src\vs_debugfont.sc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

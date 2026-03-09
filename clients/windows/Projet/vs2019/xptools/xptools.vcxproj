@@ -55,7 +55,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>__VX_USE_LIBWEBSOCKETS;__VX_PLATFORM_WINDOWS;_DEBUG;DEBUG;_LIB;_WIN32_WINNT=0x600;__VX_APP_BUILD_TARGET="windows_steam";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>..\..\..\..\cubzh\deps\libpng\_active_\prebuilt\source\include;..\..\..\..\cubzh\deps\libssl\windows\include;..\..\..\..\cubzh\deps\libwebsockets\windows\include;..\..\..\..\cubzh\deps\miniaudio;..\..\..\..\cubzh\deps\xptools\deps;..\..\..\..\cubzh\deps\xptools\include;..\..\..\..\grpc\tracking</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\..\..\deps\libpng\_active_\prebuilt\source\include;..\..\..\..\..\deps\libssl\windows\include;..\..\..\..\..\deps\libwebsockets\windows\include;..\..\..\..\..\deps\miniaudio;..\..\..\..\..\deps\xptools\deps;..\..\..\..\..\deps\xptools\include;..\..\..\..\grpc\tracking</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4996</DisableSpecificWarnings>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
@@ -74,7 +74,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>__VX_USE_LIBWEBSOCKETS;__VX_PLATFORM_WINDOWS;NDEBUG;_LIB;_WIN32_WINNT=0x600;__VX_APP_BUILD_TARGET="windows_steam";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>..\..\..\..\cubzh\deps\libpng\_active_\prebuilt\source\include;..\..\..\..\cubzh\deps\libssl\windows\include;..\..\..\..\cubzh\deps\libwebsockets\windows\include;..\..\..\..\cubzh\deps\miniaudio;..\..\..\..\cubzh\deps\xptools\deps;..\..\..\..\cubzh\deps\xptools\include;..\..\..\..\grpc\tracking</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\..\..\deps\libpng\_active_\prebuilt\source\include;..\..\..\..\..\deps\libssl\windows\include;..\..\..\..\..\deps\libwebsockets\windows\include;..\..\..\..\..\deps\miniaudio;..\..\..\..\..\deps\xptools\deps;..\..\..\..\..\deps\xptools\include;..\..\..\..\grpc\tracking</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4996</DisableSpecificWarnings>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
@@ -93,99 +93,99 @@
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\deps\BZMD5.hpp" />
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\deps\cJSON.h" />
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\audio.hpp" />
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\Channel.hpp" />
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\compat_android.hpp" />
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\Connection.hpp" />
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\crypto.hpp" />
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\device.h" />
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\device.hpp" />
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\encoding_base64.hpp" />
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\filesystem.h" />
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\filesystem.hpp" />
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\HttpClient.hpp" />
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\HttpCookie.hpp" />
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\HttpRequest.hpp" />
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\HttpRequestOpts.hpp" />
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\HttpResponse.hpp" />
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\iap.hpp" />
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\JNIUtils.hpp" />
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\json.hpp" />
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\LocalConnection.hpp" />
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\Macros.h" />
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\mixpanel.h" />
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\notifications.hpp" />
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\OperationQueue.hpp" />
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\passkey.hpp" />
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\preferences.hpp" />
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\process.hpp" />
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\strings.h" />
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\strings.hpp" />
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\textinput.h" />
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\textinput.hpp" />
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\ThreadManager.hpp" />
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\tracking.hpp" />
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\URL.hpp" />
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\vxlog.h" />
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\vxtime.h" />
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\web.hpp" />
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\WSBackend.hpp" />
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\WSConnection.hpp" />
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\WSServer.hpp" />
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\WSServerConnection.hpp" />
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\WSService.hpp" />
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\WSTypes.hpp" />
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\include\xptools.h" />
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\windows\bundle_tar_gz.hpp" />
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\windows\icon_16.hpp" />
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\windows\icon_32.hpp" />
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\windows\icon_48.hpp" />
-    <ClInclude Include="..\..\..\..\cubzh\deps\xptools\windows\internal_windows.hpp" />
+    <ClInclude Include="..\..\..\..\..\deps\xptools\deps\BZMD5.hpp" />
+    <ClInclude Include="..\..\..\..\..\deps\xptools\deps\cJSON.h" />
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\audio.hpp" />
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\Channel.hpp" />
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\compat_android.hpp" />
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\Connection.hpp" />
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\crypto.hpp" />
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\device.h" />
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\device.hpp" />
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\encoding_base64.hpp" />
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\filesystem.h" />
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\filesystem.hpp" />
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\HttpClient.hpp" />
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\HttpCookie.hpp" />
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\HttpRequest.hpp" />
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\HttpRequestOpts.hpp" />
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\HttpResponse.hpp" />
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\iap.hpp" />
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\JNIUtils.hpp" />
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\json.hpp" />
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\LocalConnection.hpp" />
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\Macros.h" />
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\mixpanel.h" />
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\notifications.hpp" />
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\OperationQueue.hpp" />
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\passkey.hpp" />
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\preferences.hpp" />
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\process.hpp" />
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\strings.h" />
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\strings.hpp" />
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\textinput.h" />
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\textinput.hpp" />
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\ThreadManager.hpp" />
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\tracking.hpp" />
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\URL.hpp" />
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\vxlog.h" />
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\vxtime.h" />
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\web.hpp" />
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\WSBackend.hpp" />
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\WSConnection.hpp" />
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\WSServer.hpp" />
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\WSServerConnection.hpp" />
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\WSService.hpp" />
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\WSTypes.hpp" />
+    <ClInclude Include="..\..\..\..\..\deps\xptools\include\xptools.h" />
+    <ClInclude Include="..\..\..\..\..\deps\xptools\windows\bundle_tar_gz.hpp" />
+    <ClInclude Include="..\..\..\..\..\deps\xptools\windows\icon_16.hpp" />
+    <ClInclude Include="..\..\..\..\..\deps\xptools\windows\icon_32.hpp" />
+    <ClInclude Include="..\..\..\..\..\deps\xptools\windows\icon_48.hpp" />
+    <ClInclude Include="..\..\..\..\..\deps\xptools\windows\internal_windows.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\cubzh\deps\xptools\common\audio.cpp" />
-    <ClCompile Include="..\..\..\..\cubzh\deps\xptools\common\Connection.cpp" />
-    <ClCompile Include="..\..\..\..\cubzh\deps\xptools\common\crypto.cpp" />
-    <ClCompile Include="..\..\..\..\cubzh\deps\xptools\common\device.cpp" />
-    <ClCompile Include="..\..\..\..\cubzh\deps\xptools\common\device_c.cpp" />
-    <ClCompile Include="..\..\..\..\cubzh\deps\xptools\common\encoding_base64.cpp" />
-    <ClCompile Include="..\..\..\..\cubzh\deps\xptools\common\filesystem.cpp" />
-    <ClCompile Include="..\..\..\..\cubzh\deps\xptools\common\HttpClient.cpp" />
-    <ClCompile Include="..\..\..\..\cubzh\deps\xptools\common\HttpCookie.cpp" />
-    <ClCompile Include="..\..\..\..\cubzh\deps\xptools\common\HttpRequest.cpp" />
-    <ClCompile Include="..\..\..\..\cubzh\deps\xptools\common\HttpRequestOpts.cpp" />
-    <ClCompile Include="..\..\..\..\cubzh\deps\xptools\common\HttpResponse.cpp" />
-    <ClCompile Include="..\..\..\..\cubzh\deps\xptools\common\json.cpp" />
-    <ClCompile Include="..\..\..\..\cubzh\deps\xptools\common\LocalConnection.cpp" />
-    <ClCompile Include="..\..\..\..\cubzh\deps\xptools\common\notifications.cpp" />
-    <ClCompile Include="..\..\..\..\cubzh\deps\xptools\common\OperationQueue.cpp" />
-    <ClCompile Include="..\..\..\..\cubzh\deps\xptools\common\passkey.cpp" />
-    <ClCompile Include="..\..\..\..\cubzh\deps\xptools\common\process.cpp" />
-    <ClCompile Include="..\..\..\..\cubzh\deps\xptools\common\strings.cpp" />
-    <ClCompile Include="..\..\..\..\cubzh\deps\xptools\common\textinput.cpp" />
-    <ClCompile Include="..\..\..\..\cubzh\deps\xptools\common\ThreadManager.cpp" />
-    <ClCompile Include="..\..\..\..\cubzh\deps\xptools\common\tracking.cpp" />
-    <ClCompile Include="..\..\..\..\cubzh\deps\xptools\common\URL.cpp" />
-    <ClCompile Include="..\..\..\..\cubzh\deps\xptools\common\WSConnection.cpp" />
-    <ClCompile Include="..\..\..\..\cubzh\deps\xptools\common\WSServer.cpp" />
-    <ClCompile Include="..\..\..\..\cubzh\deps\xptools\common\WSServerConnection.cpp" />
-    <ClCompile Include="..\..\..\..\cubzh\deps\xptools\common\WSService.cpp" />
-    <ClCompile Include="..\..\..\..\cubzh\deps\xptools\common\xp_http.cpp" />
-    <ClCompile Include="..\..\..\..\cubzh\deps\xptools\deps\BZMD5.cpp" />
-    <ClCompile Include="..\..\..\..\cubzh\deps\xptools\deps\cJSON.c" />
-    <ClCompile Include="..\..\..\..\cubzh\deps\xptools\windows\device_windows.cpp" />
-    <ClCompile Include="..\..\..\..\cubzh\deps\xptools\windows\filesystem_windows.cpp" />
-    <ClCompile Include="..\..\..\..\cubzh\deps\xptools\windows\HttpRequest_windows.cpp" />
-    <ClCompile Include="..\..\..\..\cubzh\deps\xptools\windows\iap_windows.cpp" />
-    <ClCompile Include="..\..\..\..\cubzh\deps\xptools\windows\internal_windows.cpp" />
-    <ClCompile Include="..\..\..\..\cubzh\deps\xptools\windows\log_windows.cpp" />
-    <ClCompile Include="..\..\..\..\cubzh\deps\xptools\windows\miniaudio_impl.cpp" />
-    <ClCompile Include="..\..\..\..\cubzh\deps\xptools\windows\notifications_windows.cpp" />
-    <ClCompile Include="..\..\..\..\cubzh\deps\xptools\windows\passkey_windows.cpp" />
-    <ClCompile Include="..\..\..\..\cubzh\deps\xptools\windows\process_windows.cpp" />
-    <ClCompile Include="..\..\..\..\cubzh\deps\xptools\windows\web_windows.cpp" />
+    <ClCompile Include="..\..\..\..\..\deps\xptools\common\audio.cpp" />
+    <ClCompile Include="..\..\..\..\..\deps\xptools\common\Connection.cpp" />
+    <ClCompile Include="..\..\..\..\..\deps\xptools\common\crypto.cpp" />
+    <ClCompile Include="..\..\..\..\..\deps\xptools\common\device.cpp" />
+    <ClCompile Include="..\..\..\..\..\deps\xptools\common\device_c.cpp" />
+    <ClCompile Include="..\..\..\..\..\deps\xptools\common\encoding_base64.cpp" />
+    <ClCompile Include="..\..\..\..\..\deps\xptools\common\filesystem.cpp" />
+    <ClCompile Include="..\..\..\..\..\deps\xptools\common\HttpClient.cpp" />
+    <ClCompile Include="..\..\..\..\..\deps\xptools\common\HttpCookie.cpp" />
+    <ClCompile Include="..\..\..\..\..\deps\xptools\common\HttpRequest.cpp" />
+    <ClCompile Include="..\..\..\..\..\deps\xptools\common\HttpRequestOpts.cpp" />
+    <ClCompile Include="..\..\..\..\..\deps\xptools\common\HttpResponse.cpp" />
+    <ClCompile Include="..\..\..\..\..\deps\xptools\common\json.cpp" />
+    <ClCompile Include="..\..\..\..\..\deps\xptools\common\LocalConnection.cpp" />
+    <ClCompile Include="..\..\..\..\..\deps\xptools\common\notifications.cpp" />
+    <ClCompile Include="..\..\..\..\..\deps\xptools\common\OperationQueue.cpp" />
+    <ClCompile Include="..\..\..\..\..\deps\xptools\common\passkey.cpp" />
+    <ClCompile Include="..\..\..\..\..\deps\xptools\common\process.cpp" />
+    <ClCompile Include="..\..\..\..\..\deps\xptools\common\strings.cpp" />
+    <ClCompile Include="..\..\..\..\..\deps\xptools\common\textinput.cpp" />
+    <ClCompile Include="..\..\..\..\..\deps\xptools\common\ThreadManager.cpp" />
+    <ClCompile Include="..\..\..\..\..\deps\xptools\common\tracking.cpp" />
+    <ClCompile Include="..\..\..\..\..\deps\xptools\common\URL.cpp" />
+    <ClCompile Include="..\..\..\..\..\deps\xptools\common\WSConnection.cpp" />
+    <ClCompile Include="..\..\..\..\..\deps\xptools\common\WSServer.cpp" />
+    <ClCompile Include="..\..\..\..\..\deps\xptools\common\WSServerConnection.cpp" />
+    <ClCompile Include="..\..\..\..\..\deps\xptools\common\WSService.cpp" />
+    <ClCompile Include="..\..\..\..\..\deps\xptools\common\xp_http.cpp" />
+    <ClCompile Include="..\..\..\..\..\deps\xptools\deps\BZMD5.cpp" />
+    <ClCompile Include="..\..\..\..\..\deps\xptools\deps\cJSON.c" />
+    <ClCompile Include="..\..\..\..\..\deps\xptools\windows\device_windows.cpp" />
+    <ClCompile Include="..\..\..\..\..\deps\xptools\windows\filesystem_windows.cpp" />
+    <ClCompile Include="..\..\..\..\..\deps\xptools\windows\HttpRequest_windows.cpp" />
+    <ClCompile Include="..\..\..\..\..\deps\xptools\windows\iap_windows.cpp" />
+    <ClCompile Include="..\..\..\..\..\deps\xptools\windows\internal_windows.cpp" />
+    <ClCompile Include="..\..\..\..\..\deps\xptools\windows\log_windows.cpp" />
+    <ClCompile Include="..\..\..\..\..\deps\xptools\windows\miniaudio_impl.cpp" />
+    <ClCompile Include="..\..\..\..\..\deps\xptools\windows\notifications_windows.cpp" />
+    <ClCompile Include="..\..\..\..\..\deps\xptools\windows\passkey_windows.cpp" />
+    <ClCompile Include="..\..\..\..\..\deps\xptools\windows\process_windows.cpp" />
+    <ClCompile Include="..\..\..\..\..\deps\xptools\windows\web_windows.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

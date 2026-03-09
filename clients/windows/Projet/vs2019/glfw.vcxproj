@@ -50,7 +50,7 @@
     <ClCompile>
       <WarningLevel>TurnOffAllWarnings</WarningLevel>
       <PreprocessorDefinitions>NDEBUG;_GLFW_WIN32;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\..\cubzh\deps\bgfx\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\..\deps\bgfx\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
@@ -64,7 +64,7 @@
     <ClCompile>
       <WarningLevel>TurnOffAllWarnings</WarningLevel>
       <PreprocessorDefinitions>_DEBUG;_GLFW_WIN32;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\..\cubzh\deps\bgfx\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\..\deps\bgfx\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
@@ -74,31 +74,31 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\cubzh\deps\bgfx\glfw\include\GLFW\glfw3.h" />
-    <ClInclude Include="..\..\..\cubzh\deps\bgfx\glfw\include\GLFW\glfw3native.h" />
-    <ClInclude Include="..\..\..\cubzh\deps\bgfx\glfw\src\egl_context.h" />
-    <ClInclude Include="..\..\..\cubzh\deps\bgfx\glfw\src\internal.h" />
-    <ClInclude Include="..\..\..\cubzh\deps\bgfx\glfw\src\osmesa_context.h" />
-    <ClInclude Include="..\..\..\cubzh\deps\bgfx\glfw\src\wgl_context.h" />
-    <ClInclude Include="..\..\..\cubzh\deps\bgfx\glfw\src\win32_joystick.h" />
-    <ClInclude Include="..\..\..\cubzh\deps\bgfx\glfw\src\win32_platform.h" />
+    <ClInclude Include="..\..\..\..\deps\bgfx\glfw\include\GLFW\glfw3.h" />
+    <ClInclude Include="..\..\..\..\deps\bgfx\glfw\include\GLFW\glfw3native.h" />
+    <ClInclude Include="..\..\..\..\deps\bgfx\glfw\src\egl_context.h" />
+    <ClInclude Include="..\..\..\..\deps\bgfx\glfw\src\internal.h" />
+    <ClInclude Include="..\..\..\..\deps\bgfx\glfw\src\osmesa_context.h" />
+    <ClInclude Include="..\..\..\..\deps\bgfx\glfw\src\wgl_context.h" />
+    <ClInclude Include="..\..\..\..\deps\bgfx\glfw\src\win32_joystick.h" />
+    <ClInclude Include="..\..\..\..\deps\bgfx\glfw\src\win32_platform.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\glfw\src\context.c" />
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\glfw\src\egl_context.c" />
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\glfw\src\init.c" />
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\glfw\src\input.c" />
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\glfw\src\monitor.c" />
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\glfw\src\osmesa_context.c" />
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\glfw\src\vulkan.c" />
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\glfw\src\wgl_context.c" />
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\glfw\src\win32_init.c" />
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\glfw\src\win32_joystick.c" />
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\glfw\src\win32_monitor.c" />
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\glfw\src\win32_thread.c" />
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\glfw\src\win32_time.c" />
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\glfw\src\win32_window.c" />
-    <ClCompile Include="..\..\..\cubzh\deps\bgfx\glfw\src\window.c" />
+    <ClCompile Include="..\..\..\..\deps\bgfx\glfw\src\context.c" />
+    <ClCompile Include="..\..\..\..\deps\bgfx\glfw\src\egl_context.c" />
+    <ClCompile Include="..\..\..\..\deps\bgfx\glfw\src\init.c" />
+    <ClCompile Include="..\..\..\..\deps\bgfx\glfw\src\input.c" />
+    <ClCompile Include="..\..\..\..\deps\bgfx\glfw\src\monitor.c" />
+    <ClCompile Include="..\..\..\..\deps\bgfx\glfw\src\osmesa_context.c" />
+    <ClCompile Include="..\..\..\..\deps\bgfx\glfw\src\vulkan.c" />
+    <ClCompile Include="..\..\..\..\deps\bgfx\glfw\src\wgl_context.c" />
+    <ClCompile Include="..\..\..\..\deps\bgfx\glfw\src\win32_init.c" />
+    <ClCompile Include="..\..\..\..\deps\bgfx\glfw\src\win32_joystick.c" />
+    <ClCompile Include="..\..\..\..\deps\bgfx\glfw\src\win32_monitor.c" />
+    <ClCompile Include="..\..\..\..\deps\bgfx\glfw\src\win32_thread.c" />
+    <ClCompile Include="..\..\..\..\deps\bgfx\glfw\src\win32_time.c" />
+    <ClCompile Include="..\..\..\..\deps\bgfx\glfw\src\win32_window.c" />
+    <ClCompile Include="..\..\..\..\deps\bgfx\glfw\src\window.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

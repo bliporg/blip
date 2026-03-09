@@ -53,10 +53,10 @@
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NOMINMAX;__VX_USE_LIBWEBSOCKETS;__STDC_FORMAT_MACROS;_DEBUG;_USE_MATH_DEFINES;_WIN32_WINNT=0x600;__VX_PLATFORM_WINDOWS;CLIENT_ENV;IMGUI_USE_WCHAR32;DEBUG=1;BX_CONFIG_DEBUG=0;BGFX_CONFIG_DEBUG=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\..\..\cubzh\deps\libpng\_active_\prebuilt\source\include;..\..\..\..\cubzh\deps\libssl\windows\include;..\..\..\..\cubzh\deps\libluau\_active_\prebuilt\windows\x86_64\include;..\..\..\..\cubzh\deps\libwebsockets\windows\include;..\..\..\..\deps\freetype\include;..\..\..\..\deps\harfbuzz\src;..\..\..\..\deps\gif_load;..\..\..\..\cubzh\core;..\..\..\..\cubzh\deps\miniaudio;..\..\..\..\env;..\..\..\..\cubzh\deps\xptools\include;..\..\..\..\common\ApiClient;..\..\..\..\common\kiwi;..\..\..\..\common\VXFramework;..\..\..\..\common\VXFramework\TextEditor;..\..\..\..\common\CUtils;..\..\..\..\common\LuaUtils;..\..\..\..\common\VXLuaSandbox;..\..\..\..\cubzh\deps\bgfx\bgfx\include;..\..\..\..\cubzh\deps\bgfx\bx\src;..\..\..\..\cubzh\deps\bgfx\bx\include;..\..\..\..\cubzh\deps\bgfx\glfw\src;..\..\..\..\cubzh\deps\bgfx\glfw\include;..\..\..\..\cubzh\deps\bgfx\bimg\include;..\..\..\..\cubzh\deps\bgfx\bgfx\examples\common;..\..\..\..\cubzh\deps\bgfx\bgfx\src;..\..\..\..\cubzh\deps\bgfx\bgfx\3rdparty;..\..\..\..\cubzh\deps\bgfx\bimg\3rdparty;..\..\..\..\cubzh\deps\bgfx\bgfx\3rdparty\dear-imgui;..\..\..\..\cubzh\deps\bgfx\bx\include\compat\msvc;.;..\..\..\..\common\VXNetworking;..\..\..\..\common\VXGameServer;..\..\..\..\cubzh\deps\xptools\deps;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\..\..\deps\libpng\_active_\prebuilt\source\include;..\..\..\..\..\deps\libssl\windows\include;..\..\..\..\..\deps\libluau\_active_\prebuilt\windows\x86_64\include;..\..\..\..\..\deps\libwebsockets\windows\include;..\..\..\..\deps\freetype\include;..\..\..\..\deps\harfbuzz\src;..\..\..\..\deps\gif_load;..\..\..\..\..\core;..\..\..\..\..\deps\miniaudio;..\..\..\..\env;..\..\..\..\..\deps\xptools\include;..\..\..\..\common\ApiClient;..\..\..\..\common\kiwi;..\..\..\..\common\VXFramework;..\..\..\..\common\VXFramework\TextEditor;..\..\..\..\common\CUtils;..\..\..\..\common\LuaUtils;..\..\..\..\common\VXLuaSandbox;..\..\..\..\..\deps\bgfx\bgfx\include;..\..\..\..\..\deps\bgfx\bx\src;..\..\..\..\..\deps\bgfx\bx\include;..\..\..\..\..\deps\bgfx\glfw\src;..\..\..\..\..\deps\bgfx\glfw\include;..\..\..\..\..\deps\bgfx\bimg\include;..\..\..\..\..\deps\bgfx\bgfx\examples\common;..\..\..\..\..\deps\bgfx\bgfx\src;..\..\..\..\..\deps\bgfx\bgfx\3rdparty;..\..\..\..\..\deps\bgfx\bimg\3rdparty;..\..\..\..\..\deps\bgfx\bgfx\3rdparty\dear-imgui;..\..\..\..\..\deps\bgfx\bx\include\compat\msvc;.;..\..\..\..\common\VXNetworking;..\..\..\..\common\VXGameServer;..\..\..\..\..\deps\xptools\deps;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ConformanceMode>true</ConformanceMode>
       <DisableSpecificWarnings>4996;4068</DisableSpecificWarnings>
-      <ForcedIncludeFiles>..\..\..\..\cubzh\deps\bgfx\bx\include\compat\msvc\inttypes.h;</ForcedIncludeFiles>
+      <ForcedIncludeFiles>..\..\..\..\..\deps\bgfx\bx\include\compat\msvc\inttypes.h;</ForcedIncludeFiles>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
       <UseStandardPreprocessor>true</UseStandardPreprocessor>
@@ -65,7 +65,7 @@
     <Link>
       <TreatLinkerWarningAsErrors>
       </TreatLinkerWarningAsErrors>
-      <AdditionalLibraryDirectories>$(ProjectDir)..\..\..\..\cubzh\deps\libluau\_active_\prebuilt\windows\x86_64\lib-Debug;$(ProjectDir)..\..\..\..\cubzh\deps\libssl\windows\lib\x64\debug;$(ProjectDir)..\..\..\..\cubzh\deps\libwebsockets\windows\lib;$(ProjectDir)..\..\..\..\deps\pthread\windows\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\..\..\..\deps\libluau\_active_\prebuilt\windows\x86_64\lib-Debug;$(ProjectDir)..\..\..\..\..\deps\libssl\windows\lib\x64\debug;$(ProjectDir)..\..\..\..\..\deps\libwebsockets\windows\lib;$(ProjectDir)..\..\..\..\deps\pthread\windows\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>crypt32.lib;Comctl32.lib;Propsys.lib;zlibstatic.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;WS2_32.lib;Version.lib;websockets_static_debug.lib;libcrypto.lib;libssl.lib;libpthreadGC2.a;libluau.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalOptions>/VERBOSE %(AdditionalOptions)</AdditionalOptions>
       <SubSystem>Windows</SubSystem>
@@ -73,7 +73,7 @@
     <ProjectReference />
     <PreBuildEvent>
       <Command>..\..\..\..\deps\hasher\windows\x86_64\hasher.exe
-cd ..\..\..\..\cubzh\deps\deptool\cmd &amp;&amp; deptool_windows_x86_64.exe autoconfig windows</Command>
+cd ..\..\..\..\..\deps\deptool\cmd &amp;&amp; deptool_windows_x86_64.exe autoconfig windows</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -83,10 +83,10 @@ cd ..\..\..\..\cubzh\deps\deptool\cmd &amp;&amp; deptool_windows_x86_64.exe auto
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NOMINMAX;__VX_USE_LIBWEBSOCKETS;IMGUI_USE_WCHAR32;__STDC_FORMAT_MACROS;__VX_PLATFORM_WINDOWS;_USE_MATH_DEFINES;CLIENT_ENV;_WIN32_WINNT=0x600;BX_CONFIG_DEBUG=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\..\..\cubzh\deps\libpng\_active_\prebuilt\source\include;..\..\..\..\cubzh\deps\libssl\windows\include;..\..\..\..\cubzh\deps\libluau\_active_\prebuilt\windows\x86_64\include;..\..\..\..\cubzh\deps\libwebsockets\windows\include;..\..\..\..\deps\freetype\include;..\..\..\..\deps\harfbuzz\src;..\..\..\..\deps\gif_load;..\..\..\..\cubzh\core;..\..\..\..\cubzh\deps\miniaudio;..\..\..\..\env;..\..\..\..\cubzh\deps\xptools\deps;..\..\..\..\cubzh\deps\xptools\include;..\..\..\..\common\ApiClient;..\..\..\..\common\kiwi;..\..\..\..\common\VXFramework;..\..\..\..\common\VXFramework\TextEditor;..\..\..\..\common\CUtils;..\..\..\..\common\LuaUtils;..\..\..\..\common\VXLuaSandbox;..\..\..\..\cubzh\deps\bgfx\bgfx\include;..\..\..\..\cubzh\deps\bgfx\bx\src;..\..\..\..\cubzh\deps\bgfx\bx\include;..\..\..\..\cubzh\deps\bgfx\glfw\src;..\..\..\..\cubzh\deps\bgfx\glfw\include;..\..\..\..\cubzh\deps\bgfx\bimg\include;..\..\..\..\cubzh\deps\bgfx\bgfx\examples\common;..\..\..\..\cubzh\deps\bgfx\bgfx\src;..\..\..\..\cubzh\deps\bgfx\bgfx\3rdparty;..\..\..\..\cubzh\deps\bgfx\bimg\3rdparty;..\..\..\..\cubzh\deps\bgfx\bgfx\3rdparty\dear-imgui;..\..\..\..\cubzh\deps\bgfx\bx\include\compat\msvc;.;..\..\..\..\common\VXNetworking;..\..\..\..\common\VXGameServer;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\..\..\deps\libpng\_active_\prebuilt\source\include;..\..\..\..\..\deps\libssl\windows\include;..\..\..\..\..\deps\libluau\_active_\prebuilt\windows\x86_64\include;..\..\..\..\..\deps\libwebsockets\windows\include;..\..\..\..\deps\freetype\include;..\..\..\..\deps\harfbuzz\src;..\..\..\..\deps\gif_load;..\..\..\..\..\core;..\..\..\..\..\deps\miniaudio;..\..\..\..\env;..\..\..\..\..\deps\xptools\deps;..\..\..\..\..\deps\xptools\include;..\..\..\..\common\ApiClient;..\..\..\..\common\kiwi;..\..\..\..\common\VXFramework;..\..\..\..\common\VXFramework\TextEditor;..\..\..\..\common\CUtils;..\..\..\..\common\LuaUtils;..\..\..\..\common\VXLuaSandbox;..\..\..\..\..\deps\bgfx\bgfx\include;..\..\..\..\..\deps\bgfx\bx\src;..\..\..\..\..\deps\bgfx\bx\include;..\..\..\..\..\deps\bgfx\glfw\src;..\..\..\..\..\deps\bgfx\glfw\include;..\..\..\..\..\deps\bgfx\bimg\include;..\..\..\..\..\deps\bgfx\bgfx\examples\common;..\..\..\..\..\deps\bgfx\bgfx\src;..\..\..\..\..\deps\bgfx\bgfx\3rdparty;..\..\..\..\..\deps\bgfx\bimg\3rdparty;..\..\..\..\..\deps\bgfx\bgfx\3rdparty\dear-imgui;..\..\..\..\..\deps\bgfx\bx\include\compat\msvc;.;..\..\..\..\common\VXNetworking;..\..\..\..\common\VXGameServer;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ConformanceMode>true</ConformanceMode>
       <DisableSpecificWarnings>4996;4068</DisableSpecificWarnings>
-      <ForcedIncludeFiles>..\..\..\..\cubzh\deps\bgfx\bx\include\compat\msvc\inttypes.h;</ForcedIncludeFiles>
+      <ForcedIncludeFiles>..\..\..\..\..\deps\bgfx\bx\include\compat\msvc\inttypes.h;</ForcedIncludeFiles>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
       <WholeProgramOptimization>false</WholeProgramOptimization>
@@ -95,14 +95,14 @@ cd ..\..\..\..\cubzh\deps\deptool\cmd &amp;&amp; deptool_windows_x86_64.exe auto
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)..\..\..\..\cubzh\deps\libluau\_active_\prebuilt\windows\x86_64\lib-Release;$(ProjectDir)..\..\..\..\cubzh\deps\libssl\windows\lib\x64\release;$(ProjectDir)..\..\..\..\cubzh\deps\libwebsockets\windows\lib;$(ProjectDir)..\..\..\..\deps\pthread\windows\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\..\..\..\deps\libluau\_active_\prebuilt\windows\x86_64\lib-Release;$(ProjectDir)..\..\..\..\..\deps\libssl\windows\lib\x64\release;$(ProjectDir)..\..\..\..\..\deps\libwebsockets\windows\lib;$(ProjectDir)..\..\..\..\deps\pthread\windows\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>crypt32.lib;Comctl32.lib;Propsys.lib;zlibstatic.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;WS2_32.lib;Version.lib;websockets_static_debug.lib;libcrypto.lib;libssl.lib;libpthreadGC2.a;libluau.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Windows</SubSystem>
     </Link>
     <PreBuildEvent>
       <Command>..\..\..\..\deps\hasher\windows\x86_64\hasher.exe
 
-cd ..\..\..\..\cubzh\deps\deptool\cmd &amp;&amp; deptool_windows_x86_64.exe autoconfig windows</Command>
+cd ..\..\..\..\..\deps\deptool\cmd &amp;&amp; deptool_windows_x86_64.exe autoconfig windows</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -255,63 +255,63 @@ cd ..\..\..\..\cubzh\deps\deptool\cmd &amp;&amp; deptool_windows_x86_64.exe auto
     <ClInclude Include="..\..\..\..\common\VXNetworking\VXHubPrivateClient.hpp" />
     <ClInclude Include="..\..\..\..\common\VXNetworking\VXLatencyTester.hpp" />
     <ClInclude Include="..\..\..\..\common\VXNetworking\VXNetworkingUtils.hpp" />
-    <ClInclude Include="..\..\..\..\cubzh\core\block.h" />
-    <ClInclude Include="..\..\..\..\cubzh\core\blockChange.h" />
-    <ClInclude Include="..\..\..\..\cubzh\core\box.h" />
-    <ClInclude Include="..\..\..\..\cubzh\core\camera.h" />
-    <ClInclude Include="..\..\..\..\cubzh\core\cclog.h" />
-    <ClInclude Include="..\..\..\..\cubzh\core\chunk.h" />
-    <ClInclude Include="..\..\..\..\cubzh\core\colors.h" />
-    <ClInclude Include="..\..\..\..\cubzh\core\color_atlas.h" />
-    <ClInclude Include="..\..\..\..\cubzh\core\color_palette.h" />
-    <ClInclude Include="..\..\..\..\cubzh\core\config.h" />
-    <ClInclude Include="..\..\..\..\cubzh\core\doubly_linked_list.h" />
-    <ClInclude Include="..\..\..\..\cubzh\core\doubly_linked_list_uint8.h" />
-    <ClInclude Include="..\..\..\..\cubzh\core\easings.h" />
-    <ClInclude Include="..\..\..\..\cubzh\core\fifo_list.h" />
-    <ClInclude Include="..\..\..\..\cubzh\core\filo_list.h" />
-    <ClInclude Include="..\..\..\..\cubzh\core\filo_list_float3.h" />
-    <ClInclude Include="..\..\..\..\cubzh\core\filo_list_int3.h" />
-    <ClInclude Include="..\..\..\..\cubzh\core\filo_list_uint16.h" />
-    <ClInclude Include="..\..\..\..\cubzh\core\filo_list_uint32.h" />
-    <ClInclude Include="..\..\..\..\cubzh\core\float3.h" />
-    <ClInclude Include="..\..\..\..\cubzh\core\float4.h" />
-    <ClInclude Include="..\..\..\..\cubzh\core\flood_fill_lighting.h" />
-    <ClInclude Include="..\..\..\..\cubzh\core\function_pointers.h" />
-    <ClInclude Include="..\..\..\..\cubzh\core\hash_uint32_int.h" />
-    <ClInclude Include="..\..\..\..\cubzh\core\history.h" />
-    <ClInclude Include="..\..\..\..\cubzh\core\index3d.h" />
-    <ClInclude Include="..\..\..\..\cubzh\core\inputs.h" />
-    <ClInclude Include="..\..\..\..\cubzh\core\int3.h" />
-    <ClInclude Include="..\..\..\..\cubzh\core\light.h" />
-    <ClInclude Include="..\..\..\..\cubzh\core\map_string_float3.h" />
-    <ClInclude Include="..\..\..\..\cubzh\core\material.h" />
-    <ClInclude Include="..\..\..\..\cubzh\core\matrix4x4.h" />
-    <ClInclude Include="..\..\..\..\cubzh\core\mesh.h" />
-    <ClInclude Include="..\..\..\..\cubzh\core\mutex.h" />
-    <ClInclude Include="..\..\..\..\cubzh\core\octree.h" />
-    <ClInclude Include="..\..\..\..\cubzh\core\plane.h" />
-    <ClInclude Include="..\..\..\..\cubzh\core\quad.h" />
-    <ClInclude Include="..\..\..\..\cubzh\core\quaternion.h" />
-    <ClInclude Include="..\..\..\..\cubzh\core\ray.h" />
-    <ClInclude Include="..\..\..\..\cubzh\core\rigidBody.h" />
-    <ClInclude Include="..\..\..\..\cubzh\core\rtree.h" />
-    <ClInclude Include="..\..\..\..\cubzh\core\scene.h" />
-    <ClInclude Include="..\..\..\..\cubzh\core\serialization.h" />
-    <ClInclude Include="..\..\..\..\cubzh\core\serialization_gltf.h" />
-    <ClInclude Include="..\..\..\..\cubzh\core\serialization_v5.h" />
-    <ClInclude Include="..\..\..\..\cubzh\core\serialization_v6.h" />
-    <ClInclude Include="..\..\..\..\cubzh\core\serialization_vox.h" />
-    <ClInclude Include="..\..\..\..\cubzh\core\shape.h" />
-    <ClInclude Include="..\..\..\..\cubzh\core\stream.h" />
-    <ClInclude Include="..\..\..\..\cubzh\core\texture.h" />
-    <ClInclude Include="..\..\..\..\cubzh\core\transaction.h" />
-    <ClInclude Include="..\..\..\..\cubzh\core\transform.h" />
-    <ClInclude Include="..\..\..\..\cubzh\core\utils.h" />
-    <ClInclude Include="..\..\..\..\cubzh\core\vertextbuffer.h" />
-    <ClInclude Include="..\..\..\..\cubzh\core\weakptr.h" />
-    <ClInclude Include="..\..\..\..\cubzh\core\world_text.h" />
-    <ClInclude Include="..\..\..\..\cubzh\deps\bgfx\bgfx\examples\common\imgui\bgfx-imgui.h" />
+    <ClInclude Include="..\..\..\..\..\core\block.h" />
+    <ClInclude Include="..\..\..\..\..\core\blockChange.h" />
+    <ClInclude Include="..\..\..\..\..\core\box.h" />
+    <ClInclude Include="..\..\..\..\..\core\camera.h" />
+    <ClInclude Include="..\..\..\..\..\core\cclog.h" />
+    <ClInclude Include="..\..\..\..\..\core\chunk.h" />
+    <ClInclude Include="..\..\..\..\..\core\colors.h" />
+    <ClInclude Include="..\..\..\..\..\core\color_atlas.h" />
+    <ClInclude Include="..\..\..\..\..\core\color_palette.h" />
+    <ClInclude Include="..\..\..\..\..\core\config.h" />
+    <ClInclude Include="..\..\..\..\..\core\doubly_linked_list.h" />
+    <ClInclude Include="..\..\..\..\..\core\doubly_linked_list_uint8.h" />
+    <ClInclude Include="..\..\..\..\..\core\easings.h" />
+    <ClInclude Include="..\..\..\..\..\core\fifo_list.h" />
+    <ClInclude Include="..\..\..\..\..\core\filo_list.h" />
+    <ClInclude Include="..\..\..\..\..\core\filo_list_float3.h" />
+    <ClInclude Include="..\..\..\..\..\core\filo_list_int3.h" />
+    <ClInclude Include="..\..\..\..\..\core\filo_list_uint16.h" />
+    <ClInclude Include="..\..\..\..\..\core\filo_list_uint32.h" />
+    <ClInclude Include="..\..\..\..\..\core\float3.h" />
+    <ClInclude Include="..\..\..\..\..\core\float4.h" />
+    <ClInclude Include="..\..\..\..\..\core\flood_fill_lighting.h" />
+    <ClInclude Include="..\..\..\..\..\core\function_pointers.h" />
+    <ClInclude Include="..\..\..\..\..\core\hash_uint32_int.h" />
+    <ClInclude Include="..\..\..\..\..\core\history.h" />
+    <ClInclude Include="..\..\..\..\..\core\index3d.h" />
+    <ClInclude Include="..\..\..\..\..\core\inputs.h" />
+    <ClInclude Include="..\..\..\..\..\core\int3.h" />
+    <ClInclude Include="..\..\..\..\..\core\light.h" />
+    <ClInclude Include="..\..\..\..\..\core\map_string_float3.h" />
+    <ClInclude Include="..\..\..\..\..\core\material.h" />
+    <ClInclude Include="..\..\..\..\..\core\matrix4x4.h" />
+    <ClInclude Include="..\..\..\..\..\core\mesh.h" />
+    <ClInclude Include="..\..\..\..\..\core\mutex.h" />
+    <ClInclude Include="..\..\..\..\..\core\octree.h" />
+    <ClInclude Include="..\..\..\..\..\core\plane.h" />
+    <ClInclude Include="..\..\..\..\..\core\quad.h" />
+    <ClInclude Include="..\..\..\..\..\core\quaternion.h" />
+    <ClInclude Include="..\..\..\..\..\core\ray.h" />
+    <ClInclude Include="..\..\..\..\..\core\rigidBody.h" />
+    <ClInclude Include="..\..\..\..\..\core\rtree.h" />
+    <ClInclude Include="..\..\..\..\..\core\scene.h" />
+    <ClInclude Include="..\..\..\..\..\core\serialization.h" />
+    <ClInclude Include="..\..\..\..\..\core\serialization_gltf.h" />
+    <ClInclude Include="..\..\..\..\..\core\serialization_v5.h" />
+    <ClInclude Include="..\..\..\..\..\core\serialization_v6.h" />
+    <ClInclude Include="..\..\..\..\..\core\serialization_vox.h" />
+    <ClInclude Include="..\..\..\..\..\core\shape.h" />
+    <ClInclude Include="..\..\..\..\..\core\stream.h" />
+    <ClInclude Include="..\..\..\..\..\core\texture.h" />
+    <ClInclude Include="..\..\..\..\..\core\transaction.h" />
+    <ClInclude Include="..\..\..\..\..\core\transform.h" />
+    <ClInclude Include="..\..\..\..\..\core\utils.h" />
+    <ClInclude Include="..\..\..\..\..\core\vertextbuffer.h" />
+    <ClInclude Include="..\..\..\..\..\core\weakptr.h" />
+    <ClInclude Include="..\..\..\..\..\core\world_text.h" />
+    <ClInclude Include="..\..\..\..\..\deps\bgfx\bgfx\examples\common\imgui\bgfx-imgui.h" />
     <ClInclude Include="ParticubesWin.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="WinResource.h" />
@@ -463,66 +463,66 @@ cd ..\..\..\..\cubzh\deps\deptool\cmd &amp;&amp; deptool_windows_x86_64.exe auto
     <ClCompile Include="..\..\..\..\common\VXNetworking\VXHubPrivateClient.cpp" />
     <ClCompile Include="..\..\..\..\common\VXNetworking\VXLatencyTester.cpp" />
     <ClCompile Include="..\..\..\..\common\VXNetworking\VXNetworkingUtils.cpp" />
-    <ClCompile Include="..\..\..\..\cubzh\core\block.c" />
-    <ClCompile Include="..\..\..\..\cubzh\core\blockChange.c" />
-    <ClCompile Include="..\..\..\..\cubzh\core\box.c" />
-    <ClCompile Include="..\..\..\..\cubzh\core\camera.c" />
-    <ClCompile Include="..\..\..\..\cubzh\core\cclog.c" />
-    <ClCompile Include="..\..\..\..\cubzh\core\chunk.c" />
-    <ClCompile Include="..\..\..\..\cubzh\core\colors.c" />
-    <ClCompile Include="..\..\..\..\cubzh\core\color_atlas.c" />
-    <ClCompile Include="..\..\..\..\cubzh\core\color_palette.c" />
-    <ClCompile Include="..\..\..\..\cubzh\core\config.c" />
-    <ClCompile Include="..\..\..\..\cubzh\core\doubly_linked_list.c" />
-    <ClCompile Include="..\..\..\..\cubzh\core\doubly_linked_list_uint8.c" />
-    <ClCompile Include="..\..\..\..\cubzh\core\easings.c" />
-    <ClCompile Include="..\..\..\..\cubzh\core\fifo_list.c" />
-    <ClCompile Include="..\..\..\..\cubzh\core\filo_list.c" />
-    <ClCompile Include="..\..\..\..\cubzh\core\filo_list_float3.c" />
-    <ClCompile Include="..\..\..\..\cubzh\core\filo_list_int3.c" />
-    <ClCompile Include="..\..\..\..\cubzh\core\filo_list_uint16.c" />
-    <ClCompile Include="..\..\..\..\cubzh\core\filo_list_uint32.c" />
-    <ClCompile Include="..\..\..\..\cubzh\core\float3.c" />
-    <ClCompile Include="..\..\..\..\cubzh\core\float4.c" />
-    <ClCompile Include="..\..\..\..\cubzh\core\flood_fill_lighting.c" />
-    <ClCompile Include="..\..\..\..\cubzh\core\hash_uint32_int.c" />
-    <ClCompile Include="..\..\..\..\cubzh\core\history.c" />
-    <ClCompile Include="..\..\..\..\cubzh\core\index3d.c" />
-    <ClCompile Include="..\..\..\..\cubzh\core\inputs.c" />
-    <ClCompile Include="..\..\..\..\cubzh\core\int3.c" />
-    <ClCompile Include="..\..\..\..\cubzh\core\light.c" />
-    <ClCompile Include="..\..\..\..\cubzh\core\map_string_float3.c" />
-    <ClCompile Include="..\..\..\..\cubzh\core\material.c" />
-    <ClCompile Include="..\..\..\..\cubzh\core\matrix4x4.c" />
-    <ClCompile Include="..\..\..\..\cubzh\core\mesh.c" />
-    <ClCompile Include="..\..\..\..\cubzh\core\mutex.c" />
-    <ClCompile Include="..\..\..\..\cubzh\core\octree.c" />
-    <ClCompile Include="..\..\..\..\cubzh\core\plane.c" />
-    <ClCompile Include="..\..\..\..\cubzh\core\quad.c" />
-    <ClCompile Include="..\..\..\..\cubzh\core\quaternion.c" />
-    <ClCompile Include="..\..\..\..\cubzh\core\ray.c" />
-    <ClCompile Include="..\..\..\..\cubzh\core\rigidBody.c" />
-    <ClCompile Include="..\..\..\..\cubzh\core\rtree.c" />
-    <ClCompile Include="..\..\..\..\cubzh\core\scene.c" />
-    <ClCompile Include="..\..\..\..\cubzh\core\serialization.c" />
-    <ClCompile Include="..\..\..\..\cubzh\core\serialization_gltf.c" />
-    <ClCompile Include="..\..\..\..\cubzh\core\serialization_v5.c" />
-    <ClCompile Include="..\..\..\..\cubzh\core\serialization_v6.c" />
-    <ClCompile Include="..\..\..\..\cubzh\core\serialization_vox.c" />
-    <ClCompile Include="..\..\..\..\cubzh\core\shape.c" />
-    <ClCompile Include="..\..\..\..\cubzh\core\stream.c" />
-    <ClCompile Include="..\..\..\..\cubzh\core\texture.c" />
-    <ClCompile Include="..\..\..\..\cubzh\core\transaction.c" />
-    <ClCompile Include="..\..\..\..\cubzh\core\transform.c" />
-    <ClCompile Include="..\..\..\..\cubzh\core\utils.c" />
-    <ClCompile Include="..\..\..\..\cubzh\core\vertextbuffer.c" />
-    <ClCompile Include="..\..\..\..\cubzh\core\weakptr.c" />
-    <ClCompile Include="..\..\..\..\cubzh\core\world_text.c" />
-    <ClCompile Include="..\..\..\..\cubzh\deps\bgfx\bgfx\3rdparty\dear-imgui\imgui.cpp" />
-    <ClCompile Include="..\..\..\..\cubzh\deps\bgfx\bgfx\3rdparty\dear-imgui\imgui_draw.cpp" />
-    <ClCompile Include="..\..\..\..\cubzh\deps\bgfx\bgfx\3rdparty\dear-imgui\imgui_tables.cpp" />
-    <ClCompile Include="..\..\..\..\cubzh\deps\bgfx\bgfx\3rdparty\dear-imgui\imgui_widgets.cpp" />
-    <ClCompile Include="..\..\..\..\cubzh\deps\bgfx\bgfx\examples\common\imgui\bgfx-imgui.cpp" />
+    <ClCompile Include="..\..\..\..\..\core\block.c" />
+    <ClCompile Include="..\..\..\..\..\core\blockChange.c" />
+    <ClCompile Include="..\..\..\..\..\core\box.c" />
+    <ClCompile Include="..\..\..\..\..\core\camera.c" />
+    <ClCompile Include="..\..\..\..\..\core\cclog.c" />
+    <ClCompile Include="..\..\..\..\..\core\chunk.c" />
+    <ClCompile Include="..\..\..\..\..\core\colors.c" />
+    <ClCompile Include="..\..\..\..\..\core\color_atlas.c" />
+    <ClCompile Include="..\..\..\..\..\core\color_palette.c" />
+    <ClCompile Include="..\..\..\..\..\core\config.c" />
+    <ClCompile Include="..\..\..\..\..\core\doubly_linked_list.c" />
+    <ClCompile Include="..\..\..\..\..\core\doubly_linked_list_uint8.c" />
+    <ClCompile Include="..\..\..\..\..\core\easings.c" />
+    <ClCompile Include="..\..\..\..\..\core\fifo_list.c" />
+    <ClCompile Include="..\..\..\..\..\core\filo_list.c" />
+    <ClCompile Include="..\..\..\..\..\core\filo_list_float3.c" />
+    <ClCompile Include="..\..\..\..\..\core\filo_list_int3.c" />
+    <ClCompile Include="..\..\..\..\..\core\filo_list_uint16.c" />
+    <ClCompile Include="..\..\..\..\..\core\filo_list_uint32.c" />
+    <ClCompile Include="..\..\..\..\..\core\float3.c" />
+    <ClCompile Include="..\..\..\..\..\core\float4.c" />
+    <ClCompile Include="..\..\..\..\..\core\flood_fill_lighting.c" />
+    <ClCompile Include="..\..\..\..\..\core\hash_uint32_int.c" />
+    <ClCompile Include="..\..\..\..\..\core\history.c" />
+    <ClCompile Include="..\..\..\..\..\core\index3d.c" />
+    <ClCompile Include="..\..\..\..\..\core\inputs.c" />
+    <ClCompile Include="..\..\..\..\..\core\int3.c" />
+    <ClCompile Include="..\..\..\..\..\core\light.c" />
+    <ClCompile Include="..\..\..\..\..\core\map_string_float3.c" />
+    <ClCompile Include="..\..\..\..\..\core\material.c" />
+    <ClCompile Include="..\..\..\..\..\core\matrix4x4.c" />
+    <ClCompile Include="..\..\..\..\..\core\mesh.c" />
+    <ClCompile Include="..\..\..\..\..\core\mutex.c" />
+    <ClCompile Include="..\..\..\..\..\core\octree.c" />
+    <ClCompile Include="..\..\..\..\..\core\plane.c" />
+    <ClCompile Include="..\..\..\..\..\core\quad.c" />
+    <ClCompile Include="..\..\..\..\..\core\quaternion.c" />
+    <ClCompile Include="..\..\..\..\..\core\ray.c" />
+    <ClCompile Include="..\..\..\..\..\core\rigidBody.c" />
+    <ClCompile Include="..\..\..\..\..\core\rtree.c" />
+    <ClCompile Include="..\..\..\..\..\core\scene.c" />
+    <ClCompile Include="..\..\..\..\..\core\serialization.c" />
+    <ClCompile Include="..\..\..\..\..\core\serialization_gltf.c" />
+    <ClCompile Include="..\..\..\..\..\core\serialization_v5.c" />
+    <ClCompile Include="..\..\..\..\..\core\serialization_v6.c" />
+    <ClCompile Include="..\..\..\..\..\core\serialization_vox.c" />
+    <ClCompile Include="..\..\..\..\..\core\shape.c" />
+    <ClCompile Include="..\..\..\..\..\core\stream.c" />
+    <ClCompile Include="..\..\..\..\..\core\texture.c" />
+    <ClCompile Include="..\..\..\..\..\core\transaction.c" />
+    <ClCompile Include="..\..\..\..\..\core\transform.c" />
+    <ClCompile Include="..\..\..\..\..\core\utils.c" />
+    <ClCompile Include="..\..\..\..\..\core\vertextbuffer.c" />
+    <ClCompile Include="..\..\..\..\..\core\weakptr.c" />
+    <ClCompile Include="..\..\..\..\..\core\world_text.c" />
+    <ClCompile Include="..\..\..\..\..\deps\bgfx\bgfx\3rdparty\dear-imgui\imgui.cpp" />
+    <ClCompile Include="..\..\..\..\..\deps\bgfx\bgfx\3rdparty\dear-imgui\imgui_draw.cpp" />
+    <ClCompile Include="..\..\..\..\..\deps\bgfx\bgfx\3rdparty\dear-imgui\imgui_tables.cpp" />
+    <ClCompile Include="..\..\..\..\..\deps\bgfx\bgfx\3rdparty\dear-imgui\imgui_widgets.cpp" />
+    <ClCompile Include="..\..\..\..\..\deps\bgfx\bgfx\examples\common\imgui\bgfx-imgui.cpp" />
     <ClCompile Include="ParticubesWin.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -557,7 +557,7 @@ cd ..\..\..\..\cubzh\deps\deptool\cmd &amp;&amp; deptool_windows_x86_64.exe auto
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\..\..\..\cubzh\misc\icon_circle.ico" />
+    <Image Include="..\..\..\..\..\misc\icon_circle.ico" />
     <Image Include="..\..\..\..\graphic-assets\app-icon-v3\windows\cubzh.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
